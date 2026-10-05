@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Monitor El Niño 2026–27 · Mafra e região</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EEF3F4; --surface:#FFFFFF; --ink:#0F2430; --ink-2:#47606B; --line:#C9D6DA;
+  --ocean:#D7E6EA; --land:#B9AE98; --land-line:#9C907A; --accent:#0F5E78;
+  --chip:#E2ECEE; --focus:#E07A1F;
+  --display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1B24; --surface:#112631; --ink:#E6EEF0; --ink-2:#9DB2BA; --line:#24414E;
+    --ocean:#0F2C3A; --land:#4A4639; --land-line:#625C4A; --accent:#7CC3D8; --chip:#183543; --focus:#F2A541;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1B24; --surface:#112631; --ink:#E6EEF0; --ink-2:#9DB2BA; --line:#24414E;
+  --ocean:#0F2C3A; --land:#4A4639; --land-line:#625C4A; --accent:#7CC3D8; --chip:#183543; --focus:#F2A541;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,3vw,32px)}
+
+/* header */
+header.top{padding:22px 0 0}
+.titlebar{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+.brand{font-family:var(--display);font-stretch:75%;font-weight:800;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.01em;margin:0;line-height:1}
+.status{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.9rem}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:#B3262F;color:#fff;font-weight:700}
+.badge::before{content:"";width:8px;height:8px;border-radius:50%;background:#FFD6A0;box-shadow:0 0 0 3px rgba(255,214,160,.35)}
+.stamp{color:var(--ink-2)}
+nav.tabs{display:flex;gap:4px;margin-top:20px;border-bottom:2px solid var(--line);overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{font:inherit;font-family:var(--display);font-stretch:90%;font-weight:600;font-size:1rem;background:none;border:0;color:var(--ink-2);padding:12px 14px 10px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:#C73A33}
+nav.tabs button:hover{color:var(--ink)}
+.hint{font-size:.8rem;color:var(--ink-2);margin:8px 0 0}
+
+section.panel{padding:28px 0 56px}
+section.panel[hidden]{display:none}
+h2{font-family:var(--display);font-stretch:72%;font-weight:800;font-size:clamp(2rem,5.2vw,3.6rem);line-height:.98;letter-spacing:-.015em;margin:0 0 14px;max-width:18ch}
+h3{font-family:var(--display);font-stretch:85%;font-weight:700;font-size:1.25rem;margin:0 0 8px}
+.lede{font-size:1.1rem;color:var(--ink-2);max-width:62ch;margin:0 0 24px}
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* map */
+.mapbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 14px 8px}
+.mapbox svg{display:block;width:100%;min-width:660px;height:auto}
+.legend{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.85rem;color:var(--ink-2);padding:6px 4px 4px}
+.ramp{display:block;height:10px;width:220px;border-radius:3px;background:linear-gradient(90deg,#2E5C9E,#6FA3CF,#B7D3E6,#EEF0EE,#F6D98A,#F2B05A,#E5713A,#C73A33,#8E1630,#5A0D2A)}
+.ramp-wrap{display:inline-flex;flex-direction:column;gap:2px}
+.ramp-labels{display:flex;justify-content:space-between;width:220px;font-variant-numeric:tabular-nums}
+.caveat{font-size:.82rem;color:var(--ink-2);margin:4px 4px 6px}
+.region-box{cursor:pointer}
+.region-box rect{fill:transparent;stroke:var(--ink);stroke-width:1.6}
+.region-box.active rect{stroke-width:3.2;stroke-dasharray:none}
+.region-box text{font-family:var(--display);font-weight:700;fill:var(--ink)}
+
+/* readouts */
+.readouts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.readout{font:inherit;text-align:left;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 14px 12px;cursor:pointer;position:relative;overflow:hidden}
+.readout::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--sw)}
+.readout[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.readout .name{font-family:var(--display);font-stretch:85%;font-weight:700;font-size:1rem}
+.readout .val{font-family:var(--display);font-stretch:70%;font-weight:800;font-size:clamp(2.2rem,4.6vw,3.2rem);line-height:1;margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.readout .delta{font-size:.85rem;color:var(--ink-2)}
+.explain{margin-top:14px;background:var(--chip);border-radius:10px;padding:14px 16px;max-width:none}
+.explain p{margin:0;max-width:75ch}
+.explain strong{font-family:var(--display);font-stretch:85%}
+
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.fact{border-top:3px solid var(--ink);padding-top:10px}
+.fact .big{font-family:var(--display);font-stretch:70%;font-weight:800;font-size:2.2rem;line-height:1;font-variant-numeric:tabular-nums}
+.fact p{margin:6px 0 0;color:var(--ink-2);font-size:.95rem}
+
+/* chart */
+.chartbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.chartbox svg{display:block;width:100%;min-width:720px;height:auto}
+.axis text{font-family:var(--body);font-size:12px;fill:var(--ink-2)}
+.thr text{font-family:var(--display);font-stretch:85%;font-weight:600;font-size:12px;fill:var(--ink-2)}
+.thr line{stroke:var(--ink-2);stroke-dasharray:3 4;stroke-width:1}
+.zero{stroke:var(--ink);stroke-width:1}
+.tooltip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:6px 10px;border-radius:6px;font-size:.85rem;opacity:0;transition:opacity .12s;z-index:5;font-variant-numeric:tabular-nums}
+.cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
+.cat{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:8px;padding:10px 12px;font-size:.92rem}
+.cat b{font-family:var(--display);font-stretch:85%;display:block}
+
+/* probability timeline */
+.timeline{display:grid;grid-template-columns:repeat(9,minmax(64px,1fr));gap:4px;min-width:640px;margin-top:6px}
+.season{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px 6px;text-align:center;font-variant-numeric:tabular-nums}
+.season .s{font-family:var(--display);font-weight:700;font-stretch:85%}
+.season .y{font-size:.75rem;color:var(--ink-2)}
+.bandrow{grid-column:1/-1;display:grid;grid-template-columns:subgrid;gap:4px}
+.band{border-radius:6px;padding:8px 10px;font-size:.9rem;color:#fff;font-weight:700;line-height:1.25}
+.band small{display:block;font-weight:400;opacity:.9}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:28px}
+.note{font-size:.9rem;color:var(--ink-2)}
+ul.clean{margin:0;padding-left:1.1em}
+ul.clean li{margin:4px 0}
+
+/* brazil */
+.br-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-areas:
+  "n n n n ne ne"
+  "n n n n ne ne"
+  ". co co se se ."
+  ". . s s s .";gap:8px;max-width:760px}
+.tile{border-radius:10px;padding:14px;color:#10222E;position:relative;min-height:120px}
+.tile h3{margin:0 0 4px;font-size:1.15rem}
+.tile .tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.tag{font-size:.78rem;font-weight:700;background:rgba(255,255,255,.75);border-radius:999px;padding:3px 9px}
+.tile p{margin:0;font-size:.92rem;max-width:42ch}
+.t-n{grid-area:n;background:#E9A15A}
+.t-ne{grid-area:ne;background:linear-gradient(90deg,#EBB46E 0 62%,#8FBAD6 62%)}
+.t-co{grid-area:co;background:linear-gradient(180deg,#EBB46E 0 70%,#9EC4DA 70%)}
+.t-se{grid-area:se;background:linear-gradient(180deg,#ECC27E 0 45%,#9EC4DA 45%)}
+.t-s{grid-area:s;background:#5E95C4;color:#fff}
+.t-s .tag{background:rgba(255,255,255,.9);color:#10222E}
+.br-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;color:var(--ink-2);margin:12px 0 0}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:6px}
+
+/* sources */
+.src-group{margin-top:26px}
+.src-group > h3{border-bottom:2px solid var(--ink);padding-bottom:6px}
+.src-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0 28px}
+.src{display:block;text-decoration:none;color:inherit;padding:14px 0;border-bottom:1px solid var(--line)}
+.src:hover .src-name{text-decoration:underline}
+.src-name{font-family:var(--display);font-stretch:85%;font-weight:700;font-size:1.08rem;color:var(--accent)}
+.src-org{font-size:.8rem;color:var(--ink-2)}
+.src p{margin:4px 0 0;font-size:.93rem}
+.src .use{font-size:.85rem;color:var(--ink-2);font-style:italic}
+
+footer{border-top:1px solid var(--line);padding:18px 0 28px;font-size:.85rem;color:var(--ink-2)}
+footer p{margin:4px 0;max-width:90ch}
+
+@media (max-width:820px){
+  .readouts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts,.two{grid-template-columns:1fr}
+  .cats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .br-grid{grid-template-columns:1fr 1fr;grid-template-areas:"n n" "ne ne" "co se" "s s"}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* sparkline in readouts */
+.readout .spark{display:block;width:100%;height:26px;margin-top:6px}
+.readout .spark path{fill:none;stroke:var(--ink-2);stroke-width:1.6}
+.notice{margin:14px 0 0;padding:10px 14px;border-radius:8px;background:#FBE9C9;color:#4A3200;font-size:.92rem}
+.synopsis{font-size:.9rem;color:var(--ink-2);margin:10px 0 0;max-width:80ch}
+.synopsis i{color:var(--ink)}
+.peaks{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:16px}
+.peak{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.peak b{font-family:var(--display);font-stretch:85%;display:block}
+.peak .v{font-family:var(--display);font-stretch:70%;font-weight:800;font-size:1.8rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.peak.now{border-color:#C73A33;box-shadow:inset 0 0 0 1px #C73A33}
+
+/* agro */
+.shares{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:6px 0 8px}
+.share{border-top:6px solid var(--c);padding-top:10px}
+.share .big{font-family:var(--display);font-stretch:68%;font-weight:800;font-size:clamp(2.6rem,6vw,4rem);line-height:.95;font-variant-numeric:tabular-nums}
+.share .what{font-family:var(--display);font-stretch:85%;font-weight:700;font-size:1.1rem}
+.share p{margin:4px 0 0;color:var(--ink-2);font-size:.92rem}
+.src-line{font-size:.82rem;color:var(--ink-2);margin:6px 0 0}
+.history{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center;margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.gauge{display:block;width:120px;height:auto}
+.history h3{font-size:1.4rem}
+.history p{margin:6px 0 0;max-width:70ch}
+.live{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.live-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px}
+.live-head h3{font-size:1.4rem;margin:0}
+.live-head .when{font-size:.85rem;color:var(--ink-2)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0 10px}
+.kpi .n{font-family:var(--display);font-stretch:70%;font-weight:800;font-size:2.3rem;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:.88rem;color:var(--ink-2)}
+.kpi.alert .n{color:#C73A33}
+.live svg{display:block;width:100%;height:auto;min-width:560px}
+.live .axis text{font-size:11px}
+.empty{padding:18px;border:1px dashed var(--line);border-radius:10px;color:var(--ink-2);font-size:.95rem}
+.crops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:30px}
+.crop{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.crop h3{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.crop h3 span{font-family:var(--body);font-weight:400;font-size:.85rem;color:var(--ink-2);font-stretch:100%}
+.crop p{margin:0 0 8px;font-size:.95rem}
+.crop .watch{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+.crop .watch b{font-family:var(--display);font-stretch:85%}
+.advice{margin-top:22px;border-left:5px solid #5E95C4;padding:6px 0 6px 16px;max-width:80ch}
+
+/* satellite */
+.sat{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+.sat img{display:block;width:100%;height:auto;border-radius:6px}
+.sat figcaption{font-size:.85rem;color:var(--ink-2);margin-top:8px}
+
+@media (max-width:820px){
+  .shares,.crops{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .history{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="titlebar">
+      <h1 class="brand">Monitor El Niño 2026–27</h1>
+      <div class="status">
+        <span class="badge" id="badge">Aviso de El Niño ativo (NOAA)</span>
+        <span class="stamp" id="stamp"></span>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Seções do monitor">
+      <button role="tab" id="tab-agora" aria-controls="p-agora" aria-selected="true">Agora no Pacífico</button>
+      <button role="tab" id="tab-evol" aria-controls="p-evol" aria-selected="false" tabindex="-1">Evolução histórica</button>
+      <button role="tab" id="tab-prev" aria-controls="p-prev" aria-selected="false" tabindex="-1">Previsões</button>
+      <button role="tab" id="tab-br" aria-controls="p-br" aria-selected="false" tabindex="-1">Impactos no Brasil</button>
+      <button role="tab" id="tab-agro" aria-controls="p-agro" aria-selected="false" tabindex="-1">Agro em Mafra e região</button>
+      <button role="tab" id="tab-src" aria-controls="p-src" aria-selected="false" tabindex="-1">Satélite e fontes</button>
+    </nav>
+    <p class="hint">Durante a palestra, use as setas ← → do teclado para trocar de seção.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- AGORA -->
+<section class="panel" id="p-agora" role="tabpanel" aria-labelledby="tab-agora">
+  <h2>Um El Niño muito forte, concentrado no leste do Pacífico</h2>
+  <p class="lede">Anomalia da temperatura da superfície do mar (TSM) na faixa equatorial: quanto mais vermelho, mais quente que a média. O calor se acumula perto da costa da América do Sul, enquanto o Pacífico oeste segue perto ou abaixo do normal.</p>
+
+  <div class="mapbox">
+    <div class="scroll-x"><svg id="map" viewBox="0 0 1000 330" role="img" aria-label="Esquema da anomalia de TSM no Pacífico equatorial com as regiões de monitoramento Niño"></svg></div>
+    <div class="legend">
+      <span>Anomalia de TSM (°C)</span>
+      <span class="ramp-wrap"><span class="ramp" aria-hidden="true"></span><span class="ramp-labels"><span>−2</span><span>0</span><span>+2</span><span>+5</span></span></span>
+    </div>
+    <p class="caveat">Esquema ilustrativo construído a partir dos índices semanais do CPC/NOAA, não uma imagem de satélite. A imagem real está na aba “Satélite e fontes”.</p>
+  </div>
+
+  <div class="readouts" id="readouts"></div>
+  <div class="explain" id="explain" aria-live="polite"></div>
+
+  <div class="facts" id="facts"></div>
+  <p class="synopsis" id="synopsis"></p>
+</section>
+
+<!-- EVOLUÇÃO -->
+<section class="panel" id="p-evol" role="tabpanel" aria-labelledby="tab-evol" hidden>
+  <h2>De La Niña a El Niño em menos de seis meses</h2>
+  <p class="lede">O RONI (Índice Oceânico Niño Relativo) é a medida oficial da NOAA: média móvel de 3 meses da anomalia na região Niño 3.4, descontado o aquecimento médio de todo o oceano tropical. Esse desconto existe justamente por causa da mudança climática: sem ele, o aquecimento global inflaria o índice. Cada barra é um trimestre; passe o mouse para ver o valor.</p>
+  <div class="chartbox"><div class="scroll-x"><svg id="roni" viewBox="0 0 1000 400" role="img" aria-label="Gráfico do RONI desde 2014 com faixas de intensidade e a previsão para o fim de 2026"></svg></div></div>
+  <div class="cats">
+    <div class="cat" style="--c:#F6D98A"><b>Fraco</b>+0,5 a +0,9 °C</div>
+    <div class="cat" style="--c:#F2B05A"><b>Moderado</b>+1,0 a +1,4 °C</div>
+    <div class="cat" style="--c:#E5713A"><b>Forte</b>+1,5 a +1,9 °C</div>
+    <div class="cat" style="--c:#8E1630"><b>Muito forte</b>≥ +2,0 °C</div>
+  </div>
+  <div id="peaks-wrap"></div>
+  <p class="note" style="margin-top:14px">Para ser classificado como episódio, o limiar de ±0,5 °C precisa ser mantido por pelo menos 5 trimestres sobrepostos consecutivos.</p>
+</section>
+
+<!-- PREVISÕES -->
+<section class="panel" id="p-prev" role="tabpanel" aria-labelledby="tab-prev" hidden>
+  <h2>O pico vem agora; o fim, no outono de 2027</h2>
+  <p class="lede" id="prev-lede"></p>
+  <div id="outlook-notice"></div>
+  <div class="scroll-x">
+    <div class="timeline" id="timeline"></div>
+  </div>
+  <div class="two">
+    <div>
+      <h3>O que os modelos dizem</h3>
+      <ul class="clean">
+        <li>O modelo CFSv2 da NOAA (rodada de 28/09) mantém o El Niño ao longo do verão 2026–27.</li>
+        <li>O IRI/Columbia relatou o Niño 3.4 perto de +3 °C em meados de setembro, com todos os 22 modelos do seu conjunto indicando evento muito forte até o verão.</li>
+        <li>O Painel El Niño do Inmet (30/09) dá mais de 95% de chance de intensidade muito forte no próximo trimestre e persistência pelo menos até o 1º trimestre de 2027.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Por que os números divergem</h3>
+      <p class="note">Cada centro usa uma base de dados diferente. O monitoramento semanal da NOAA usa o OISST v2.1; o RONI oficial usa o ERSST v6 (que substituiu o v5 em agosto de 2026). Valores diários de satélite costumam ser mais altos que médias semanais ou trimestrais, por isso ver +3 °C num site e +2,2 °C em outro não é contradição.</p>
+      <p class="note">Lembrete da NOAA: um El Niño mais intenso aumenta a chance dos impactos típicos, mas não os garante.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BRASIL -->
+<section class="panel" id="p-br" role="tabpanel" aria-labelledby="tab-br" hidden>
+  <h2>Sul encharcado, Norte seco</h2>
+  <p class="lede">Previsão para outubro–novembro–dezembro de 2026, feita em conjunto pelo Inmet, CPTEC/Inpe e Funceme. As temperaturas devem ficar acima da média em grande parte do país.</p>
+  <div class="br-grid">
+    <div class="tile t-n"><h3>Norte</h3><div class="tags"><span class="tag">Chuva abaixo da média</span><span class="tag">Calor acima</span></div><p>Estiagem prolongada na Amazônia, atraso do início da estação chuvosa e maior risco de incêndios.</p></div>
+    <div class="tile t-ne"><h3>Nordeste</h3><div class="tags"><span class="tag">Interior: abaixo</span><span class="tag">Leste: acima</span></div><p>Déficit no centro-norte da região; chuva acima da média na faixa leste.</p></div>
+    <div class="tile t-co"><h3>Centro-Oeste</h3><div class="tags"><span class="tag">Irregular</span></div><p>Chuva irregular e alta evapotranspiração; MS, sul de GO e sul de MT tendem a ter excesso.</p></div>
+    <div class="tile t-se"><h3>Sudeste</h3><div class="tags"><span class="tag">Dividido</span></div><p>Parte da região com chuva acima da média; áreas do Brasil central abaixo.</p></div>
+    <div class="tile t-s"><h3>Sul</h3><div class="tags"><span class="tag">Chuva acima da média</span><span class="tag">Risco de cheias</span></div><p>Chuva acima da média nos três estados. O solo já está encharcado: o Serviço Geológico do Brasil emitiu mais de 190 boletins de alerta hidrológico na região em 2026. O risco tende a cair até dezembro.</p></div>
+  </div>
+  <div class="br-legend">
+    <span><span class="sw" style="background:#E9A15A"></span>mais seco que o normal</span>
+    <span><span class="sw" style="background:#5E95C4"></span>mais chuvoso que o normal</span>
+    <span>Cores divididas indicam regiões com sinais diferentes.</span>
+  </div>
+  <p class="note" style="margin-top:14px">Mapa esquemático por região, não em escala. Para o mapa oficial de anomalias, consulte o Painel El Niño do Inmet e a previsão sazonal do CPTEC (links na aba “Satélite e fontes”).</p>
+</section>
+
+<!-- AGRO -->
+<section class="panel" id="p-agro" role="tabpanel" aria-labelledby="tab-agro" hidden>
+  <h2>Planalto Norte: onde está a safra mais exposta à chuva</h2>
+  <p class="lede">Mafra fica na microrregião de Canoinhas, que lidera Santa Catarina em três culturas de verão. Para esta safra, a Epagri/Ciram prevê chuva acima da média no estado, com totais que podem chegar a três vezes o esperado em outubro e novembro.</p>
+
+  <div class="shares">
+    <div class="share" style="--c:#7A8B3A"><div class="big">40,6%</div><div class="what">do tabaco de SC</div><p>da área plantada estimada para 2026/27</p></div>
+    <div class="share" style="--c:#8A5A2B"><div class="big">26,7%</div><div class="what">do feijão de 1ª safra</div><p>da área cultivada no estado</p></div>
+    <div class="share" style="--c:#C9A227"><div class="big">22%</div><div class="what">da soja de SC</div><p>a maior fatia entre as microrregiões</p></div>
+  </div>
+  <p class="src-line">Participação da microrregião de Canoinhas (inclui Mafra, Itaiópolis, Papanduva, Canoinhas e vizinhos). Fonte: Epagri/Cepa, estimativas da safra de verão 2026/27, divulgadas em 29/09/2026.</p>
+
+  <div class="history">
+    <svg class="gauge" viewBox="0 0 120 170" role="img" aria-label="Régua mostrando o rio Negro subindo mais de 14 metros em 1983 e 1992">
+      <rect x="44" y="6" width="32" height="150" rx="4" fill="var(--chip)" stroke="var(--line)"/>
+      <rect x="45" y="12" width="30" height="143" rx="3" fill="#5E95C4"/>
+      <g font-family="var(--body)" font-size="11" fill="var(--ink-2)">
+        <line x1="76" x2="86" y1="12" y2="12" stroke="var(--ink-2)"/><text x="88" y="16">14 m</text>
+        <line x1="76" x2="82" y1="63" y2="63" stroke="var(--ink-2)"/><text x="88" y="67">9 m</text>
+        <line x1="76" x2="82" y1="114" y2="114" stroke="var(--ink-2)"/><text x="88" y="118">4 m</text>
+      </g>
+      <text x="40" y="16" text-anchor="end" font-family="var(--display)" font-weight="700" font-size="12" fill="var(--ink)">1983</text>
+      <text x="40" y="30" text-anchor="end" font-family="var(--display)" font-weight="700" font-size="12" fill="var(--ink)">1992</text>
+    </svg>
+    <div>
+      <h3>Já aconteceu aqui: 1983 e 1992</h3>
+      <p>As duas maiores enchentes da história recente de Rio Negro (PR), cidade vizinha de Mafra, aconteceram em 1983 e 1992, quando o rio Negro subiu pouco mais de 14 metros. Foram os anos dos El Niños muito fortes de 1982–83 e 1991–92. Um estudo da UEPG sobre as cheias da cidade mostrou que 85% dos anos com inundação registrados estão ligados a El Niño ou La Niña.</p>
+      <p class="src-line">Fonte: Koene, R. (2013), Análise do processo de inundação da cidade de Rio Negro/PR, UEPG; classificação RONI segundo Golden Gate Weather Services.</p>
+    </div>
+  </div>
+
+  <div class="live" id="live-forecast">
+    <div class="live-head"><h3>Mafra nos próximos 16 dias</h3><span class="when" id="fc-when"></span></div>
+    <div id="fc-body"><div class="empty">Carregando a previsão…</div></div>
+  </div>
+
+  <div class="live" id="live-history">
+    <div class="live-head"><h3>Chuva em Mafra em 2026, mês a mês</h3><span class="when" id="hist-when"></span></div>
+    <div id="hist-body"><div class="empty">Carregando o histórico…</div></div>
+  </div>
+
+  <div class="crops">
+    <div class="crop">
+      <h3>Tabaco <span>SC: 97,4 mil ha (−1,3%)</span></h3>
+      <p>A Epagri/Cepa pede cautela: houve plantio antecipado em algumas regiões, o que aumenta a exposição das lavouras a geadas, frio intenso e excesso de umidade no início do ciclo. A área será revisada em novembro, com os dados da Afubra.</p>
+      <div class="watch"><b>O que observar:</b> encharcamento das lavouras, perda de nitrogênio com chuvas fortes que lavam o solo, doenças favorecidas pela umidade e geada nas mudas recém-transplantadas.</div>
+    </div>
+    <div class="crop">
+      <h3>Soja <span>SC: 756 mil ha (−0,3%)</span></h3>
+      <p>A leve redução de área no estado é atribuída à preocupação dos produtores com o El Niño. A produtividade estimada ainda é 2,4% maior que a da safra passada.</p>
+      <div class="watch"><b>O que observar:</b> atraso na semeadura, janelas curtas para pulverizar, folhas molhadas por longos períodos (favorecem doenças como a ferrugem-asiática) e chuva na colheita, já que o El Niño deve durar até o outono.</div>
+    </div>
+    <div class="crop">
+      <h3>Feijão 1ª safra <span>SC: 22 mil ha (−18%)</span></h3>
+      <p>A maior queda de área entre as culturas, ligada a custos altos, menor atratividade econômica e ao risco do El Niño. A produção estadual projetada é de 45 mil toneladas, 13% menos que em 2025/26.</p>
+      <div class="watch"><b>O que observar:</b> o feijão é muito sensível ao solo encharcado, e chuva na colheita compromete a qualidade do grão.</div>
+    </div>
+    <div class="crop">
+      <h3>Milho e leite <span>Milho grão: +2,5% · silagem: +1,5%</span></h3>
+      <p>A área de milho para silagem cresce puxada pela demanda dos produtores de leite e pela expectativa de que o El Niño afete menos essa cultura do que a soja.</p>
+      <div class="watch"><b>O que observar:</b> solo encharcado dificulta os tratos culturais, e as chuvas fortes aumentam a erosão em lavouras sem boa cobertura.</div>
+    </div>
+  </div>
+  <p class="advice">A recomendação da Epagri/Cepa para esta safra é planejar: escolha da cultura e da cultivar, nível tecnológico, datas de plantio e tratos culturais, com atenção redobrada à conservação do solo. Na dúvida, procure o escritório da Epagri do município.</p>
+  <p class="src-line">Dados das culturas: Epagri/Cepa (29/09/2026). Itens “O que observar” são orientações agronômicas gerais para excesso de chuva, não recomendações técnicas para uma lavoura específica.</p>
+</section>
+
+<!-- FONTES -->
+<section class="panel" id="p-src" role="tabpanel" aria-labelledby="tab-src" hidden>
+  <h2>A imagem de satélite de hoje e onde ver mais</h2>
+  <figure class="sat" id="sat">
+    <img id="sat-img" alt="Mapa global de anomalia da temperatura da superfície do mar medida por satélite, NOAA Coral Reef Watch" loading="lazy" src="https://coralreefwatch.noaa.gov/data/5km/v3.1/current/daily/gif/cur_coraltemp5km_ssta_large.gif">
+    <figcaption>Anomalia diária da TSM por satélite (resolução de 5 km), NOAA Coral Reef Watch. Procure a faixa vermelha no Pacífico equatorial, encostada na América do Sul.</figcaption>
+  </figure>
+  <div id="sources"></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p id="foot-data"></p>
+    <p>Fontes: NOAA Climate Prediction Center, NOAA Coral Reef Watch, IRI/Columbia, Inmet (Painel El Niño 2026–2027), CPTEC/Inpe, Funceme, Serviço Geológico do Brasil, Epagri/Ciram, Epagri/Cepa e Open-Meteo (dados de previsão e reanálise ERA5).</p>
+  </div>
+</footer>
+
+<div class="tooltip" id="tip" role="status"></div>
+
+<script>
+/* ===== Dados embutidos (usados se data/enso.json não puder ser lido) ===== */
+const FALLBACK = {"updated": "2026-09-28", "status": "El Niño Advisory", "synopsis": "El Niño is strengthening, with a greater than 90% chance of a very strong event during the Northern Hemisphere fall and winter 2026-27.", "discussionDate": "10 set 2026", "nextUpdate": "8 out 2026", "weekLabel": "atualização semanal de 28 set 2026", "prevLabel": "média de agosto", "regions": {"n12": {"week": 3.9, "prev": 3.4, "series": []}, "n3": {"week": 3.1, "prev": 2.5, "series": []}, "n34": {"week": 2.2, "prev": 1.8, "series": []}, "n4": {"week": 0.1, "prev": 0.1, "series": []}}, "roni": {"start": 2014, "values": [-0.4, -0.4, -0.1, 0.1, 0.2, 0.0, -0.1, -0.1, 0.1, 0.4, 0.5, 0.6, 0.5, 0.5, 0.6, 0.7, 0.9, 1.0, 1.3, 1.5, 1.8, 2.0, 2.2, 2.3, 2.1, 1.8, 1.3, 0.7, 0.1, 0.4, -0.7, -0.8, -0.9, -1.0, -1.0, -0.9, -0.6, -0.4, -0.2, -0.1, 0.0, 0.0, -0.2, -0.5, -0.6, -0.8, -1.0, -1.1, -1.1, -1.0, -0.9, -0.7, -0.3, 0.0, 0.1, 0.2, 0.4, 0.6, 0.8, 0.8, 0.7, 0.6, 0.6, 0.5, 0.4, 0.2, 0.0, -0.1, 0.0, 0.2, 0.3, 0.2, 0.1, 0.1, 0.0, -0.3, -0.5, -0.7, -0.8, -0.8, -1.2, -1.4, -1.5, -1.4, -1.3, -1.2, -1.1, -0.9, -0.7, -0.6, -0.6, -0.8, -0.9, -1.1, -1.2, -1.2, -1.2, -1.1, -1.2, -1.3, -1.2, -0.9, -0.9, -0.9, -1.1, -1.1, -1.1, -1.0, -0.9, -0.7, -0.5, -0.3, 0.0, 0.3, 0.5, 0.8, 1.0, 1.3, 1.4, 1.4, 1.1, 0.8, 0.4, 0.0, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0, -1.1, -0.8, -0.7, -0.5, -0.5, -0.4, -0.4, -0.6, -0.8, -0.9, -1.0, -1.0, -0.9, -0.8, -0.4, 0.0, 0.5, 1.0, 1.4]}, "outlook": {"_comment": "Preenchido à mão a partir da ENSO Diagnostic Discussion. O robô não altera este bloco: quando sair uma discussão nova, atualize os textos e o campo 'discussion'.", "discussion": "10 set 2026", "veryStrong": ">90%", "veryStrongText": "chance de El Niño muito forte (≥ +2,0 °C) entre set–out–nov e nov–dez–jan.", "historic": "75%", "historicText": "chance de ser o El Niño mais forte desde 1950 no trimestre out–nov–dez (RONI ≥ +2,5 °C).", "bands": [{"from": "SON", "to": "NDJ", "color": "#8E1630", "title": ">90% de chance de El Niño muito forte", "sub": "≥ +2,0 °C"}, {"from": "DJF", "to": "MAM", "color": "#E5713A", "title": "El Niño persiste", "sub": "até mar–abr–mai 2027"}, {"from": "AMJ", "to": "AMJ", "color": "#7A93A0", "title": "55% neutro", "sub": "fim provável"}, {"from": "OND", "to": "OND", "color": "#5A0D2A", "title": "75% recorde", "sub": "≥ +2,5 °C", "row": 2}]}};
+let DATA = FALLBACK;
+
+const MAFRA = { name:"Mafra", lat:-26.1114, lon:-49.8053 };
+const SEASONS = ["DJF","JFM","FMA","MAM","AMJ","MJJ","JJA","JAS","ASO","SON","OND","NDJ"];
+const SEASONS_PT = ["dez-jan-fev","jan-fev-mar","fev-mar-abr","mar-abr-mai","abr-mai-jun","mai-jun-jul","jun-jul-ago","jul-ago-set","ago-set-out","set-out-nov","out-nov-dez","nov-dez-jan"];
+const MESES = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const STATUS_PT = {
+  "El Niño Advisory":"Aviso de El Niño ativo (NOAA)",
+  "El Niño Watch":"Vigilância de El Niño (NOAA)",
+  "Final El Niño Advisory":"Aviso final de El Niño (NOAA)",
+  "La Niña Advisory":"Aviso de La Niña ativo (NOAA)",
+  "La Niña Watch":"Vigilância de La Niña (NOAA)",
+  "Final La Niña Advisory":"Aviso final de La Niña (NOAA)",
+  "Not Active":"Sistema de alerta inativo (NOAA)"
+};
+const REGIONS = [
+  { id:"n4",  name:"Niño 4",   box:[160,210,5,-5],
+    text:"Pacífico central-oeste, perto da Linha de Data. Um valor perto de zero mostra que o calor não chegou aqui: é um El Niño do tipo “leste” (canônico), como o de 1997–98, o tipo que mais afeta a costa da América do Sul." },
+  { id:"n34", name:"Niño 3.4", box:[190,240,5,-5],
+    text:"A região de referência. A média de 3 meses daqui (o RONI) é o que classifica oficialmente o El Niño como fraco, moderado, forte ou muito forte. Acima de +2,0 °C é muito forte." },
+  { id:"n3",  name:"Niño 3",   box:[210,270,5,-5],
+    text:"Pacífico leste. Aquecimento acima de +3 °C indica que a termoclina (a camada de água fria) afundou e a ressurgência que traz água fria à superfície enfraqueceu." },
+  { id:"n12", name:"Niño 1+2", box:[270,280,0,-10],
+    text:"Costa do Equador e do Peru. É a região que reage primeiro e a mais extrema agora. Afeta a pesca e traz chuvas fortes ao litoral do Pacífico sul-americano." }
+];
+
+/* ===== util ===== */
+const RAMP = [[-2,"#2E5C9E"],[-1,"#6FA3CF"],[-0.5,"#B7D3E6"],[0,"#EEF0EE"],[0.5,"#F6D98A"],[1,"#F2B05A"],[2,"#E5713A"],[3,"#C73A33"],[4,"#8E1630"],[5,"#5A0D2A"]];
+function hex(h){return [1,3,5].map(i=>parseInt(h.slice(i,i+2),16))}
+function colorFor(v){
+  if(v<=RAMP[0][0]) return RAMP[0][1];
+  for(let i=1;i<RAMP.length;i++){
+    if(v<=RAMP[i][0]){
+      const [a,ca]=RAMP[i-1],[b,cb]=RAMP[i],t=(v-a)/(b-a),A=hex(ca),B=hex(cb);
+      return "rgb("+A.map((x,k)=>Math.round(x+(B[k]-x)*t)).join(",")+")";
+    }
+  }
+  return RAMP[RAMP.length-1][1];
+}
+const num = (v,d=1) => Math.abs(v).toFixed(d).replace(".",",");
+const fmt = v => (v>0?"+":v<0?"−":"")+num(v)+" °C";
+const NS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+function txt(parent,str,attrs){const t=el("text",attrs,parent);t.textContent=str;return t}
+const tip=document.getElementById("tip");
+function hoverTip(node,label){
+  node.addEventListener("mousemove",e=>{tip.textContent=label;tip.style.left=(e.clientX+12)+"px";tip.style.top=(e.clientY-34)+"px";tip.style.opacity=1});
+  node.addEventListener("mouseleave",()=>tip.style.opacity=0);
+}
+const reg = id => DATA.regions[id];
+
+/* ===== cabeçalho ===== */
+function renderHeader(live){
+  document.getElementById("badge").textContent = STATUS_PT[DATA.status] || (DATA.status+" (NOAA)");
+  document.getElementById("stamp").textContent = "Índices: "+DATA.weekLabel+". Próxima discussão oficial: "+DATA.nextUpdate+".";
+  const f=document.getElementById("foot-data");
+  f.textContent = live
+    ? "Dados da NOAA atualizados automaticamente; última verificação em "+DATA.updated.split("-").reverse().join("/")+"."
+    : "Retrato dos dados de "+DATA.updated.split("-").reverse().join("/")+". Nesta visualização os dados não se atualizam sozinhos; na versão publicada no GitHub Pages, sim.";
+}
+
+/* ===== mapa ===== */
+function renderMap(){
+  const svg=document.getElementById("map"); svg.innerHTML="";
+  const X0=30,X1=970,Y0=20,Y1=290,LON0=120,LON1=295,LAT0=22,LAT1=-22;
+  const x=lon=>X0+(lon-LON0)/(LON1-LON0)*(X1-X0);
+  const y=lat=>Y0+(LAT0-lat)/(LAT0-LAT1)*(Y1-Y0);
+  const n4=reg("n4").week,n34=reg("n34").week,n3=reg("n3").week,n12=reg("n12").week;
+  const defs=el("defs",{},svg);
+  const cp=el("clipPath",{id:"clip"},defs);el("rect",{x:X0,y:Y0,width:X1-X0,height:Y1-Y0,rx:6},cp);
+  el("rect",{x:X0,y:Y0,width:X1-X0,height:Y1-Y0,fill:"var(--ocean)",rx:6},svg);
+  const prof=[[120,-0.3],[150,Math.min(n4-0.4,0)],[170,n4],[192,(n4+n34)/2],[215,n34],[240,(n34+n3)/2],[255,n3],[270,(n3+n12)/2],[280,n12],[295,n12*0.8]];
+  const g=el("linearGradient",{id:"sst",gradientUnits:"userSpaceOnUse",x1:X0,x2:X1,y1:0,y2:0},defs);
+  prof.forEach(([lon,v])=>el("stop",{offset:((lon-LON0)/(LON1-LON0)).toFixed(4),"stop-color":colorFor(v)},g));
+  const mg=el("linearGradient",{id:"fade",x1:0,x2:0,y1:0,y2:1},defs);
+  [[0,0],[0.22,0.15],[0.42,0.9],[0.5,1],[0.58,0.9],[0.8,0.15],[1,0]].forEach(([o,a])=>el("stop",{offset:o,"stop-color":"#fff","stop-opacity":a},mg));
+  const mask=el("mask",{id:"m"},defs);
+  el("rect",{x:X0,y:y(16),width:X1-X0,height:y(-16)-y(16),fill:"url(#fade)"},mask);
+  el("rect",{x:X0,y:y(16),width:X1-X0,height:y(-16)-y(16),fill:"url(#sst)",mask:"url(#m)"},svg);
+  el("ellipse",{cx:x(279),cy:y(-6),rx:x(285)-x(272),ry:y(-12)-y(-6),fill:colorFor(n12*0.92),opacity:.4,"clip-path":"url(#clip)"},svg);
+  const landG=el("g",{"clip-path":"url(#clip)"},svg);
+  const lands=[
+    [[255,22],[262,17],[268,15],[273,12],[277,9],[281,8],[283,9],[284,12],[295,12],[295,22]],
+    [[281,8],[280,3],[279.5,0],[279,-3],[281,-6],[283,-9],[285,-13],[288,-17],[289.5,-20],[290,-22],[295,-22],[295,12],[284,12],[283,9]],
+    [[120,-22],[120,-15],[125,-14],[130,-12],[132,-11.5],[136,-12],[137,-15],[140,-17.5],[142,-11],[143.5,-14],[145.5,-16],[147,-19],[149,-22]],
+    [[131,-1],[135,-3],[138,-2],[141,-3],[144,-4],[147,-6],[150,-10],[147,-10],[143,-9],[140,-8],[137,-5],[133,-4]],
+    [[120,7],[119,4],[118,1],[117,-1],[116,-4],[120,-4],[119,-1],[119,2],[120,5]],
+    [[120,-6],[125,-6],[124,-3],[121,-1],[123,1],[125,1],[121,-2],[120,-6]],
+    [[121,18],[122,14],[124,13],[124,10],[126,7],[126,9],[125,12],[123,16],[121,18.5]],
+    [[120,-9],[127,-8],[127,-9],[122,-10],[120,-9.6]]
+  ];
+  lands.forEach(p=>el("polygon",{points:p.map(([lo,la])=>x(lo).toFixed(1)+","+y(la).toFixed(1)).join(" "),fill:"var(--land)",stroke:"var(--land-line)","stroke-width":1},landG));
+  const lab=(t,lo,la)=>txt(svg,t,{x:x(lo),y:y(la),"text-anchor":"middle","font-size":13,"font-family":"var(--body)",fill:"var(--ink-2)"});
+  lab("Indonésia",128,10.5); lab("Austrália",133,-19); lab("América do Sul",289,4); lab("Peru",292,-10);
+  el("line",{x1:X0,x2:X1,y1:y(0),y2:y(0),stroke:"var(--ink)","stroke-opacity":.35,"stroke-dasharray":"2 5"},svg);
+  txt(svg,"Equador",{x:X0+6,y:y(0)-6,"font-size":12,fill:"var(--ink-2)","font-family":"var(--body)"});
+  [[150,"150°L"],[180,"180°"],[210,"150°O"],[240,"120°O"],[270,"90°O"]].forEach(([lo,t])=>{
+    el("line",{x1:x(lo),x2:x(lo),y1:Y1,y2:Y1+6,stroke:"var(--ink-2)"},svg);
+    txt(svg,t,{x:x(lo),y:Y1+22,"text-anchor":"middle","font-size":12,fill:"var(--ink-2)","font-family":"var(--body)"});
+  });
+  txt(svg,"Linha de Data",{x:x(180),y:Y0+16,"text-anchor":"middle","font-size":12,fill:"var(--ink-2)","font-family":"var(--body)"});
+  el("line",{x1:x(180),x2:x(180),y1:Y0+22,y2:Y1,stroke:"var(--ink-2)","stroke-opacity":.3},svg);
+  ["n4","n3","n12","n34"].forEach(id=>{
+    const r=REGIONS.find(q=>q.id===id);
+    const [lo0,lo1,la0,la1]=r.box;
+    const grp=el("g",{class:"region-box","data-id":id},svg);
+    el("rect",{x:x(lo0),y:y(la0),width:x(lo1)-x(lo0),height:y(la1)-y(la0),rx:2,"stroke-dasharray":id==="n3"||id==="n4"?"6 4":"none"},grp);
+    const above=id==="n34"||id==="n4";
+    const tx=id==="n12"?x(lo0)-4:(x(lo0)+x(lo1))/2;
+    const ty=above?y(la0)-8:(id==="n12"?y(la1)+4:y(la1)+18);
+    txt(grp,r.name+"  "+fmt(reg(id).week),{x:tx,y:ty,"text-anchor":id==="n12"?"end":"middle","font-size":14});
+    grp.addEventListener("click",()=>select(id));
+  });
+}
+
+/* ===== leituras ===== */
+let selected="n34";
+function renderReadouts(){
+  const ro=document.getElementById("readouts"); ro.innerHTML="";
+  REGIONS.forEach(r=>{
+    const d=reg(r.id);
+    const b=document.createElement("button");
+    b.className="readout";b.dataset.id=r.id;b.setAttribute("aria-pressed","false");
+    b.style.setProperty("--sw",colorFor(d.week));
+    b.innerHTML='<div class="name"></div><div class="val"></div><div class="delta"></div>';
+    b.querySelector(".name").textContent=r.name;
+    b.querySelector(".val").textContent=fmt(d.week);
+    const diff=Math.round((d.week-d.prev)*10)/10;
+    b.querySelector(".delta").textContent=(diff>0?"subiu "+num(diff)+" °C":diff<0?"caiu "+num(diff)+" °C":"estável")+" em relação à "+(DATA.prevLabel==="há 4 semanas"?"leitura de 4 semanas atrás":DATA.prevLabel);
+    if(d.series && d.series.length>=3){
+      const s=el("svg",{class:"spark",viewBox:"0 0 100 26",preserveAspectRatio:"none","aria-hidden":"true"},b);
+      const mn=Math.min(...d.series),mx=Math.max(...d.series),rg=(mx-mn)||1;
+      el("path",{d:d.series.map((v,i)=>(i?"L":"M")+(i/(d.series.length-1)*100).toFixed(1)+","+(23-(v-mn)/rg*20).toFixed(1)).join(" ")},s);
+    }
+    b.addEventListener("click",()=>select(r.id));
+    ro.appendChild(b);
+  });
+  select(selected);
+}
+function select(id){
+  selected=id;
+  const r=REGIONS.find(q=>q.id===id);
+  document.querySelectorAll(".readout").forEach(b=>b.setAttribute("aria-pressed",b.dataset.id===id?"true":"false"));
+  document.querySelectorAll(".region-box").forEach(g=>g.classList.toggle("active",g.dataset.id===id));
+  const ex=document.getElementById("explain");
+  ex.innerHTML="<p><strong></strong></p>";
+  ex.querySelector("strong").textContent=r.name+": ";
+  ex.querySelector("p").appendChild(document.createTextNode(r.text));
+}
+
+/* ===== fatos ===== */
+function latestRoni(){
+  const v=DATA.roni.values, i=v.length-1;
+  return {value:v[i], season:SEASONS_PT[i%12], year:DATA.roni.start+Math.floor(i/12)};
+}
+function renderFacts(){
+  const o=DATA.outlook, L=latestRoni();
+  const facts=[[o.veryStrong,o.veryStrongText],[o.historic,o.historicText],[fmt(L.value),"último valor trimestral oficial do RONI ("+L.season+" "+L.year+")."]];
+  const box=document.getElementById("facts"); box.innerHTML="";
+  facts.forEach(([big,t])=>{const d=document.createElement("div");d.className="fact";d.innerHTML='<div class="big"></div><p></p>';d.querySelector(".big").textContent=big;d.querySelector("p").textContent=t;box.appendChild(d)});
+  const syn=document.getElementById("synopsis");
+  syn.innerHTML="Síntese oficial do CPC/NOAA ("+DATA.discussionDate+", original em inglês): <i></i>";
+  syn.querySelector("i").textContent=DATA.synopsis;
+}
+
+/* ===== RONI ===== */
+function renderRoni(){
+  const svg=document.getElementById("roni"); svg.innerHTML="";
+  const FROM=2014;
+  const off=Math.max(0,(FROM-DATA.roni.start)*12);
+  const vals=DATA.roni.values.slice(off), y0=DATA.roni.start+off/12;
+  const fIdx=(2026-y0)*12+9; // SON 2026
+  const showF = vals.length<=fIdx+2;
+  const total=Math.max(vals.length, fIdx+3);
+  const L=56,R=150,T=20,B=40,W=1000,H=400,vmin=-1.6,vmax=3.2;
+  const bw=(W-L-R)/total, xi=i=>L+i*bw, yv=v=>T+(vmax-v)/(vmax-vmin)*(H-T-B);
+  const ax=el("g",{class:"axis"},svg);
+  for(let k=0;k*12<total;k++){
+    const year=y0+k;
+    el("line",{x1:xi(k*12),x2:xi(k*12),y1:T,y2:H-B,stroke:"var(--line)"},ax);
+    if(year%2===0||year===2026) txt(ax,String(year),{x:xi(k*12)+2,y:H-B+18});
+  }
+  [-1,0,1,2,3].forEach(v=>txt(ax,(v>0?"+":v<0?"−":"")+Math.abs(v)+" °C",{x:L-8,y:yv(v)+4,"text-anchor":"end"}));
+  if(showF){
+    el("rect",{x:xi(fIdx),y:yv(3.1),width:3*bw,height:yv(2.0)-yv(3.1),fill:colorFor(3.5),opacity:.25},svg);
+    el("rect",{x:xi(fIdx+1),y:yv(3.1),width:bw,height:yv(2.5)-yv(3.1),fill:colorFor(4),opacity:.35},svg);
+    el("rect",{x:xi(fIdx),y:yv(3.1),width:3*bw,height:yv(2.0)-yv(3.1),fill:"none",stroke:colorFor(4),"stroke-dasharray":"4 3"},svg);
+    txt(svg,"previsão set–jan",{x:xi(fIdx+1.5),y:yv(3.1)-6,"text-anchor":"end","font-size":12.5,"font-family":"var(--display)","font-weight":700,fill:"var(--ink)"});
+  }
+  const th=el("g",{class:"thr"},svg);
+  [[0.5,"El Niño (+0,5)"],[1.5,"forte (+1,5)"],[2.0,"muito forte (+2,0)"],[2.5,"recorde (+2,5)"],[-0.5,"La Niña (−0,5)"]].forEach(([v,t])=>{
+    el("line",{x1:L,x2:W-R+6,y1:yv(v),y2:yv(v)},th); txt(th,t,{x:W-R+10,y:yv(v)+4});
+  });
+  el("line",{x1:L,x2:W-R,y1:yv(0),y2:yv(0),class:"zero"},svg);
+  vals.forEach((v,i)=>{
+    const a=yv(0),b=yv(v);
+    const r=el("rect",{x:xi(i)+0.6,y:Math.min(a,b),width:Math.max(bw-1.2,1),height:Math.max(Math.abs(b-a),1),fill:colorFor(v*1.25)},svg);
+    hoverTip(r,SEASONS_PT[i%12]+" "+(y0+Math.floor(i/12))+": "+fmt(v));
+  });
+  const ann=(t,i,v,anchor,dy)=>txt(svg,t,{x:xi(i)+bw/2,y:yv(v)+(dy||-8),"text-anchor":anchor||"middle","font-size":12.5,"font-family":"var(--display)","font-weight":600,fill:"var(--ink)"});
+  const peakIn=(a,b)=>{let m=-9,mi=a;for(let i=a;i<=b&&i<vals.length;i++)if(vals[i]>m){m=vals[i];mi=i}return [mi,m]};
+  let [i1,m1]=peakIn((2015-y0)*12,(2016-y0)*12+3); if(i1>=0&&m1>-9) ann("2015–16: "+fmt(m1).replace(" °C",""),i1,m1);
+  let [i2,m2]=peakIn((2023-y0)*12,(2024-y0)*12+3); if(m2>-9) ann("2023–24: "+fmt(m2).replace(" °C",""),i2,m2);
+  const last=vals.length-1; ann("último: "+fmt(vals[last]).replace(" °C",""),last,vals[last],"end",16);
+  renderPeaks();
+}
+function renderPeaks(){
+  const wrap=document.getElementById("peaks-wrap"); wrap.innerHTML="";
+  const v=DATA.roni.values,s=DATA.roni.start;
+  const events=[1982,1991,1997,2015,2023,2026].filter(y=>y>=s);
+  const peaks=events.map(y=>{let m=-9;for(let i=(y-s)*12+4;i<=(y-s)*12+15&&i<v.length;i++)m=Math.max(m,v[i]);return [y,m]}).filter(p=>p[1]>-9);
+  if(peaks.length<3) return;
+  const h=document.createElement("h3");h.textContent="Pico de cada grande El Niño (RONI)";h.style.marginTop="22px";wrap.appendChild(h);
+  const g=document.createElement("div");g.className="peaks";
+  peaks.forEach(([y,m])=>{const d=document.createElement("div");d.className="peak"+(y===2026?" now":"");d.innerHTML='<b></b><div class="v"></div>';d.querySelector("b").textContent=y+"–"+String(y+1).slice(2)+(y===2026?" (até agora)":"");d.querySelector(".v").textContent=fmt(m);g.appendChild(d)});
+  wrap.appendChild(g);
+}
+
+/* ===== previsões ===== */
+function renderOutlook(){
+  const o=DATA.outlook;
+  document.getElementById("prev-lede").textContent="Probabilidades oficiais do Climate Prediction Center (NOAA), da discussão de "+o.discussion+". A próxima discussão sai em "+DATA.nextUpdate+".";
+  const nb=document.getElementById("outlook-notice"); nb.innerHTML="";
+  if(DATA.discussionDate && o.discussion!==DATA.discussionDate){
+    const p=document.createElement("p");p.className="notice";
+    p.textContent="A NOAA publicou uma discussão nova em "+DATA.discussionDate+". As probabilidades abaixo ainda são de "+o.discussion+": revise o bloco “outlook” em data/enso.json.";
+    nb.appendChild(p);
+  }
+  const tl=document.getElementById("timeline"); tl.innerHTML="";
+  const cols=[["SON",2026],["OND",2026],["NDJ","2026–27"],["DJF",2027],["JFM",2027],["FMA",2027],["MAM",2027],["AMJ",2027],["MJJ",2027]];
+  cols.forEach(([k,y])=>{const d=document.createElement("div");d.className="season";d.innerHTML='<div class="s"></div><div class="y"></div>';d.querySelector(".s").textContent=SEASONS_PT[SEASONS.indexOf(k)];d.querySelector(".y").textContent=y;tl.appendChild(d)});
+  const col=k=>cols.findIndex(c=>c[0]===k)+1;
+  [1,2].forEach(row=>{
+    const bands=o.bands.filter(b=>(b.row||1)===row); if(!bands.length) return;
+    const r=document.createElement("div");r.className="bandrow";
+    bands.forEach(b=>{const a=col(b.from),z=col(b.to); if(a<1||z<1) return;
+      const d=document.createElement("div");d.className="band";d.style.gridColumn=a+"/"+(z+1);d.style.background=b.color;d.innerHTML="<span></span><small></small>";d.querySelector("span").textContent=b.title;d.querySelector("small").textContent=b.sub;r.appendChild(d)});
+    tl.appendChild(r);
+  });
+}
+
+/* ===== Mafra: previsão de 16 dias (Open-Meteo) ===== */
+const ddmm=iso=>iso.slice(8,10)+"/"+iso.slice(5,7);
+const WEEK=["dom","seg","ter","qua","qui","sex","sáb"];
+async function getJSON(url,ms){
+  const c=new AbortController(); const t=setTimeout(()=>c.abort(),ms||12000);
+  try{const r=await fetch(url,{signal:c.signal}); if(!r.ok) throw new Error("HTTP "+r.status); return await r.json();}
+  finally{clearTimeout(t)}
+}
+function offline(box,what){
+  box.innerHTML='<div class="empty"></div>';
+  box.firstChild.textContent="Não foi possível carregar "+what+" agora. Esta parte busca dados ao vivo do Open-Meteo e funciona quando a página está publicada no GitHub Pages ou aberta direto no navegador com internet.";
+}
+async function loadForecast(){
+  const box=document.getElementById("fc-body");
+  const url="https://api.open-meteo.com/v1/forecast?latitude="+MAFRA.lat+"&longitude="+MAFRA.lon+"&daily=precipitation_sum,precipitation_probability_max,temperature_2m_max,temperature_2m_min&timezone=America%2FSao_Paulo&forecast_days=16";
+  let j; try{ j=await getJSON(url); }catch(e){ offline(box,"a previsão"); return; }
+  const d=j.daily, n=d.time.length;
+  const rain=d.precipitation_sum.map(v=>v||0), prob=d.precipitation_probability_max.map(v=>v==null?0:v);
+  const total=rain.reduce((a,b)=>a+b,0);
+  const wet=rain.filter(v=>v>=1).length, heavy=rain.filter(v=>v>=30).length;
+  const good=rain.filter((v,i)=>v<1&&prob[i]<40).length;
+  const tmin=Math.min(...d.temperature_2m_min.filter(v=>v!=null));
+  document.getElementById("fc-when").textContent="Open-Meteo, consultado agora para "+ddmm(d.time[0])+" a "+ddmm(d.time[n-1]);
+  box.innerHTML='<div class="kpis"></div><div class="scroll-x"><svg viewBox="0 0 1000 230" role="img" aria-label="Chuva prevista por dia em Mafra"></svg></div><p class="src-line"></p>';
+  const k=box.querySelector(".kpis");
+  [[Math.round(total)+" mm","de chuva prevista no total",false],[wet+" de "+n,"dias com chuva (≥ 1 mm)",false],[String(good),"dias bons para trabalho de campo (chuva < 1 mm e chance < 40%)",false],[(tmin<0?"−":"")+num(tmin)+" °C",tmin<3?"mínima prevista: atenção para geada":"menor mínima prevista",tmin<3]]
+    .forEach(([n_,l,alert],i)=>{const e=document.createElement("div");e.className="kpi"+(alert?" alert":"");e.innerHTML='<div class="n"></div><div class="l"></div>';e.querySelector(".n").textContent=n_;e.querySelector(".l").textContent=l;k.appendChild(e)});
+  if(heavy) { const e=document.createElement("div");e.className="kpi alert";e.innerHTML='<div class="n"></div><div class="l">dias com chuva forte (≥ 30 mm)</div>';e.querySelector(".n").textContent=heavy;k.appendChild(e);k.style.gridTemplateColumns="repeat(auto-fit,minmax(150px,1fr))"; }
+  const svg=box.querySelector("svg");
+  const L=44,R=10,T=14,B=46,W=1000,H=230;
+  const mx=Math.max(20,...rain)*1.15, bw=(W-L-R)/n, yv=v=>T+(1-v/mx)*(H-T-B);
+  const ax=el("g",{class:"axis"},svg);
+  const step=mx>80?40:mx>40?20:10;
+  for(let v=0;v<=mx;v+=step){el("line",{x1:L,x2:W-R,y1:yv(v),y2:yv(v),stroke:"var(--line)"},ax);txt(ax,v+" mm",{x:L-6,y:yv(v)+4,"text-anchor":"end"});}
+  d.time.forEach((t,i)=>{
+    const dt=new Date(t+"T12:00:00");
+    const good_=rain[i]<1&&prob[i]<40;
+    const r=el("rect",{x:L+i*bw+bw*0.15,y:yv(rain[i]),width:bw*0.7,height:Math.max(yv(0)-yv(rain[i]),rain[i]>0?1:0),fill:rain[i]>=30?"#2E5C9E":"#5E95C4",rx:2},svg);
+    hoverTip(r,WEEK[dt.getDay()]+" "+ddmm(t)+": "+num(rain[i])+" mm, chance "+prob[i]+"%, "+Math.round(d.temperature_2m_min[i])+"–"+Math.round(d.temperature_2m_max[i])+" °C");
+    txt(ax,WEEK[dt.getDay()],{x:L+i*bw+bw/2,y:H-B+16,"text-anchor":"middle"});
+    txt(ax,ddmm(t),{x:L+i*bw+bw/2,y:H-B+30,"text-anchor":"middle"});
+    if(good_) el("circle",{cx:L+i*bw+bw/2,cy:yv(0)-6,r:4,fill:"#7A8B3A"},svg);
+  });
+  box.querySelector(".src-line").textContent="Barras: chuva prevista por dia (azul-escuro = 30 mm ou mais). Bolinhas verdes: dias bons para trabalho de campo. Previsões além de 7 dias têm incerteza maior. Modelo global para o ponto de Mafra; não substitui os avisos da Epagri/Ciram e da Defesa Civil.";
+}
+
+/* ===== Mafra: chuva do ano x média 1991–2020 (ERA5 via Open-Meteo) ===== */
+async function loadHistory(){
+  const box=document.getElementById("hist-body");
+  const end=new Date(Date.now()-6*864e5).toISOString().slice(0,10);
+  const url="https://archive-api.open-meteo.com/v1/archive?latitude="+MAFRA.lat+"&longitude="+MAFRA.lon+"&start_date=1991-01-01&end_date="+end+"&daily=precipitation_sum&timezone=America%2FSao_Paulo";
+  let j; try{ j=await getJSON(url,25000); }catch(e){ offline(box,"o histórico de chuva"); return; }
+  const t=j.daily.time, p=j.daily.precipitation_sum;
+  const tot={};
+  t.forEach((iso,i)=>{ if(p[i]==null) return; const k=iso.slice(0,7); tot[k]=(tot[k]||0)+p[i]; });
+  const lastIso=t[t.length-1], Y=+lastIso.slice(0,4), M=+lastIso.slice(5,7);
+  const normal=[], cur=[];
+  for(let m=1;m<=12;m++){
+    let s=0,c=0; for(let y=1991;y<=2020;y++){const k=y+"-"+String(m).padStart(2,"0"); if(tot[k]!=null){s+=tot[k];c++}}
+    normal.push(c?s/c:0);
+    const k=Y+"-"+String(m).padStart(2,"0"); cur.push(m<=M&&tot[k]!=null?tot[k]:null);
+  }
+  const done=cur.slice(0,M-1).reduce((a,b)=>a+(b||0),0), doneN=normal.slice(0,M-1).reduce((a,b)=>a+b,0);
+  const last3=cur.slice(Math.max(0,M-4),M-1).reduce((a,b)=>a+(b||0),0), last3N=normal.slice(Math.max(0,M-4),M-1).reduce((a,b)=>a+b,0);
+  document.getElementById("hist-when").textContent="Reanálise ERA5 até "+ddmm(lastIso)+"/"+Y;
+  box.innerHTML='<div class="kpis"></div><div class="scroll-x"><svg viewBox="0 0 1000 260" role="img" aria-label="Chuva mensal em Mafra no ano atual comparada com a média 1991 a 2020"></svg></div><p class="src-line"></p>';
+  const k=box.querySelector(".kpis");
+  const pct=(a,b)=>b?Math.round(a/b*100)+"%":"–";
+  [[Math.round(done)+" mm","chuva de janeiro até o fim de "+MESES[M-2]+" de "+Y],[pct(done,doneN),"do normal acumulado no mesmo período"],[pct(last3,last3N),"do normal nos últimos 3 meses completos"],[Math.round(cur[M-1]||0)+" mm","em "+MESES[M-1]+" até agora (normal do mês: "+Math.round(normal[M-1])+" mm)"]]
+    .forEach(([n_,l])=>{const e=document.createElement("div");e.className="kpi";e.innerHTML='<div class="n"></div><div class="l"></div>';e.querySelector(".n").textContent=n_;e.querySelector(".l").textContent=l;k.appendChild(e)});
+  const svg=box.querySelector("svg");
+  const L=50,R=10,T=14,B=34,W=1000,H=260;
+  const mx=Math.max(...normal,...cur.filter(v=>v!=null))*1.12, gw=(W-L-R)/12, yv=v=>T+(1-v/mx)*(H-T-B);
+  const ax=el("g",{class:"axis"},svg);
+  const step=mx>400?100:50;
+  for(let v=0;v<=mx;v+=step){el("line",{x1:L,x2:W-R,y1:yv(v),y2:yv(v),stroke:"var(--line)"},ax);txt(ax,v+" mm",{x:L-6,y:yv(v)+4,"text-anchor":"end"});}
+  for(let m=0;m<12;m++){
+    const x0=L+m*gw;
+    const rn=el("rect",{x:x0+gw*0.12,y:yv(normal[m]),width:gw*0.36,height:yv(0)-yv(normal[m]),fill:"none",stroke:"var(--ink-2)","stroke-dasharray":"3 2"},svg);
+    hoverTip(rn,MESES[m]+": média 1991–2020 = "+Math.round(normal[m])+" mm");
+    if(cur[m]!=null){
+      const partial=m===M-1;
+      const r=el("rect",{x:x0+gw*0.52,y:yv(cur[m]),width:gw*0.36,height:yv(0)-yv(cur[m]),fill:cur[m]>normal[m]*1.2?"#2E5C9E":"#5E95C4",opacity:partial?.5:1},svg);
+      hoverTip(r,MESES[m]+" "+Y+": "+Math.round(cur[m])+" mm"+(partial?" (mês em andamento)":"")+" · "+pct(cur[m],normal[m])+" do normal");
+    }
+    txt(ax,MESES[m],{x:x0+gw/2,y:H-B+18,"text-anchor":"middle"});
+  }
+  box.querySelector(".src-line").textContent="Barras cheias: chuva de "+Y+" (azul-escuro = mais de 20% acima do normal; translúcida = mês em andamento). Contorno tracejado: média 1991–2020. Dados de reanálise em grade de ~25 km, que suaviza extremos locais; para totais oficiais, use as estações do Inmet e da Epagri/Ciram.";
+}
+let agroLoaded=false;
+function loadAgro(){ if(agroLoaded) return; agroLoaded=true; loadForecast(); loadHistory(); }
+
+/* ===== satélite ===== */
+function satFail(){
+  const f=document.getElementById("sat");
+  f.innerHTML='<div class="empty">A imagem de satélite não pôde ser exibida nesta visualização. Na versão publicada no GitHub Pages ela aparece aqui e se atualiza todo dia. Enquanto isso, abra direto no <a target="_blank" rel="noopener noreferrer" href="https://coralreefwatch.noaa.gov/product/5km_v3.1/index_5km_ssta.php">NOAA Coral Reef Watch</a>.</div>';
+}
+(function(){const img=document.getElementById("sat-img"); img.addEventListener("error",satFail); if(img.complete&&img.naturalWidth===0&&img.getAttribute("src")) satFail();})();
+
+/* ===== fontes ===== */
+(function(){
+  const groups=[
+    {title:"Satélite e temperatura do mar",items:[
+      ["Earth (nullschool)","Cameron Beccario","Globo animado com a anomalia de TSM e as correntes. É o mais impactante para mostrar ao vivo no projetor.","Use na abertura: gire o globo até o Pacífico.","https://earth.nullschool.net/#current/ocean/surface/currents/overlay=sea_surface_temp_anomaly/orthographic=-120.00,0.00,400"],
+      ["Coral Reef Watch: anomalia de TSM","NOAA","Mapa global diário de anomalia de TSM por satélite, com recortes regionais e animações de 30 e 90 dias.","A animação de 90 dias do Pacífico mostra o El Niño crescendo.","https://coralreefwatch.noaa.gov/product/5km_v3.1/index_5km_ssta.php"],
+      ["Climate Reanalyzer: TSM diária","Universidade do Maine","Temperatura média do oceano global dia a dia, comparando todos os anos desde 1981.","Use para ligar El Niño e aquecimento global no mesmo gráfico.","https://climatereanalyzer.org/clim/sst_daily/"],
+      ["NASA Worldview","NASA","Imagens reais de satélite (nuvens, fogo, TSM) com seletor de data.","Use para comparar o mesmo dia em 2015 e 2026.","https://worldview.earthdata.nasa.gov/"]
+    ]},
+    {title:"Previsões e boletins oficiais",items:[
+      ["ENSO Diagnostic Discussion","NOAA / CPC","O boletim mensal oficial dos EUA, com status, probabilidades e a próxima data de atualização.","A fonte de referência para citar números.","https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml"],
+      ["Atualização semanal (PDF)","NOAA / CPC","Slides semanais com todos os índices Niño, subsuperfície, ventos e o modelo CFSv2.","Bons gráficos para copiar para a sua apresentação.","https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/lanina/enso_evolution-status-fcsts-web.pdf"],
+      ["Previsão ENSO do IRI","IRI / Columbia","O gráfico com as previsões de dezenas de modelos para o Niño 3.4.","Mostra o consenso (e a incerteza) entre os modelos.","https://iri.columbia.edu/our-expertise/climate/forecasts/enso/current/"],
+      ["Climate Driver Update","Bureau of Meteorology (Austrália)","Visão australiana do ENSO e do Dipolo do Oceano Índico.","Útil para mostrar o outro lado do Pacífico.","http://www.bom.gov.au/climate/enso/"]
+    ]},
+    {title:"Brasil e Santa Catarina",items:[
+      ["Epagri/Ciram: tempo e clima","Epagri","Previsões, avisos e notas sobre o El Niño para Santa Catarina, com foco no agro.","A referência para os produtores da região.","https://ciram.epagri.sc.gov.br/index.php/solucoes/tempo-e-clima/"],
+      ["Observatório Agro Catarinense","Epagri/Cepa","Estimativas de safra, boletins agropecuários e preços por cultura e microrregião.","De onde vêm os números da aba de agro.","https://www.observatorioagro.sc.gov.br/"],
+      ["Painel El Niño 2026–2027","Inmet e parceiros","Boletins mensais com monitoramento, previsão e impactos por região, feitos com Inpe, ANA, Cemaden, SGB e Defesa Civil.","A melhor fonte para os impactos no Brasil.","https://portal.inmet.gov.br/"],
+      ["Previsão climática sazonal","CPTEC / Inpe","Mapas de previsão de chuva e temperatura para o trimestre e notas técnicas.","Use para mostrar o mapa oficial de anomalias.","https://clima1.cptec.inpe.br/"]
+    ]}
+  ];
+  const root=document.getElementById("sources");
+  groups.forEach(g=>{
+    const sec=document.createElement("div");sec.className="src-group";
+    const h=document.createElement("h3");h.textContent=g.title;sec.appendChild(h);
+    const list=document.createElement("div");list.className="src-list";
+    g.items.forEach(([name,org,desc,use,url])=>{
+      const a=document.createElement("a");a.className="src";a.href=url;a.target="_blank";a.rel="noopener noreferrer";
+      a.innerHTML='<div class="src-name"></div><div class="src-org"></div><p class="d"></p><p class="use"></p>';
+      a.querySelector(".src-name").textContent=name;a.querySelector(".src-org").textContent=org;
+      a.querySelector(".d").textContent=desc;a.querySelector(".use").textContent=use;
+      list.appendChild(a);
+    });
+    sec.appendChild(list);root.appendChild(sec);
+  });
+})();
+
+/* ===== abas ===== */
+const tabs=[...document.querySelectorAll('[role="tab"]')];
+function show(i,focus){
+  tabs.forEach((t,k)=>{const on=k===i;t.setAttribute("aria-selected",on);t.tabIndex=on?0:-1;document.getElementById(t.getAttribute("aria-controls")).hidden=!on});
+  if(tabs[i].id==="tab-agro") loadAgro();
+  if(focus)tabs[i].focus();
+  window.scrollTo({top:0});
+}
+tabs.forEach((t,i)=>t.addEventListener("click",()=>show(i)));
+document.addEventListener("keydown",e=>{
+  if(e.target.closest("input,textarea"))return;
+  const cur=tabs.findIndex(t=>t.getAttribute("aria-selected")==="true");
+  const onTab=document.activeElement&&document.activeElement.getAttribute("role")==="tab";
+  if(e.key==="ArrowRight"){e.preventDefault();show((cur+1)%tabs.length,onTab)}
+  if(e.key==="ArrowLeft"){e.preventDefault();show((cur-1+tabs.length)%tabs.length,onTab)}
+});
+
+/* ===== inicialização ===== */
+function renderAll(live){ renderHeader(live); renderMap(); renderReadouts(); renderFacts(); renderRoni(); renderOutlook(); }
+renderAll(false);
+(async function(){
+  try{
+    const c=new AbortController(); setTimeout(()=>c.abort(),5000);
+    const r=await fetch("data/enso.json",{cache:"no-store",signal:c.signal});
+    if(!r.ok) return;
+    const j=await r.json();
+    if(!j.regions||!j.roni||!j.roni.values) return;
+    DATA=Object.assign({},FALLBACK,j,{outlook:j.outlook||FALLBACK.outlook});
+    renderAll(true);
+  }catch(e){ /* sem arquivo de dados: segue com os dados embutidos */ }
+})();
+</script>
+
+</body>
+</html>
