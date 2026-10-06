@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Niño no quadro branco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#E7ECEE; --ink:#1B2730; --ink-2:#51636D; --frame:#B9C2C8; --frame-2:#DDE3E6; --btn:#FFFFFF; --btn-line:#B9C4CA; --accent:#1E63B5;
+  --hand:"Kalam","Comic Sans MS","Segoe Print",cursive;
+  --body:"Atkinson Hyperlegible","Segoe UI",Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#141C21;--ink:#E3EAEE;--ink-2:#9FB0B9;--frame:#3B4850;--frame-2:#56656E;--btn:#1E2A31;--btn-line:#3B4B54;--accent:#7DB4F0}
+}
+:root[data-theme="dark"]{--bg:#141C21;--ink:#E3EAEE;--ink-2:#9FB0B9;--frame:#3B4850;--frame-2:#56656E;--btn:#1E2A31;--btn-line:#3B4B54;--accent:#7DB4F0}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);min-height:100%}
+:focus-visible{outline:3px solid #E8892B;outline-offset:2px;border-radius:6px}
+.page{max-width:1240px;margin:0 auto;padding:16px clamp(12px,2.5vw,28px) 28px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 20px;margin-bottom:12px}
+h1{font-family:var(--hand);font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);margin:0;line-height:1.1}
+.sub{color:var(--ink-2);font-size:.95rem;margin:0}
+.stage{width:min(100%, calc((100vh - 250px) * 16 / 9));min-width:min(100%,560px);margin:0 auto}
+.board-frame{background:linear-gradient(180deg,var(--frame-2),var(--frame));padding:10px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.board{position:relative;background:#FDFDFB;border-radius:4px;overflow:hidden;cursor:pointer}
+.board::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.22) 48%,rgba(255,255,255,0) 56%)}
+.board svg{display:block;width:100%;height:auto}
+.tray{height:9px;margin:0 6%;background:var(--frame);border-radius:0 0 6px 6px}
+.caption{font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.5;margin:14px 2px 0;min-height:3.2em;max-width:85ch}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px}
+.controls button{font:inherit;font-weight:700;font-size:.95rem;color:var(--ink);background:var(--btn);border:1px solid var(--btn-line);border-radius:8px;padding:9px 14px;cursor:pointer}
+.controls button:hover{border-color:var(--ink-2)}
+.controls button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.controls .primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dots{display:flex;gap:6px;margin:0 6px}
+.dots button{width:34px;height:34px;padding:0;border-radius:50%;font-family:var(--hand);font-size:1rem}
+.dots button[aria-current="step"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.spacer{flex:1}
+.hint{font-size:.82rem;color:var(--ink-2);margin:10px 2px 0}
+.fs .page{max-width:none;padding:10px}
+:fullscreen .stage{width:min(100%, calc((100vh - 170px) * 16 / 9))}
+:fullscreen{background:var(--bg)}
+/* animações contínuas depois que o quadro termina */
+.drop{animation:drop 1s linear infinite}
+@keyframes drop{0%{transform:translate(0,-4px);opacity:0}25%{opacity:1}100%{transform:translate(-3px,12px);opacity:0}}
+.kelvin{animation:kelvin 4.8s ease-in-out infinite}
+@keyframes kelvin{0%{transform:translateX(0);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:translateX(610px);opacity:0}}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+@media (prefers-reduced-motion:reduce){.drop,.kelvin,.pulse{animation:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Como funciona o El Niño</h1>
+    <p class="sub">Seis quadros, do oceano até as lavouras do Planalto Norte.</p>
+  </header>
+  <div class="stage" id="stage">
+    <div class="board-frame">
+      <div class="board" id="boardWrap" title="Clique para terminar o desenho">
+        <svg id="board" viewBox="0 0 1200 675" role="img" aria-labelledby="sceneTitle">
+          <title id="sceneTitle">Quadro 1</title>
+          <defs>
+            <filter id="rough" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+              <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="1" seed="7" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+            <g id="clips"></g>
+          </defs>
+          <g id="gS"></g>
+          <g id="gT"></g>
+          <g id="pen" style="display:none" aria-hidden="true">
+            <g transform="rotate(-38)">
+              <rect x="-11" y="-118" width="22" height="94" rx="5" fill="#2A3238"/>
+              <rect id="penCap" x="-11" y="-118" width="22" height="24" rx="5" fill="#1F2A33"/>
+              <rect x="-11" y="-60" width="22" height="5" fill="#59646B"/>
+              <path d="M-11,-24 L11,-24 L4,-6 L-4,-6 Z" fill="#B8BEC2"/>
+              <path id="penNib" d="M-4,-6 L4,-6 L0,0 Z" fill="#1F2A33"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="tray" aria-hidden="true"></div>
+    <p class="caption" id="caption" aria-live="polite"></p>
+    <div class="controls">
+      <button id="prev" type="button">Anterior</button>
+      <button id="next" type="button" class="primary">Próximo</button>
+      <div class="dots" id="dots" role="group" aria-label="Escolher quadro"></div>
+      <button id="redraw" type="button">Redesenhar</button>
+      <span class="spacer"></span>
+      <button id="auto" type="button" aria-pressed="false">Passar sozinho</button>
+      <button id="speed" type="button">Velocidade 1x</button>
+      <button id="fs" type="button">Tela cheia</button>
+    </div>
+    <p class="hint">Teclado: → ou espaço avança, ← volta. Clique no quadro para terminar o desenho na hora.</p>
+  </div>
+</div>
+
+<script>
+/* ===== cores de marcador ===== */
+const INK="#1F2A33", BLUE="#1E63B5", RED="#D23B2E", ORANGE="#E8892B", GREEN="#2E8B57", PURPLE="#6B5B95", GRAY="#8A949C", BROWN="#8A5A2B";
+const svg=document.getElementById("board"), gS=document.getElementById("gS"), gT=document.getElementById("gT"), clips=document.getElementById("clips");
+const pen=document.getElementById("pen"), penCap=document.getElementById("penCap"), penNib=document.getElementById("penNib");
+const NS="http://www.w3.org/2000/svg";
+const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function mk(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs){if(attrs[k]!=null)e.setAttribute(k,attrs[k])}if(parent)parent.appendChild(e);return e}
+
+/* ===== geometria ===== */
+const circ=(cx,cy,r)=>`M${cx-r},${cy} a${r},${r} 0 1,0 ${2*r},0 a${r},${r} 0 1,0 ${-2*r},0`;
+function wave(x0,x1,y,a,len){let d=`M${x0},${y}`,up=true;for(let x=x0;x<x1;x+=len){const nx=Math.min(x+len,x1);d+=` Q${(x+nx)/2},${y+(up?-a:a)} ${nx},${y}`;up=!up}return d}
+function smooth(pts,close){let d=`M${pts[0][0]},${pts[0][1]}`;for(let i=1;i<pts.length-1;i++){const [x,y]=pts[i],[nx,ny]=pts[i+1];d+=` Q${x},${y} ${(x+nx)/2},${(y+ny)/2}`}const l=pts[pts.length-1];d+=` L${l[0]},${l[1]}`;return close?d+" Z":d}
+
+/* traço de mão: linhas retas ganham uma leve curva */
+let seed=11; const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280};
+function wobble(d){
+  const m=d.match(/^M\s*(-?[\d.]+),(-?[\d.]+)\s+L\s*(-?[\d.]+),(-?[\d.]+)$/);
+  if(!m) return d;
+  const [x1,y1,x2,y2]=m.slice(1).map(Number), len=Math.hypot(x2-x1,y2-y1);
+  if(len<40) return d;
+  const k=(rnd()-.5)*Math.min(7,len*.03), nx=-(y2-y1)/len, ny=(x2-x1)/len;
+  return `M${x1},${y1} Q${(x1+x2)/2+nx*k},${(y1+y2)/2+ny*k} ${x2},${y2}`;
+}
+
+/* ===== construtor de quadros ===== */
+let items=[], lives=[], clipN=0;
+const B={
+  path(d,o={}){
+    d=wobble(d);
+    const e=mk("path",{d,fill:o.fill||"none","fill-opacity":o.fill?0:null,stroke:o.c||INK,"stroke-width":o.w||4,"stroke-linecap":"round","stroke-linejoin":"round"},o.parent||gS);
+    items.push({e,kind:"stroke",dur:o.dur??700,c:o.c||INK,fo:o.fo,dash:o.dash});
+    if(o.live) lives.push([e,o.live,o.delay]);
+    return e;
+  },
+  arrow(d,o={}){
+    const e=this.path(d,o);
+    const L=e.getTotalLength(),p=e.getPointAtLength(L),q=e.getPointAtLength(Math.max(0,L-14));
+    const a=Math.atan2(p.y-q.y,p.x-q.x),h=o.head||17,s=0.5;
+    const p1=[p.x-h*Math.cos(a-s),p.y-h*Math.sin(a-s)],p2=[p.x-h*Math.cos(a+s),p.y-h*Math.sin(a+s)];
+    this.path(`M${p1[0]},${p1[1]} L${p.x},${p.y} L${p2[0]},${p2[1]}`,{c:o.c,w:o.w,dur:140,parent:o.parent});
+    return e;
+  },
+  text(x,y,s,o={}){
+    const e=mk("text",{x,y,"font-size":o.size||24,"text-anchor":o.anchor||"start",fill:o.c||INK,"font-weight":o.bold?700:400},gT);
+    e.style.fontFamily="var(--hand)"; e.textContent=s;
+    const id="cp"+(clipN++); const cp=mk("clipPath",{id},clips); const r=mk("rect",{x:0,y:0,width:0,height:0},cp);
+    e.setAttribute("clip-path",`url(#${id})`);
+    items.push({e,kind:"text",r,dur:o.dur??Math.max(320,s.length*26),c:o.c||INK});
+    return e;
+  },
+  fade(e,dur){e.style.opacity=0;items.push({e,kind:"fade",dur:dur??500});return e},
+  area(d,fill,fo,dur){const e=mk("path",{d,fill,"fill-opacity":fo,stroke:"none"},gS);return this.fade(e,dur)},
+  pause(ms){items.push({kind:"pause",dur:ms})},
+  /* ícones */
+  cloud(cx,cy,s=1,o={}){
+    const d=`M${cx-55*s},${cy+18*s} C${cx-78*s},${cy+15*s} ${cx-72*s},${cy-16*s} ${cx-45*s},${cy-12*s} C${cx-45*s},${cy-42*s} ${cx-5*s},${cy-47*s} ${cx+5*s},${cy-26*s} C${cx+20*s},${cy-47*s} ${cx+62*s},${cy-36*s} ${cx+52*s},${cy-8*s} C${cx+82*s},${cy-5*s} ${cx+80*s},${cy+23*s} ${cx+50*s},${cy+18*s} Z`;
+    this.path(d,{c:o.c||INK,w:o.w||3.5,fill:"#FFFFFF",fo:1,dur:o.dur??700});
+    if(o.rain!==false) for(let k=0;k<5;k++) this.path(`M${cx-36*s+k*18*s},${cy+30*s} l${-6*s},${22*s}`,{c:o.rc||BLUE,w:3,dur:90,live:"drop",delay:k*0.17});
+  },
+  sun(cx,cy,r,c=ORANGE){
+    this.path(circ(cx,cy,r),{c,w:4,fill:"#FFD36E",fo:.7,dur:500});
+    let d="";for(let k=0;k<8;k++){const a=k*Math.PI/4;d+=`M${cx+(r+7)*Math.cos(a)},${cy+(r+7)*Math.sin(a)} L${cx+(r+17)*Math.cos(a)},${cy+(r+17)*Math.sin(a)} `}
+    this.path(d,{c,w:4,dur:500});
+  },
+  fish(x,y,s=1,c=BLUE){
+    this.path(`M${x},${y} Q${x+14*s},${y-11*s} ${x+30*s},${y} Q${x+14*s},${y+11*s} ${x},${y} Z M${x+30*s},${y} L${x+41*s},${y-8*s} L${x+41*s},${y+8*s} Z`,{c,w:2.6,dur:300});
+    this.path(circ(x+8*s,y-2*s,1.6*s),{c,w:2,dur:60});
+  },
+  flame(x,y,s=1){
+    this.path(`M${x},${y} C${x-16*s},${y-8*s} ${x-14*s},${y-28*s} ${x-2*s},${y-44*s} C${x},${y-32*s} ${x+8*s},${y-30*s} ${x+8*s},${y-20*s} C${x+12*s},${y-26*s} ${x+12*s},${y-32*s} ${x+10*s},${y-38*s} C${x+22*s},${y-28*s} ${x+22*s},${y-6*s} ${x},${y} Z`,{c:RED,w:3,fill:"#F6A04D",fo:.8,dur:450});
+  },
+  thermo(x,y,s=1){
+    this.path(`M${x-7*s},${y} L${x-7*s},${y-60*s} A${7*s},${7*s} 0 0,1 ${x+7*s},${y-60*s} L${x+7*s},${y} A${13*s},${13*s} 0 1,1 ${x-7*s},${y} Z`,{c:INK,w:3,dur:500});
+    this.path(`M${x},${y+5*s} L${x},${y-50*s}`,{c:RED,w:6*s,dur:400});
+  },
+  live(e,cls){lives.push([e,cls,0])}
+};
+
+/* ===== motor de animação ===== */
+let token=0, skip=false, drawing=false, speed=1, cur=0, auto=false, autoTimer=null;
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+function tween(dur,fn,lin){
+  return new Promise(res=>{
+    if(skip||dur<=0){fn(1);return res()}
+    const my=token,t0=performance.now();
+    function f(now){
+      if(my!==token) return res();
+      if(skip){fn(1);return res()}
+      const t=Math.min(1,(now-t0)/(dur/speed));
+      fn(lin?t:ease(t));
+      t<1?requestAnimationFrame(f):res();
+    }
+    requestAnimationFrame(f);
+  });
+}
+function movePen(x,y,c){pen.setAttribute("transform",`translate(${x},${y})`);penCap.setAttribute("fill",c);penNib.setAttribute("fill",c)}
+function prepare(it){
+  if(it.kind==="stroke"){it.L=it.e.getTotalLength()+1;it.e.style.strokeDasharray=it.L;it.e.style.strokeDashoffset=it.L}
+}
+async function run(it){
+  if(it.kind==="stroke"){
+    const {e,L}=it;
+    await tween(it.dur,t=>{e.style.strokeDashoffset=L*(1-t);if(!skip){const p=e.getPointAtLength(Math.min(L-1,L*t));movePen(p.x,p.y,it.c)}},true);
+    e.style.strokeDasharray=it.dash||"none";e.style.strokeDashoffset=0;
+    if(it.fo) await tween(260,t=>e.setAttribute("fill-opacity",it.fo*t));
+  }else if(it.kind==="text"){
+    const bb=it.e.getBBox();
+    it.r.setAttribute("x",bb.x-6);it.r.setAttribute("y",bb.y-8);it.r.setAttribute("height",bb.height+16);
+    await tween(it.dur,t=>{it.r.setAttribute("width",(bb.width+12)*t);if(!skip)movePen(bb.x+bb.width*t,bb.y+bb.height*.78,it.c)},true);
+  }else if(it.kind==="fade"){
+    await tween(it.dur,t=>it.e.style.opacity=t);
+  }else if(it.kind==="pause"){
+    await tween(it.dur,()=>{});
+  }
+}
+function clear(){seed=11;gS.innerHTML="";gT.innerHTML="";clips.innerHTML="";items=[];lives=[];clipN=0}
+async function play(i){
+  const my=++token; clearTimeout(autoTimer);
+  cur=i; skip=reduce; clear(); updateUI();
+  SCENES[i].build(B);
+  items.forEach(prepare);
+  drawing=true; pen.style.display=skip?"none":"block";
+  for(const it of items){ if(my!==token) return; await run(it); }
+  if(my!==token) return;
+  drawing=false; pen.style.display="none";
+  if(!reduce) lives.forEach(([e,cls,delay])=>{e.classList.add(cls); if(delay) e.style.animationDelay=delay+"s"});
+  if(auto && cur<SCENES.length-1) autoTimer=setTimeout(()=>{ if(auto) play(cur+1) },6000/speed);
+  if(auto && cur===SCENES.length-1) setAuto(false);
+}
+function finish(){ if(drawing){ skip=true; pen.style.display="none"; } }
+
+/* ===== base do corte do Pacífico ===== */
+function basePacific(b,fast){
+  const d=fast?0.45:1;
+  b.area("M172,301 L1030,301 L1010,620 L190,620 Z","#BFDDF2",.45,300*d);
+  b.path("M30,620 L30,262 Q58,222 96,238 Q132,214 166,256 L172,300 L190,620 Z",{c:INK,w:3.5,fill:"#EADBC2",fo:1,dur:900*d});
+  b.path("M1010,620 L1030,300 L1042,252 L1066,206 L1086,158 L1102,122 L1120,166 L1140,140 L1172,196 L1172,620 Z",{c:INK,w:3.5,fill:"#EADBC2",fo:1,dur:900*d});
+  b.path(wave(172,1030,300,4,40),{c:BLUE,w:3.5,dur:800*d});
+  b.path("M190,620 Q400,610 600,622 T1010,616",{c:INK,w:3,dur:400*d});
+  b.text(100,452,"Indonésia",{size:20,anchor:"middle",dur:250*d});
+  b.text(100,476,"e Austrália",{size:20,anchor:"middle",dur:250*d});
+  b.text(1092,452,"América",{size:20,anchor:"middle",dur:250*d});
+  b.text(1092,476,"do Sul",{size:20,anchor:"middle",dur:250*d});
+  b.text(600,656,"Oceano Pacífico na linha do Equador, visto em corte",{size:19,anchor:"middle",c:GRAY,dur:500*d});
+}
+
+/* ===== quadros ===== */
+const SCENES=[
+{ title:"1. Condições normais",
+  caption:"No normal, os ventos alísios sopram de leste para oeste e empurram a água quente da superfície para perto da Indonésia e da Austrália. Lá o ar sobe, forma nuvens e chove muito. Na costa do Peru, a água fria do fundo sobe e traz nutrientes: é um dos mares mais ricos em peixe do mundo.",
+  build(b){
+    b.text(30,46,"1. Condições normais",{size:34,bold:true});
+    basePacific(b);
+    b.path("M175,301 L1028,301 L1025,333 C800,343 500,398 182,462 Z",{c:ORANGE,w:2.5,fill:"#F5A54A",fo:.5,dur:1000});
+    b.text(330,362,"acima de 28 °C",{c:RED});
+    b.path("M182,462 C500,398 800,343 1025,333",{c:INK,w:3,dash:"10 9",dur:900});
+    b.text(560,422,"termoclina",{size:22});
+    b.text(600,548,"água fria",{c:BLUE,size:28});
+    b.pause(300);
+    b.arrow("M900,274 L770,274",{c:BLUE,w:4.5,dur:350});
+    b.arrow("M700,274 L570,274",{c:BLUE,w:4.5,dur:350});
+    b.arrow("M500,274 L370,274",{c:BLUE,w:4.5,dur:350});
+    b.text(635,253,"ventos alísios sopram de leste para oeste",{c:BLUE,size:22,anchor:"middle"});
+    b.pause(250);
+    b.cloud(200,150,1);
+    b.text(200,88,"muita chuva",{c:BLUE,size:22,anchor:"middle"});
+    b.arrow("M330,235 L330,96",{c:PURPLE,w:3.5,dur:400});
+    b.arrow("M350,72 L880,72",{c:PURPLE,w:3.5,dur:700});
+    b.arrow("M905,96 L905,230",{c:PURPLE,w:3.5,dur:400});
+    b.text(615,56,"célula de Walker: o ar sobe a oeste e desce a leste",{c:PURPLE,size:20,anchor:"middle"});
+    b.sun(990,106,24);
+    b.text(990,178,"tempo seco",{size:22,anchor:"middle"});
+    b.pause(250);
+    b.arrow("M965,572 C985,500 1000,420 1004,318",{c:BLUE,w:5,dur:900});
+    b.text(948,488,"ressurgência:",{c:BLUE,size:21,anchor:"end"});
+    b.text(948,512,"água fria e",{c:BLUE,size:21,anchor:"end"});
+    b.text(948,536,"nutrientes sobem",{c:BLUE,size:21,anchor:"end"});
+    b.fish(880,372,1); b.fish(915,392,.9); b.fish(868,400,.8);
+    b.text(895,430,"muitos peixes",{size:20,anchor:"middle"});
+  }},
+{ title:"2. Os ventos enfraquecem",
+  caption:"De vez em quando os alísios perdem força e surgem rajadas de vento de oeste. Sem o vento segurando, a água quente acumulada no oeste começa a escorrer para leste numa onda gigante e lenta, a onda Kelvin, que leva de 2 a 3 meses para cruzar o Pacífico. A chuva começa a migrar junto.",
+  build(b){
+    b.text(30,46,"2. Os ventos enfraquecem",{size:34,bold:true});
+    basePacific(b,true);
+    b.path("M175,301 L1028,301 L1025,333 C800,343 500,398 182,462 Z",{c:ORANGE,w:2,fill:"#F5A54A",fo:.28,dur:500});
+    b.path("M182,462 C500,398 800,343 1025,333",{c:GRAY,w:2.5,dash:"8 10",dur:500});
+    b.pause(200);
+    b.arrow("M880,274 L830,274",{c:GRAY,w:2.5,dur:250,head:11});
+    b.arrow("M660,274 L610,274",{c:GRAY,w:2.5,dur:250,head:11});
+    b.text(855,252,"alísios fracos",{c:GRAY,size:21,anchor:"middle"});
+    b.arrow("M250,272 L390,272",{c:RED,w:5.5,dur:400});
+    b.arrow("M420,272 L560,272",{c:RED,w:5.5,dur:400});
+    b.text(405,250,"rajadas de vento de oeste",{c:RED,size:22,anchor:"middle"});
+    b.pause(300);
+    const bump=mk("path",{d:"M300,302 Q345,288 390,302 Z",fill:"#E8892B","fill-opacity":.9,stroke:RED,"stroke-width":2},gS);
+    b.fade(bump,300); b.live(bump,"kelvin");
+    b.arrow("M330,326 C500,320 700,320 960,326",{c:RED,w:4.5,dur:1100});
+    b.text(640,354,"onda Kelvin: a água quente viaja para leste",{c:RED,size:22,anchor:"middle"});
+    b.text(640,380,"(leva de 2 a 3 meses para atravessar)",{size:19,anchor:"middle"});
+    b.path("M182,450 C500,428 800,398 1025,380",{c:RED,w:3,dash:"10 9",dur:900});
+    b.text(860,425,"a termoclina afunda no leste",{c:RED,size:20,anchor:"middle"});
+    b.pause(250);
+    b.cloud(190,150,.75,{c:GRAY,rc:GRAY});
+    b.arrow("M275,150 L430,150",{c:GRAY,w:3,dur:450});
+    b.cloud(540,150,.9);
+    b.text(540,92,"a chuva começa a migrar",{c:BLUE,size:22,anchor:"middle"});
+    b.arrow("M965,572 C985,510 995,460 998,412",{c:BLUE,w:3,dur:600});
+    b.text(950,520,"ressurgência",{c:BLUE,size:20,anchor:"end"});
+    b.text(950,544,"perde força",{c:BLUE,size:20,anchor:"end"});
+  }},
+{ title:"3. El Niño",
+  caption:"Pronto, é El Niño: a camada de água quente se espalha por todo o Pacífico equatorial e chega à América do Sul, com o mar 2 a 4 °C acima do normal perto do Peru. A ressurgência quase para e os peixes somem. A chuva muda de lugar: agora cai no meio do Pacífico e no litoral do Peru, enquanto a Indonésia e a Austrália secam.",
+  build(b){
+    b.text(30,46,"3. El Niño",{size:34,bold:true});
+    basePacific(b,true);
+    b.path("M175,301 L1028,301 L1025,398 C800,402 500,408 182,420 Z",{c:RED,w:2.5,fill:"#F08A3E",fo:.55,dur:1300});
+    const hot=mk("path",{d:"M860,318 Q960,296 1024,312 Q960,336 860,318 Z",fill:"#D23B2E","fill-opacity":.45,stroke:"none"},gS);
+    b.fade(hot,500); b.live(hot,"pulse");
+    b.text(780,356,"+2 a +4 °C acima do normal",{c:RED,size:23,anchor:"middle",bold:true});
+    b.path("M182,420 C500,408 800,402 1025,398",{c:INK,w:3,dash:"10 9",dur:800});
+    b.text(560,446,"termoclina achatada",{size:22,anchor:"middle"});
+    b.text(600,566,"água fria",{c:BLUE,size:28});
+    b.pause(250);
+    b.arrow("M300,274 L440,274",{c:RED,w:5,dur:350});
+    b.arrow("M560,274 L700,274",{c:RED,w:5,dur:350});
+    b.text(500,252,"alísios fracos ou invertidos",{c:RED,size:22,anchor:"middle"});
+    b.pause(200);
+    b.cloud(780,150,1);
+    b.text(760,224,"chuva forte",{c:BLUE,size:22,anchor:"middle"});
+    b.arrow("M880,235 L880,96",{c:PURPLE,w:3.5,dur:400});
+    b.arrow("M860,72 L330,72",{c:PURPLE,w:3.5,dur:650});
+    b.arrow("M305,96 L305,225",{c:PURPLE,w:3.5,dur:400});
+    b.text(600,52,"o ar agora sobe no meio do Pacífico",{c:PURPLE,size:20,anchor:"middle"});
+    b.sun(185,118,22,RED);
+    b.flame(60,242,1); b.flame(132,224,.8);
+    b.text(190,180,"seca e incêndios",{c:RED,size:21,anchor:"middle"});
+    b.cloud(1102,62,.5);
+    b.text(1102,22,"enchentes no Peru",{c:BLUE,size:18,anchor:"middle"});
+    b.pause(250);
+    b.arrow("M970,572 C982,525 990,488 993,452",{c:BLUE,w:3,dur:500});
+    b.text(955,520,"ressurgência fraca:",{c:BLUE,size:20,anchor:"end"});
+    b.text(955,544,"a água fria não",{c:BLUE,size:20,anchor:"end"});
+    b.text(955,568,"chega à superfície",{c:BLUE,size:20,anchor:"end"});
+    b.fish(670,476,.9,GRAY);
+    b.text(690,508,"peixes somem",{size:20,anchor:"middle",c:GRAY});
+  }},
+{ title:"4. O mundo sente",
+  caption:"Como a chuva muda de lugar no Pacífico, a circulação da atmosfera inteira se reorganiza, e o efeito chega a lugares a milhares de quilômetros. Há seca e incêndios na Austrália e na Indonésia, enchentes no Peru, seca na Amazônia e no Nordeste, chuva demais no Sul do Brasil. E o calor extra liberado pelo oceano costuma fazer dos anos de El Niño os mais quentes já medidos.",
+  build(b){
+    b.text(30,46,"4. O mundo sente",{size:34,bold:true});
+    b.path(circ(600,350,82),{c:RED,w:4,fill:"#F5A54A",fo:.55,dur:900});
+    b.text(600,364,"El Niño",{size:40,bold:true,anchor:"middle"});
+    b.text(30,82,"a atmosfera leva o efeito para longe",{size:22,c:PURPLE});
+    const nodes=[
+      {br:"M528,312 Q470,210 420,180",icon:()=>{b.sun(95,130,18,RED);b.flame(132,178,.75)},t:[["Austrália e Indonésia",true],["seca e incêndios florestais",false]],x:160,y:142,a:"start",c:RED},
+      {br:"M518,352 L462,355",icon:()=>b.cloud(100,355,.6),t:[["Peru e Equador",true],["chuvas fortes e enchentes",false]],x:170,y:345,a:"start",c:BLUE},
+      {br:"M530,392 Q470,500 420,532",icon:()=>{b.fish(70,545,1.1,BLUE);b.path("M64,530 L118,562 M118,530 L64,562",{c:RED,w:3.5,dur:250})},t:[["Pesca no Pacífico",true],["a anchova despenca",false]],x:160,y:540,a:"start",c:INK},
+      {br:"M672,312 Q730,210 780,180",icon:()=>b.sun(1105,135,20),t:[["Amazônia e Nordeste",true],["seca e calor",false]],x:1060,y:142,a:"end",c:ORANGE},
+      {br:"M682,352 L738,355",icon:()=>b.cloud(1100,355,.6),t:[["Sul do Brasil",true],["chuva acima da média",false]],x:1030,y:345,a:"end",c:BLUE},
+      {br:"M670,392 Q730,500 780,532",icon:()=>b.thermo(1105,555,1),t:[["Planeta mais quente",true],["anos de El Niño batem recordes",false]],x:1070,y:540,a:"end",c:RED}
+    ];
+    nodes.forEach(n=>{
+      b.path(n.br,{c:GRAY,w:3,dur:350});
+      n.icon();
+      n.t.forEach(([s,bold],k)=>b.text(n.x,n.y+k*28,s,{size:bold?23:21,bold,anchor:n.a,c:bold?n.c:INK}));
+      b.pause(150);
+    });
+    b.text(600,630,"são tendências, não certezas: cada El Niño é diferente",{size:20,anchor:"middle",c:GRAY});
+  }},
+{ title:"5. Por que chove no Sul?",
+  caption:"No Sul do Brasil, o El Niño deixa mais forte a corrente de jato, um rio de vento lá no alto. Ela funciona como uma barreira: as frentes frias chegam e ficam paradas sobre o Sul. Ao mesmo tempo, ventos trazem umidade da Amazônia, que alimenta as nuvens. Resultado: chuva que se repete por dias e rios cheios.",
+  build(b){
+    b.text(30,46,"5. Por que chove no Sul?",{size:34,bold:true});
+    const P=(lon,lat)=>[600+(lon+58)*9,40+(13-lat)*9];
+    const outline=[[-72,12],[-67,10.5],[-62,10.5],[-60,8.5],[-57,6],[-52,5],[-50,2],[-48,-1],[-44,-2.5],[-40,-3],[-37,-5],[-35,-6],[-35,-9],[-37,-12],[-39,-15],[-39.5,-18],[-41,-22],[-44,-23],[-48,-26],[-48.5,-28.5],[-51,-31],[-53,-34],[-55,-35],[-57.5,-35.5],[-57,-38],[-62,-39],[-65,-41],[-64,-43],[-66,-45.5],[-67.5,-47],[-65.5,-49],[-68.5,-51],[-68.5,-53],[-70,-55],[-73,-53],[-75,-49],[-74,-45],[-73.5,-41],[-73.5,-37],[-71.5,-32],[-71.3,-28],[-70.5,-24],[-70.2,-18.5],[-75,-15],[-77,-12],[-79,-8],[-81,-5],[-80,-1],[-80,1.5],[-78.5,2.5],[-77.5,7],[-75,10.5],[-72,12]].map(([a,c])=>P(a,c));
+    b.path(smooth(outline,true),{c:INK,w:3.5,fill:"#F1E9D8",fo:1,dur:2400});
+    b.text(555,205,"Amazônia",{c:GREEN,size:22,anchor:"middle"});
+    b.sun(705,140,18);
+    b.text(735,108,"Norte e Nordeste: seca",{c:ORANGE,size:21});
+    b.pause(250);
+    b.arrow("M566,222 C540,285 560,342 636,392",{c:GREEN,w:5,dur:900});
+    b.text(566,250,"umidade da",{c:GREEN,size:20});
+    b.text(566,272,"Amazônia",{c:GREEN,size:20});
+    b.pause(200);
+    b.arrow("M405,372 C480,348 540,394 612,368 S742,344 832,370",{c:RED,w:6,dur:1100});
+    b.text(392,362,"corrente de jato",{c:RED,size:21,anchor:"end"});
+    b.text(392,386,"mais forte (no alto)",{c:RED,size:21,anchor:"end"});
+    b.pause(200);
+    b.path("M545,470 Q620,442 712,426",{c:BLUE,w:4,dur:600});
+    [[575,457],[620,443],[665,434]].forEach(([x,y])=>b.path(`M${x-9},${y+3} L${x+9},${y-3} L${x+3},${y-16} Z`,{c:BLUE,w:2.5,fill:BLUE,fo:1,dur:140}));
+    b.text(392,470,"frentes frias",{c:BLUE,size:21,anchor:"end"});
+    b.text(392,494,"ficam travadas",{c:BLUE,size:21,anchor:"end"});
+    b.cloud(648,322,.62);
+    const m=P(-49.8,-26.1);
+    b.path(circ(m[0],m[1],6),{c:RED,w:4,fill:RED,fo:1,dur:200});
+    b.text(m[0]+12,m[1]+20,"Mafra",{size:20,bold:true});
+    b.pause(300);
+    const L=[["1. O Pacífico quente","aquece a atmosfera"],["2. O jato fica mais forte","sobre o Sul do Brasil"],["3. As frentes frias param","e a chuva se repete"],["4. A umidade da Amazônia","alimenta as nuvens"]];
+    L.forEach(([a,c],k)=>{b.text(860,200+k*82,a,{size:22,bold:true});b.text(860,226+k*82,c,{size:21})});
+    b.text(860,546,"= chuva persistente",{size:25,bold:true,c:BLUE});
+    b.text(860,576,"e rios cheios",{size:25,bold:true,c:BLUE});
+  }},
+{ title:"6. E aqui em Mafra e região?",
+  caption:"Aqui o El Niño já deixou marcas: as maiores cheias recentes do rio Negro, em 1983 e 1992, foram em anos de El Niño muito forte. A microrregião de Canoinhas, onde fica Mafra, lidera Santa Catarina no tabaco, no feijão e na soja, e a Epagri/Ciram prevê chuva que pode chegar a três vezes o normal em outubro e novembro. Planejar a safra é a melhor defesa.",
+  build(b){
+    b.text(30,46,"6. E aqui em Mafra e região?",{size:34,bold:true});
+    b.path("M110,560 L110,190 L160,190 L160,560 Z",{c:INK,w:3.5,dur:600});
+    const water=mk("path",{d:"M112,558 L112,204 L158,204 L158,558 Z",fill:"#5E95C4","fill-opacity":.6},gS);
+    b.fade(water,900);
+    let ticks="";for(let k=0;k<=14;k+=2){const y=558-k*25.3;ticks+=`M160,${y} L${k%4===0?176:170},${y} `}
+    b.path(ticks,{c:INK,w:2.5,dur:400});
+    b.text(186,563,"0 m",{size:18});
+    b.text(186,210,"14 m",{size:18});
+    b.text(232,236,"rio Negro",{size:24,bold:true,c:BLUE});
+    b.text(232,266,"1983 e 1992:",{size:22});
+    b.text(232,294,"subiu mais de 14 m",{size:22});
+    b.text(232,336,"anos de El Niño",{size:21,c:RED});
+    b.text(232,362,"muito forte",{size:21,c:RED});
+    b.pause(300);
+    b.path("M440,250 C420,200 450,160 480,150 C510,160 540,200 520,250 C505,280 455,280 440,250 Z M480,150 L480,280",{c:GREEN,w:3,fill:"#9CC58A",fo:.6,dur:700});
+    b.path("M585,265 C575,225 590,180 615,160 C632,170 640,195 632,230 C626,252 612,270 595,272 Z M612,185 a7,7 0 1,0 0.1,0 M606,215 a7,7 0 1,0 0.1,0 M600,244 a7,7 0 1,0 0.1,0",{c:BROWN,w:3,fill:"#D9C27A",fo:.5,dur:700});
+    b.path("M720,230 C710,195 745,180 765,195 C772,205 768,212 760,214 C772,220 780,240 760,256 C740,272 722,256 720,230 Z",{c:BROWN,w:3,fill:"#B5835A",fo:.55,dur:500});
+    b.text(480,312,"tabaco",{size:22,anchor:"middle"});
+    b.text(610,312,"soja",{size:22,anchor:"middle"});
+    b.text(745,312,"feijão",{size:22,anchor:"middle"});
+    b.text(612,352,"a microrregião lidera SC nas três",{size:22,anchor:"middle",bold:true});
+    b.pause(250);
+    [["plantio atrasa",RED],["mais doenças com a umidade",RED],["colheita com chuva",RED],["erosão do solo",RED]].forEach(([s,c],k)=>{
+      b.path(`M440,${418+k*44} L462,${418+k*44}`,{c,w:4,dur:120});
+      b.text(474,426+k*44,s,{size:23});
+    });
+    b.pause(250);
+    b.cloud(1015,170,1.1);
+    b.text(1015,280,"out–nov: chuva pode",{size:22,anchor:"middle"});
+    b.text(1015,310,"chegar a 3x o normal",{size:24,anchor:"middle",bold:true,c:BLUE});
+    b.text(1015,336,"(Epagri/Ciram)",{size:18,anchor:"middle",c:GRAY});
+    b.text(1015,430,"acompanhe os avisos:",{size:22,anchor:"middle"});
+    b.text(1015,462,"Epagri/Ciram",{size:23,anchor:"middle",bold:true});
+    b.text(1015,492,"Defesa Civil SC",{size:23,anchor:"middle",bold:true});
+    b.pause(250);
+    b.text(600,618,"planejar a safra é a melhor defesa",{size:30,anchor:"middle",bold:true});
+    b.path("M370,632 Q600,642 830,630",{c:ORANGE,w:4,dur:500});
+  }}
+];
+
+/* ===== interface ===== */
+const cap=document.getElementById("caption"), dots=document.getElementById("dots");
+SCENES.forEach((s,i)=>{const d=document.createElement("button");d.type="button";d.textContent=i+1;d.setAttribute("aria-label",s.title);d.addEventListener("click",()=>play(i));dots.appendChild(d)});
+function updateUI(){
+  cap.textContent=SCENES[cur].caption;
+  document.getElementById("sceneTitle").textContent=SCENES[cur].title;
+  [...dots.children].forEach((d,i)=>{if(i===cur)d.setAttribute("aria-current","step");else d.removeAttribute("aria-current")});
+  document.getElementById("prev").disabled=cur===0;
+  document.getElementById("next").textContent=cur===SCENES.length-1?"Recomeçar":"Próximo";
+}
+const next=()=>play(cur===SCENES.length-1?0:cur+1);
+const prev=()=>{ if(cur>0) play(cur-1) };
+document.getElementById("next").addEventListener("click",next);
+document.getElementById("prev").addEventListener("click",prev);
+document.getElementById("redraw").addEventListener("click",()=>play(cur));
+document.getElementById("boardWrap").addEventListener("click",finish);
+function setAuto(on){auto=on;const b=document.getElementById("auto");b.setAttribute("aria-pressed",on);clearTimeout(autoTimer);if(on&&!drawing&&cur<SCENES.length-1)autoTimer=setTimeout(()=>play(cur+1),2500)}
+document.getElementById("auto").addEventListener("click",()=>setAuto(!auto));
+const speeds=[1,1.5,2];
+document.getElementById("speed").addEventListener("click",e=>{speed=speeds[(speeds.indexOf(speed)+1)%speeds.length];e.target.textContent="Velocidade "+String(speed).replace(".",",")+"x"});
+const fsBtn=document.getElementById("fs");
+if(!document.fullscreenEnabled) fsBtn.hidden=true;
+fsBtn.addEventListener("click",async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch(e){fsBtn.hidden=true}});
+document.addEventListener("fullscreenchange",()=>{fsBtn.textContent=document.fullscreenElement?"Sair da tela cheia":"Tela cheia"});
+document.addEventListener("keydown",e=>{
+  if(e.target.closest("input,textarea")) return;
+  if(e.key==="ArrowRight"||e.key==="PageDown"){e.preventDefault();next()}
+  else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();prev()}
+  else if(e.key===" "){ if(e.target.tagName==="BUTTON") return; e.preventDefault(); drawing?finish():next() }
+});
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>play(0));
+</script>
+</body>
+</html>
