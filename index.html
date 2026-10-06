@@ -209,6 +209,76 @@ footer p{margin:4px 0;max-width:90ch}
 }
 .howto{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;text-decoration:none}
 .howto:hover{border-color:var(--ink)}
+/* comece aqui */
+.now-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.now-kicker{font-size:.85rem;font-weight:700;color:var(--ink-2)}
+.now-big{font-family:var(--display);font-stretch:70%;font-weight:800;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;margin:4px 0 8px}
+.now-text p{margin:0;color:var(--ink-2);max-width:48ch}
+#gauge{display:block;width:100%;min-width:480px;height:auto}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.q-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.q-card p{margin:0}
+.q-num{font-family:var(--display);font-stretch:70%;font-weight:800;font-size:2rem;line-height:1;color:#C73A33}
+.anim-card{display:flex;align-items:center;gap:18px;margin-top:18px;padding:14px 18px;border-radius:12px;background:var(--chip);color:var(--ink);text-decoration:none;border:1px solid var(--line)}
+.anim-card:hover{border-color:var(--ink)}
+.anim-card svg{width:150px;flex:none;height:auto}
+.anim-card strong{display:block;font-family:var(--display);font-stretch:85%;font-size:1.3rem}
+.anim-card span span{color:var(--ink-2)}
+h3.sec{font-size:1.45rem;margin-top:34px}
+.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
+.phase{border-radius:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-top:7px solid var(--c)}
+.phase p{margin:6px 0 0;font-size:.95rem}
+.ph-la{--c:#2E5C9E}.ph-ne{--c:#8A949C}.ph-el{--c:#C73A33}
+.faq{margin-top:8px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 4px;font-family:var(--display);font-stretch:88%;font-weight:700;font-size:1.1rem;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--ink-2)}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin:0 4px 16px;max-width:75ch}
+.goto{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:10px}
+.goto button{font:inherit;text-align:left;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+.goto button:hover{border-color:var(--ink)}
+.goto b{display:block;font-family:var(--display);font-stretch:88%}
+.goto span{font-size:.88rem;color:var(--ink-2)}
+/* história */
+#floods,#escada{display:block;width:100%;height:auto;min-width:640px}
+.events{display:grid;gap:8px;margin-top:18px}
+.event{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;align-items:baseline;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:8px;padding:10px 14px}
+.ev-el{--c:#C73A33}.ev-ne{--c:#8A949C}
+.ev-year{font-family:var(--display);font-stretch:70%;font-weight:800;font-size:1.8rem;line-height:1}
+.alertbox{margin-top:26px;background:#FBE9C9;color:#3A2A00;border-radius:14px;padding:18px 20px}
+.alertbox h3{color:#3A2A00}
+.alert-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:8px 0}
+.alert-grid .big-num{font-family:var(--display);font-stretch:72%;font-weight:800;font-size:1.7rem;line-height:1.05}
+.alert-grid p{margin:2px 0 0;font-size:.9rem}
+.alertbox > p{margin:6px 0 0}
+.know,.debate{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.know{border-top:6px solid #2E8B57}.debate{border-top:6px solid #E8892B}
+@media (max-width:820px){
+  .now-card,.three,.phases{grid-template-columns:1fr}
+  .alert-grid{grid-template-columns:1fr 1fr}
+  .anim-card svg{width:110px}
+}
+.river-now{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:20px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.rn-level{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 6px}
+#rn-nivel{font-family:var(--display);font-stretch:70%;font-weight:800;font-size:clamp(2.6rem,6vw,3.8rem);line-height:1;font-variant-numeric:tabular-nums}
+.rn-status{display:inline-block;color:#fff;font-weight:700;font-size:.9rem;border-radius:999px;padding:4px 12px;background:#5E8C6A}
+#rn-meta{margin:0 0 12px;color:var(--ink-2)}
+.rn-link{display:inline-block;font-weight:700;color:var(--accent)}
+#rn-chart{display:block;width:100%;min-width:420px;height:auto}
+#maximas{display:block;width:100%;height:auto;min-width:700px}
+.contacts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:14px 0 4px}
+.contact b{display:block}
+.contact a{color:inherit;font-weight:700}
+.alert-grid>div{min-width:0}
+.start-river{font:inherit;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:14px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--chip);cursor:pointer;text-align:left}
+.start-river:hover{border-color:var(--ink)}
+.start-river .now-kicker{width:100%}
+.sr-n{font-family:var(--display);font-stretch:72%;font-weight:800;font-size:1.7rem;line-height:1;font-variant-numeric:tabular-nums}
+.sr-t{font-size:.88rem;color:var(--ink-2)}
+@media (max-width:820px){.river-now{grid-template-columns:1fr}}
+.br-legend svg{display:inline-block!important;width:28px!important;min-width:0!important;height:10px!important}
 </style>
 </head>
 <body>
@@ -223,11 +293,14 @@ footer p{margin:4px 0;max-width:90ch}
       </div>
     </div>
     <nav class="tabs" role="tablist" aria-label="Seções do monitor">
-      <button role="tab" id="tab-agora" aria-controls="p-agora" aria-selected="true">Agora no Pacífico</button>
-      <button role="tab" id="tab-evol" aria-controls="p-evol" aria-selected="false" tabindex="-1">Evolução histórica</button>
+      <button role="tab" id="tab-start" aria-controls="p-start" aria-selected="true">Comece aqui</button>
+      <button role="tab" id="tab-agora" aria-controls="p-agora" aria-selected="false" tabindex="-1">Agora no Pacífico</button>
       <button role="tab" id="tab-prev" aria-controls="p-prev" aria-selected="false" tabindex="-1">Previsões</button>
       <button role="tab" id="tab-br" aria-controls="p-br" aria-selected="false" tabindex="-1">Impactos no Brasil</button>
-      <button role="tab" id="tab-agro" aria-controls="p-agro" aria-selected="false" tabindex="-1">Agro em Mafra e região</button>
+      <button role="tab" id="tab-hist" aria-controls="p-hist" aria-selected="false" tabindex="-1">Rio Negro e a história</button>
+      <button role="tab" id="tab-agro" aria-controls="p-agro" aria-selected="false" tabindex="-1">Agro em Mafra</button>
+      <button role="tab" id="tab-clima" aria-controls="p-clima" aria-selected="false" tabindex="-1">Mudanças climáticas</button>
+      <button role="tab" id="tab-evol" aria-controls="p-evol" aria-selected="false" tabindex="-1">Evolução histórica</button>
       <button role="tab" id="tab-src" aria-controls="p-src" aria-selected="false" tabindex="-1">Satélite e fontes</button>
     </nav>
     <p class="hint">Durante a palestra, use as setas ← → do teclado para trocar de seção.</p>
@@ -236,8 +309,152 @@ footer p{margin:4px 0;max-width:90ch}
 
 <main class="wrap">
 
+<!-- COMECE AQUI -->
+<section class="panel" id="p-start" role="tabpanel" aria-labelledby="tab-start">
+  <h2>El Niño: o que é, por que acontece e o que muda em Mafra</h2>
+  <p class="lede">Este painel explica o fenômeno para qualquer pessoa e acompanha, quase em tempo real, o El Niño de 2026–27, que pode ser o mais forte já medido.</p>
+
+  <div class="now-card">
+    <div class="now-text">
+      <div class="now-kicker">Situação agora</div>
+      <div class="now-big" id="now-big">El Niño</div>
+      <p id="now-sub"></p>
+      <button type="button" class="start-river" id="start-river" data-goto="tab-hist"><span class="now-kicker">Rio Negro agora</span><span class="sr-n">–</span><span class="rn-status"></span><span class="sr-t"></span></button>
+    </div>
+    <div class="scroll-x"><svg id="gauge" viewBox="0 0 640 140" role="img" aria-label="Termômetro do El Niño com a leitura atual do Pacífico"></svg></div>
+  </div>
+
+  <div class="three">
+    <div class="q-card"><div class="q-num">1</div><h3>O que é?</h3><p>Um aquecimento fora do normal das águas do Oceano Pacífico, na altura da linha do Equador. Parece longe daqui, mas esse calor muda os ventos e o caminho da chuva em boa parte do planeta.</p></div>
+    <div class="q-card"><div class="q-num">2</div><h3>O que causa?</h3><p>Os ventos que normalmente empurram a água quente para o lado da Austrália perdem força. A água quente escorre de volta para o lado da América do Sul, e uma coisa reforça a outra: mar mais quente enfraquece ainda mais os ventos.</p></div>
+    <div class="q-card"><div class="q-num">3</div><h3>O que muda aqui?</h3><p>No Sul do Brasil, o El Niño costuma trazer chuva acima da média, principalmente no inverno e na primavera. Em Mafra, isso significa mais risco de cheia do rio Negro e de excesso de umidade nas lavouras.</p></div>
+  </div>
+
+  <a class="anim-card" id="anim-link" href="explicacao.html">
+    <svg viewBox="0 0 220 110" aria-hidden="true">
+      <rect x="2" y="2" width="216" height="106" rx="6" fill="#FDFDFB" stroke="#B9C2C8" stroke-width="3"/>
+      <path d="M20,60 Q40,56 60,60 T100,60 T140,60 T180,60 T200,60" fill="none" stroke="#1E63B5" stroke-width="3" stroke-linecap="round"/>
+      <path d="M22,61 L198,61 L196,70 C150,72 90,80 24,88 Z" fill="#F5A54A" fill-opacity=".55"/>
+      <path d="M170,44 L120,44 M128,38 L120,44 L128,50" fill="none" stroke="#1E63B5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M38,30 c-8,0 -8,-10 0,-10 c2,-8 14,-8 16,0 c8,0 8,10 0,10 Z" fill="#fff" stroke="#1F2A33" stroke-width="2"/>
+      <circle cx="185" cy="26" r="9" fill="#FFD36E" stroke="#E8892B" stroke-width="2"/>
+    </svg>
+    <span><strong>Assista: como funciona o El Niño</strong><span>Animação em quadro branco, 6 quadros, do oceano até as lavouras do Planalto Norte.</span></span>
+  </a>
+
+  <h3 class="sec">As três fases do ciclo</h3>
+  <p class="note">O El Niño é uma das três fases de um ciclo natural chamado ENOS (El Niño–Oscilação Sul). O Pacífico alterna entre elas de forma irregular.</p>
+  <div class="phases">
+    <div class="phase ph-la"><h3>La Niña</h3><p><b>No Pacífico:</b> água mais fria que o normal, ventos alísios mais fortes.</p><p><b>No Sul do Brasil:</b> costuma faltar chuva, com estiagens, como nos anos secos de 2020 a 2022.</p><p><b>Em Mafra:</b> risco de seca nas lavouras e rios baixos.</p></div>
+    <div class="phase ph-ne"><h3>Neutro</h3><p><b>No Pacífico:</b> temperaturas perto da média.</p><p><b>No Sul do Brasil:</b> o tempo depende de outros fatores, sem um empurrão claro do Pacífico.</p><p><b>Em Mafra:</b> cheias ainda podem acontecer: a terceira maior da história, em 2014, foi num ano neutro.</p></div>
+    <div class="phase ph-el"><h3>El Niño</h3><p><b>No Pacífico:</b> água mais quente que o normal, alísios fracos.</p><p><b>No Sul do Brasil:</b> chuva acima da média, principalmente no inverno e na primavera.</p><p><b>Em Mafra:</b> mais risco de cheia do rio Negro e de excesso de chuva no campo.</p></div>
+  </div>
+
+  <h3 class="sec">Perguntas frequentes</h3>
+  <div class="faq">
+    <details><summary>Por que se chama “El Niño”?</summary><p>Pescadores do Peru percebiam que, em alguns anos, a água do mar esquentava perto do Natal e os peixes sumiam. Chamaram o fenômeno de “El Niño”, que em espanhol quer dizer “o menino”, em referência ao Menino Jesus.</p></details>
+    <details><summary>O El Niño é causado pelo aquecimento global?</summary><p>Não. É um fenômeno natural, que existe há milhares de anos: há sinais dele em corais e sedimentos muito antigos. Mas hoje ele acontece num planeta mais quente, e os dois efeitos se somam. A aba “Mudanças climáticas” explica como.</p></details>
+    <details><summary>De quanto em quanto tempo ele acontece? Quanto tempo dura?</summary><p>Não tem calendário fixo: costuma voltar a cada 2 a 7 anos. Cada episódio dura em geral de 9 a 12 meses, mas alguns passam de um ano e chegam a dois.</p></details>
+    <details><summary>Por que algo no meio do Pacífico mexe com o tempo em Mafra?</summary><p>Porque a atmosfera é toda conectada. Quando a chuva muda de lugar no Pacífico, a circulação dos ventos no planeta se reorganiza. No Sul do Brasil, a corrente de jato (um “rio de vento” lá no alto) fica mais forte e segura as frentes frias sobre a região, enquanto a umidade da Amazônia alimenta as nuvens. O quadro 5 da animação mostra isso.</p></details>
+    <details><summary>El Niño forte quer dizer enchente garantida?</summary><p>Não. Ele aumenta bastante a chance de chuva acima da média, mas cada El Niño é diferente, e o tempo do dia a dia depende de outros fatores também. Por isso é importante acompanhar a previsão e os avisos da Defesa Civil, e não só o status do El Niño.</p></details>
+    <details><summary>Se é um aquecimento, por que no Sul ele traz chuva e não calor?</summary><p>O calor fica no oceano lá longe. O que chega até aqui é a mudança nos ventos, que faz as frentes frias pararem sobre a região e a chuva se repetir. As temperaturas podem até ficar acima da média em várias partes do Brasil, mas o efeito mais sentido no Sul é a chuva.</p></details>
+    <details><summary>Quando este El Niño termina?</summary><p>Pelas previsões da NOAA de setembro de 2026, ele deve atingir o pico no fim de 2026 e continuar até o outono de 2027 (março a maio), com o mais provável sendo a volta às condições neutras entre abril e junho. Veja a aba “Previsões”.</p></details>
+    <details><summary>Dá para prever com quanta antecedência?</summary><p>As previsões ficam mais confiáveis a partir do meio do ano. Este El Niño de 2026, por exemplo, já era previsto pelos modelos com meses de antecedência, o que dá tempo para o planejamento da safra e da Defesa Civil.</p></details>
+  </div>
+
+  <h3 class="sec">Como usar este painel</h3>
+  <div class="goto">
+    <button type="button" data-goto="tab-agora"><b>Agora no Pacífico</b><span>O mar hoje, região por região</span></button>
+    <button type="button" data-goto="tab-prev"><b>Previsões</b><span>Até quando e com que força</span></button>
+    <button type="button" data-goto="tab-hist"><b>Rio Negro e a história</b><span>As cheias e o El Niño em Mafra</span></button>
+    <button type="button" data-goto="tab-agro"><b>Agro em Mafra</b><span>Previsão de 16 dias e as lavouras</span></button>
+    <button type="button" data-goto="tab-clima"><b>Mudanças climáticas</b><span>Como o El Niño e o aquecimento se somam</span></button>
+  </div>
+</section>
+
+<!-- RIO NEGRO E HISTÓRIA -->
+<section class="panel" id="p-hist" role="tabpanel" aria-labelledby="tab-hist" hidden>
+  <h2>O rio Negro e o El Niño</h2>
+  <p class="lede" id="hist-lede">Quase cem anos de medições do rio Negro mostram que, em anos de El Niño forte, as cheias costumam ser maiores.</p>
+
+  <div class="river-now" id="river-now">
+    <div class="rn-main">
+      <div class="now-kicker">Rio Negro agora · régua de Rio Negro e Mafra</div>
+      <div class="rn-level"><span id="rn-nivel">–</span><span class="rn-status" id="rn-status"></span></div>
+      <p id="rn-meta"></p>
+      <a class="rn-link" href="https://mauriciorschmitt.github.io/riomafranivel/" target="_blank" rel="noopener noreferrer">Abrir o Régua Viva: a régua completa, a sua rua e o que fazer em caso de cheia</a>
+    </div>
+    <div class="scroll-x"><svg id="rn-chart" viewBox="0 0 560 220" role="img" aria-label="Nível do rio Negro nos últimos 30 dias, com as faixas de alerta"></svg></div>
+  </div>
+
+  <h3 class="sec">A maior cheia de cada ano, desde 1930</h3>
+  <div class="chartbox"><div class="scroll-x"><svg id="maximas" viewBox="0 0 1000 400" role="img" aria-label="Nível máximo do rio Negro em cada ano desde 1930, destacando os anos de El Niño forte"></svg></div>
+    <div class="br-legend" style="padding:4px 6px 2px">
+      <span><span class="sw" style="background:#C73A33"></span>ano de El Niño forte</span>
+      <span><span class="sw" style="background:#B8C2C8"></span>demais anos</span>
+      <span><svg width="28" height="10" aria-hidden="true" style="vertical-align:middle"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-width="2"/></svg> <span id="cota-label">cota de inundação</span></span>
+    </div>
+  </div>
+  <div class="facts" id="river-facts"></div>
+  <p class="src-line">Máximas anuais: ANA, estação Rio Negro (65100000/65100001), via Régua Viva. Anos de El Niño forte: os 10 eventos com índice ONI de pelo menos +1,5 °C desde 1950 (NOAA), contando o ano em que o El Niño se forma e o seguinte, quando muitas cheias acontecem. A comparação começa em 1950, primeiro ano do índice.</p>
+
+  <div class="events">
+    <div class="event ev-el"><div class="ev-year">1983</div><div><b>14,57 m em 13 de julho:</b> a maior cheia já registrada, no fim do El Niño muito forte de 1982–83.</div></div>
+    <div class="event ev-el"><div class="ev-year">1992</div><div><b>14,39 m em 2 de junho:</b> a segunda maior, no fim de outro El Niño forte, o de 1991–92.</div></div>
+    <div class="event ev-ne"><div class="ev-year">2014</div><div><b>13,68 m em 11 de junho:</b> a terceira maior, num ano neutro. É o lembrete de que enchente pode vir sem El Niño.</div></div>
+    <div class="event ev-el"><div class="ev-year">2023</div><div><b>10,93 m em 15 de outubro:</b> a quarta maior, com mais de 500 pessoas desalojadas em Mafra, durante o El Niño de 2023–24.</div></div>
+    <div class="event ev-el"><div class="ev-year">2026</div><div><b>8,18 m em 14 de setembro:</b> o rio passou da cota de inundação com o El Niño atual ainda ganhando força.</div></div>
+  </div>
+
+  <div class="alertbox">
+    <h3>Se o rio subir</h3>
+    <div class="alert-grid" id="faixas-grid"></div>
+    <div class="contacts" id="contacts"></div>
+    <p>A orientação da Defesa Civil é não esperar a água chegar perto de casa para pedir ajuda. Em emergência, ligue <b>199</b>.</p>
+  </div>
+</section>
+
+<!-- MUDANÇAS CLIMÁTICAS -->
+<section class="panel" id="p-clima" role="tabpanel" aria-labelledby="tab-clima" hidden>
+  <h2>O El Niño não é causado pelo aquecimento global, mas os dois se somam</h2>
+  <p class="lede">Pense no aquecimento global como uma escada rolante que sobe devagar e não para. O El Niño é um pulo em cima dela: por um ano ou dois, o planeta fica ainda mais quente. Como a escada continua subindo, cada pulo chega mais alto que o anterior.</p>
+  <div class="chartbox"><div class="scroll-x"><svg id="escada" viewBox="0 -40 900 340" role="img" aria-label="Esquema: a temperatura do planeta sobe como uma escada rolante, e cada El Niño é um pulo que bate recorde"></svg></div>
+    <p class="caveat">Esquema ilustrativo, fora de escala. Os anos marcados são recordes de temperatura global que vieram logo depois de grandes El Niños.</p>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><div class="big">2027</div><p>deve ser o ano mais quente já medido, por volta de +1,7 °C acima da era pré-industrial (Carbon Brief e Met Office).</p></div>
+    <div class="fact"><div class="big">86%</div><p>de chance de pelo menos um ano entre 2026 e 2030 superar 2024, o recorde atual (Organização Meteorológica Mundial).</p></div>
+    <div class="fact"><div class="big">3 a 6 meses</div><p>é o atraso entre o pico do El Niño e o pico da temperatura do planeta. Por isso o recorde costuma vir no ano seguinte.</p></div>
+  </div>
+
+  <h3 class="sec">Por que a NOAA mudou o “termômetro” do El Niño</h3>
+  <p class="note" style="max-width:80ch">Como o oceano inteiro está esquentando, o índice antigo começou a confundir aquecimento global com El Niño. Recentemente, a NOAA passou a usar o índice relativo (RONI), que desconta o aquecimento de todo o oceano tropical e mede só o “pulo”. No pico previsto para dezembro, a diferença entre os dois índices deve ficar em torno de 0,65 °C, e essa diferença é a parte do calor que vem do aquecimento de fundo, não do El Niño. Mesmo descontando isso, o evento de 2026 está entre os mais fortes já medidos.</p>
+
+  <div class="two">
+    <div class="know">
+      <h3>O que a ciência já sabe</h3>
+      <ul class="clean">
+        <li>O El Niño é natural e vai continuar sendo a principal oscilação do clima de um ano para outro (para o IPCC, isso é “virtualmente certo”).</li>
+        <li>As chuvas ligadas ao El Niño e à La Niña devem ficar mais extremas na segunda metade do século (IPCC: “muito provável”).</li>
+        <li>Ar mais quente guarda mais vapor d’água, cerca de 7% a mais para cada 1 °C. Por isso, num planeta mais quente, as chuvas fortes tendem a ser mais pesadas.</li>
+      </ul>
+    </div>
+    <div class="debate">
+      <h3>O que ainda está em debate</h3>
+      <ul class="clean">
+        <li>Se os El Niños vão ficar mais fortes ou mais frequentes: o IPCC tem baixa confiança nisso, porque os modelos discordam.</li>
+        <li>Se o tipo de El Niño vai mudar: o aquecimento pode se concentrar mais no centro do Pacífico ou mais perto da América do Sul, e os efeitos no Brasil são diferentes em cada caso.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="advice" style="margin-top:26px"><b>Para Mafra:</b> o mesmo El Niño, num planeta mais quente, tende a trazer chuvas mais pesadas do que traria décadas atrás, porque há mais vapor d’água no ar. É mais um motivo para levar a sério os avisos desta temporada.</div>
+  <p class="src-line">Fontes: OMM (atualização anual a decadal, maio de 2026), Met Office (agosto de 2026), Carbon Brief, IPCC AR6 (Grupo de Trabalho I), NOAA Climate.gov e Washington Post (setembro de 2026).</p>
+</section>
+
 <!-- AGORA -->
-<section class="panel" id="p-agora" role="tabpanel" aria-labelledby="tab-agora">
+<section class="panel" id="p-agora" role="tabpanel" aria-labelledby="tab-agora" hidden>
   <h2>Um El Niño muito forte, concentrado no leste do Pacífico</h2>
   <p class="lede">Anomalia da temperatura da superfície do mar (TSM) na faixa equatorial: quanto mais vermelho, mais quente que a média. O calor se acumula perto da costa da América do Sul, enquanto o Pacífico oeste segue perto ou abaixo do normal.</p>
 
@@ -328,24 +545,7 @@ footer p{margin:4px 0;max-width:90ch}
   </div>
   <p class="src-line">Participação da microrregião de Canoinhas (inclui Mafra, Itaiópolis, Papanduva, Canoinhas e vizinhos). Fonte: Epagri/Cepa, estimativas da safra de verão 2026/27, divulgadas em 29/09/2026.</p>
 
-  <div class="history">
-    <svg class="gauge" viewBox="0 0 120 170" role="img" aria-label="Régua mostrando o rio Negro subindo mais de 14 metros em 1983 e 1992">
-      <rect x="44" y="6" width="32" height="150" rx="4" fill="var(--chip)" stroke="var(--line)"/>
-      <rect x="45" y="12" width="30" height="143" rx="3" fill="#5E95C4"/>
-      <g font-family="var(--body)" font-size="11" fill="var(--ink-2)">
-        <line x1="76" x2="86" y1="12" y2="12" stroke="var(--ink-2)"/><text x="88" y="16">14 m</text>
-        <line x1="76" x2="82" y1="63" y2="63" stroke="var(--ink-2)"/><text x="88" y="67">9 m</text>
-        <line x1="76" x2="82" y1="114" y2="114" stroke="var(--ink-2)"/><text x="88" y="118">4 m</text>
-      </g>
-      <text x="40" y="16" text-anchor="end" font-family="var(--display)" font-weight="700" font-size="12" fill="var(--ink)">1983</text>
-      <text x="40" y="30" text-anchor="end" font-family="var(--display)" font-weight="700" font-size="12" fill="var(--ink)">1992</text>
-    </svg>
-    <div>
-      <h3>Já aconteceu aqui: 1983 e 1992</h3>
-      <p>As duas maiores enchentes da história recente de Rio Negro (PR), cidade vizinha de Mafra, aconteceram em 1983 e 1992, quando o rio Negro subiu pouco mais de 14 metros. Foram os anos dos El Niños muito fortes de 1982–83 e 1991–92. Um estudo da UEPG sobre as cheias da cidade mostrou que 85% dos anos com inundação registrados estão ligados a El Niño ou La Niña.</p>
-      <p class="src-line">Fonte: Koene, R. (2013), Análise do processo de inundação da cidade de Rio Negro/PR, UEPG; classificação RONI segundo Golden Gate Weather Services.</p>
-    </div>
-  </div>
+  <p class="note" style="margin-top:22px">As cheias históricas do rio Negro e a relação com o El Niño estão na aba “Rio Negro e a história”.</p>
 
   <div class="live" id="live-forecast">
     <div class="live-head"><h3>Mafra nos próximos 16 dias</h3><span class="when" id="fc-when"></span></div>
@@ -398,7 +598,7 @@ footer p{margin:4px 0;max-width:90ch}
 <footer>
   <div class="wrap">
     <p id="foot-data"></p>
-    <p>Fontes: NOAA Climate Prediction Center, NOAA Coral Reef Watch, IRI/Columbia, Inmet (Painel El Niño 2026–2027), CPTEC/Inpe, Funceme, Serviço Geológico do Brasil, Epagri/Ciram, Epagri/Cepa e Open-Meteo (dados de previsão e reanálise ERA5).</p>
+    <p>Fontes: NOAA Climate Prediction Center, NOAA Coral Reef Watch, IRI/Columbia, Inmet (Painel El Niño 2026–2027), CPTEC/Inpe, Funceme, Serviço Geológico do Brasil, Epagri/Ciram, Epagri/Cepa, Open-Meteo (dados de previsão e reanálise ERA5), ANA (via Régua Viva), Prefeitura e Defesa Civil de Mafra, NSC Total, OMM, Met Office, Carbon Brief e IPCC.</p>
   </div>
 </footer>
 
@@ -802,8 +1002,175 @@ document.addEventListener("keydown",e=>{
   if(e.key==="ArrowLeft"){e.preventDefault();show((cur-1+tabs.length)%tabs.length,onTab)}
 });
 
+/* ===== Comece aqui: termômetro ===== */
+function phaseOf(v){
+  if(v<=-0.5) return {name:"La Niña",cls:"la"};
+  if(v<0.5) return {name:"Neutro",cls:"ne"};
+  const s=v>=2?"muito forte":v>=1.5?"forte":v>=1?"moderado":"fraco";
+  return {name:"El Niño "+s,cls:"el"};
+}
+function renderStart(){
+  const v=reg("n34").week, ph=phaseOf(v);
+  document.getElementById("now-big").textContent=ph.name;
+  const effect = ph.cls==="el" ? "Para Mafra e região, isso significa mais chance de chuva acima da média, principalmente no inverno e na primavera."
+    : ph.cls==="la" ? "Para Mafra e região, isso significa mais chance de chuva abaixo da média e estiagem."
+    : "Sem empurrão claro do Pacífico: o tempo em Mafra depende mais de outros fatores.";
+  document.getElementById("now-sub").textContent="O centro do Pacífico está "+fmt(v).replace("+","")+(v>=0?" acima":" abaixo")+" do normal (leitura semanal da NOAA, "+DATA.weekLabel+"). "+effect;
+  const svg=document.getElementById("gauge"); svg.innerHTML="";
+  const X0=20,X1=620,V0=-2.5,V1=4.5,x=t=>X0+(t-V0)/(V1-V0)*(X1-X0),Y=52,H=26;
+  const zones=[[-2.5,-0.5,"#2E5C9E","La Niña"],[-0.5,0.5,"#C9D1D5","Neutro"],[0.5,1,"#F6D98A","fraco"],[1,1.5,"#F2B05A","moderado"],[1.5,2,"#E5713A","forte"],[2,4.5,"#8E1630","muito forte"]];
+  zones.forEach(([a,b,c,t],i)=>{
+    el("rect",{x:x(a),y:Y,width:x(b)-x(a),height:H,fill:c},svg);
+    txt(svg,t,{x:(x(a)+x(b))/2,y:Y+H+(i===3?50:32),"text-anchor":"middle","font-size":13,fill:"var(--ink-2)","font-family":"var(--body)"});
+  });
+  el("rect",{x:X0,y:Y,width:X1-X0,height:H,fill:"none",stroke:"var(--line)",rx:3},svg);
+  [-2,-1,0,1,2,3,4].forEach(t=>txt(svg,(t>0?"+":t<0?"−":"")+Math.abs(t)+" °C",{x:x(t),y:Y+H+15,"text-anchor":"middle","font-size":11,fill:"var(--ink-2)","font-family":"var(--body)"}));
+  const vx=x(Math.max(V0,Math.min(V1,v)));
+  el("path",{d:`M${vx-9},${Y-18} L${vx+9},${Y-18} L${vx},${Y-3} Z`,fill:"var(--ink)"},svg);
+  el("line",{x1:vx,x2:vx,y1:Y-3,y2:Y+H+3,stroke:"var(--ink)","stroke-width":3},svg);
+  txt(svg,"agora "+fmt(v),{x:vx,y:Y-24,"text-anchor":"middle","font-size":15,"font-weight":700,fill:"var(--ink)","font-family":"var(--display)"});
+}
+
+/* ===== Rio Negro: dados do Régua Viva ===== */
+const REGUA_URL="https://mauriciorschmitt.github.io/riomafranivel/dados/mafra-rionegro.json";
+const RV_FALLBACK={"gerado_em":"2026-10-06T13:30","atual":{"nivel":3.54,"hora":"2026-10-06T13:00","tendencia_cm_h":3.2,"status":{"id":"normal","nome":"Normal"}},"cotas":{"inundacao":7.0,"maximo_regua":16.0,"faixas":[{"id":"atencao","nome":"Atenção","cota":5.0},{"id":"alerta","nome":"Alerta","cota":6.0},{"id":"emergencia","nome":"Emergência","cota":7.0},{"id":"extremo","nome":"Extremo","cota":10.0}]},"cheias":[{"data":"1983-07-13","cota":14.57,"texto":"Maior cheia registrada. Inundou toda a área central e isolou as duas cidades."},{"data":"1992-06-02","cota":14.39,"texto":"Segunda maior cheia. Bairros inteiros submersos."},{"data":"2014-06-11","cota":13.68,"texto":"Chuva forte nas cabeceiras e evacuação em massa das áreas ribeirinhas."},{"data":"2023-10-15","cota":10.93,"texto":"Pontes interditadas e centenas de famílias fora de casa."},{"data":"2010-04-29","cota":10.44,"texto":"Passou dos 10 metros e alagou bairros ribeirinhos e praças centrais."}],"orgaos":[{"nome":"Defesa Civil de Mafra (SC)","descricao":"Prefeitura de Mafra: atendimento a abrigados e transporte de mudanças.","fixo":"(47) 3641-4000","plantao":"(47) 99110-5345"},{"nome":"Defesa Civil de Rio Negro (PR)","descricao":"COMPDEC Rio Negro: plantão e sala de situação.","fixo":"(47) 3642-3280","plantao":"(47) 99171-1778"},{"nome":"Posto de Comando SCI / Obras, Rio Negro (PR)","descricao":"Prefeitura (Seminário), Secretaria de Obras: caminhões de mudança e resgates.","fixo":"(47) 3511-9300","plantao":"(47) 98863-0063"}],"maximas":[[1930,4.5],[1931,4.44],[1932,5.1],[1933,3.4],[1934,4.46],[1935,7.7],[1936,5.47],[1937,4.65],[1938,7.82],[1939,6.94],[1940,3.6],[1941,3.62],[1942,6.21],[1943,5.78],[1944,5.3],[1945,6.46],[1946,9.8],[1947,5.86],[1948,7.3],[1949,5.01],[1950,5.67],[1951,5.91],[1952,3.43],[1953,6.99],[1954,9.59],[1955,7.61],[1956,4.6],[1957,9.44],[1958,3.56],[1959,3.5],[1960,4.5],[1961,6.98],[1962,5.64],[1963,4.35],[1964,4.27],[1965,6.51],[1966,5.56],[1967,5.12],[1968,3.93],[1969,5.97],[1970,8.03],[1971,7.74],[1972,6.87],[1973,8.59],[1974,6.63],[1975,7.38],[1976,5.66],[1977,6.62],[1978,3.68],[1979,5.85],[1980,8.58],[1981,7.84],[1982,7.23],[1983,14.62],[1984,10.08],[1985,3.02],[1986,5.26],[1987,7.5],[1988,7.34],[1989,8.24],[1990,7.77],[1991,4.64],[1992,14.39],[1993,8.36],[1994,4.94],[1995,8.26],[1996,8.1],[1997,7.81],[1998,8.73],[1999,9.82],[2000,5.69],[2001,6.63],[2002,6.0],[2003,3.87],[2004,6.5],[2005,7.44],[2006,1.92],[2007,7.42],[2008,6.31],[2009,9.22],[2010,10.44],[2011,9.84],[2012,7.1],[2013,8.5],[2014,13.68],[2015,7.83],[2016,5.89],[2017,5.3],[2018,5.72],[2019,5.43],[2020,3.36],[2021,7.11],[2022,6.58],[2023,10.93],[2024,6.99],[2025,4.58]],"serie":[["2026-09-06T14:00",6.713],["2026-09-06T20:00",6.44],["2026-09-07T02:00",6.151],["2026-09-07T08:00",5.859],["2026-09-07T15:00",5.521],["2026-09-07T21:00",5.234],["2026-09-08T03:00",4.949],["2026-09-08T09:00",4.683],["2026-09-08T15:00",4.436],["2026-09-08T21:00",4.213],["2026-09-09T03:00",4.006],["2026-09-09T09:00",3.816],["2026-09-09T15:00",3.644],["2026-09-09T21:00",3.518],["2026-09-10T03:00",3.439],["2026-09-10T09:00",3.73],["2026-09-10T15:00",4.082],["2026-09-10T21:00",4.469],["2026-09-11T03:00",4.859],["2026-09-11T09:00",5.201],["2026-09-11T15:00",5.481],["2026-09-11T21:00",5.969],["2026-09-12T03:00",6.464],["2026-09-12T09:00",6.805],["2026-09-12T15:00",7.09],["2026-09-12T21:00",7.374],["2026-09-13T03:00",7.597],["2026-09-13T09:00",7.767],["2026-09-13T15:00",7.905],["2026-09-13T21:00",8.015],["2026-09-14T03:00",8.085],["2026-09-14T09:00",8.145],["2026-09-14T15:00",8.175],["2026-09-14T21:00",8.175],["2026-09-15T03:00",8.145],["2026-09-15T09:00",8.095],["2026-09-15T15:00",8.015],["2026-09-15T21:00",7.915],["2026-09-16T03:00",7.791],["2026-09-16T09:00",7.645],["2026-09-16T15:00",7.474],["2026-09-16T22:00",7.245],["2026-09-17T04:00",7.016],["2026-09-17T10:00",6.764],["2026-09-17T16:00",6.496],["2026-09-17T22:00",6.217],["2026-09-18T04:00",5.935],["2026-09-18T10:00",5.66],["2026-09-18T16:00",5.402],["2026-09-18T22:00",5.158],["2026-09-19T04:00",4.933],["2026-09-19T10:00",4.728],["2026-09-19T16:00",4.553],["2026-09-19T22:00",4.406],["2026-09-20T04:00",4.281],["2026-09-20T10:00",4.176],["2026-09-20T16:00",4.098],["2026-09-20T22:00",4.03],["2026-09-21T04:00",3.956],["2026-09-21T10:00",3.874],["2026-09-21T16:00",3.789],["2026-09-21T22:00",3.832],["2026-09-22T04:00",3.968],["2026-09-22T10:00",4.137],["2026-09-22T16:00",4.411],["2026-09-22T22:00",4.756],["2026-09-23T04:00",5.066],["2026-09-23T10:00",5.313],["2026-09-23T16:00",5.494],["2026-09-23T22:00",5.623],["2026-09-24T04:00",5.709],["2026-09-24T10:00",5.76],["2026-09-24T16:00",5.777],["2026-09-24T22:00",5.766],["2026-09-25T04:00",5.721],["2026-09-25T10:00",5.647],["2026-09-25T16:00",5.552],["2026-09-25T22:00",5.44],["2026-09-26T04:00",5.307],["2026-09-26T10:00",5.159],["2026-09-26T16:00",5.008],["2026-09-26T22:00",4.859],["2026-09-27T04:00",4.71],["2026-09-27T10:00",4.561],["2026-09-27T16:00",4.415],["2026-09-27T22:00",4.278],["2026-09-28T04:00",4.145],["2026-09-28T10:00",4.021],["2026-09-28T16:00",3.912],["2026-09-28T22:00",3.836],["2026-09-29T04:00",3.769],["2026-09-29T10:00",3.698],["2026-09-29T16:00",3.629],["2026-09-29T22:00",3.645],["2026-09-30T04:00",3.605],["2026-09-30T10:00",3.62],["2026-09-30T16:00",3.697],["2026-09-30T22:00",3.772],["2026-10-01T04:00",3.806],["2026-10-01T10:00",3.829],["2026-10-01T16:00",3.8],["2026-10-02T00:00",3.835],["2026-10-02T06:00",3.838],["2026-10-02T12:00",3.827],["2026-10-02T18:00",3.812],["2026-10-03T00:00",3.789],["2026-10-03T06:00",3.75],["2026-10-03T12:00",3.692],["2026-10-03T18:00",3.614],["2026-10-04T00:00",3.525],["2026-10-04T06:00",3.47],["2026-10-04T12:00",3.475],["2026-10-04T18:00",3.449],["2026-10-05T00:00",3.434],["2026-10-05T06:00",3.439],["2026-10-05T12:00",3.441],["2026-10-05T18:00",3.422],["2026-10-06T00:00",3.381],["2026-10-06T06:00",3.359],["2026-10-06T12:00",3.508]]};
+const STRONG_EN=[1957,1965,1972,1982,1987,1991,1997,2009,2015,2023];
+const EN_YEARS=new Set(); STRONG_EN.forEach(y=>{EN_YEARS.add(y);EN_YEARS.add(y+1)}); EN_YEARS.add(2026);
+const FAIXA_COR={normal:"#5E8C6A",atencao:"#E3B23C",alerta:"#E5713A",emergencia:"#C73A33",extremo:"#7A0E2E"};
+const dt=iso=>iso.slice(8,10)+"/"+iso.slice(5,7)+" às "+iso.slice(11,16);
+
+function normRV(j){
+  // aceita o JSON completo do Régua Viva ou o retrato embutido
+  if(j.config) return {
+    live:true, atual:j.atual, cotas:j.config.cotas, cheias:j.config.cheias_historicas, orgaos:(j.config.contatos||{}).orgaos||[],
+    maximas:(j.extremos&&j.extremos.maximas||[]).map(x=>[x.ano,x.cota]), serie:j.serie_horaria||[], diaria:j.serie_diaria_max||[]
+  };
+  return Object.assign({live:false,diaria:[]},j);
+}
+async function loadRiver(){
+  let rv=normRV(RV_FALLBACK);
+  try{ const j=await getJSON(REGUA_URL,10000); if(j&&j.atual&&j.config) rv=normRV(j); }catch(e){}
+  renderRiverNow(rv); renderMaximas(rv); renderFaixas(rv); renderStartRiver(rv);
+}
+function trendText(t){ if(t==null) return ""; if(Math.abs(t)<0.5) return "estável"; return (t>0?"subindo ":"descendo ")+num(Math.abs(t))+" cm por hora"; }
+
+function renderRiverNow(rv){
+  const a=rv.atual, st=a.status||{id:"normal",nome:"Normal"};
+  document.getElementById("rn-nivel").textContent=num(a.nivel,2)+" m";
+  const s=document.getElementById("rn-status"); s.textContent=st.nome; s.style.background=FAIXA_COR[st.id]||"#5E8C6A";
+  document.getElementById("rn-meta").textContent = rv.live
+    ? "Medido em "+dt(a.hora)+" (ANA), "+trendText(a.tendencia_cm_h)+"."
+    : "Última leitura disponível nesta visualização: "+dt(a.hora)+". Na versão publicada no GitHub, este número se atualiza sozinho a cada 30 minutos.";
+  const svg=document.getElementById("rn-chart"); svg.innerHTML="";
+  const ser=rv.serie; if(!ser.length) return;
+  const L=40,R=12,T=12,B=26,W=560,H=220;
+  const vals=ser.map(p=>p[1]), fx=rv.cotas.faixas||[];
+  const vmax=Math.max(...vals, ...(fx.length?[fx[Math.min(2,fx.length-1)].cota+1]:[8])), vmin=Math.max(0,Math.min(...vals)-1);
+  const t0=new Date(ser[0][0]).getTime(), t1=new Date(ser[ser.length-1][0]).getTime();
+  const xs=t=>L+(new Date(t).getTime()-t0)/((t1-t0)||1)*(W-L-R), yv=v=>T+(vmax-v)/(vmax-vmin)*(H-T-B);
+  const ax=el("g",{class:"axis"},svg);
+  fx.forEach(f=>{ if(f.cota>vmax||f.cota<vmin) return;
+    el("line",{x1:L,x2:W-R,y1:yv(f.cota),y2:yv(f.cota),stroke:FAIXA_COR[f.id]||"var(--line)","stroke-width":1.5,"stroke-dasharray":"5 4"},svg);
+    txt(svg,f.nome+" "+num(f.cota,1).replace(",0","")+" m",{x:W-R-2,y:yv(f.cota)-4,"text-anchor":"end","font-size":11,fill:FAIXA_COR[f.id]||"var(--ink-2)","font-family":"var(--body)","font-weight":700});
+  });
+  for(let v=Math.ceil(vmin);v<=vmax;v+=2) txt(ax,v+" m",{x:L-6,y:yv(v)+4,"text-anchor":"end"});
+  const d=ser.map((p,i)=>(i?"L":"M")+xs(p[0]).toFixed(1)+","+yv(p[1]).toFixed(1)).join(" ");
+  el("path",{d:d+` L${xs(ser[ser.length-1][0])},${yv(vmin)} L${xs(ser[0][0])},${yv(vmin)} Z`,fill:"#5E95C4","fill-opacity":.18},svg);
+  el("path",{d,fill:"none",stroke:"#1E63B5","stroke-width":2.2},svg);
+  const last=ser[ser.length-1]; el("circle",{cx:xs(last[0]),cy:yv(last[1]),r:4.5,fill:"#1E63B5"},svg);
+  txt(ax,ddmm(ser[0][0].slice(0,10)),{x:L,y:H-6});
+  txt(ax,"hoje",{x:W-R,y:H-6,"text-anchor":"end"});
+  txt(ax,"últimos 30 dias",{x:(L+W-R)/2,y:H-6,"text-anchor":"middle"});
+}
+
+function renderMaximas(rv){
+  const inund=rv.cotas.inundacao||7;
+  const rows=rv.maximas.slice();
+  const y26=rv.diaria.filter(p=>p[0].startsWith("2026")).map(p=>p[1]);
+  const has26=rows.some(r=>r[0]===2026);
+  if(!has26 && y26.length) rows.push([2026,Math.max(...y26),true]);
+  else if(!has26) rows.push([2026,8.18,true]);
+  const svg=document.getElementById("maximas"); svg.innerHTML="";
+  const L=48,R=10,T=18,B=34,W=1000,H=400,vmax=16;
+  const y0=rows[0][0], n=rows[rows.length-1][0]-y0+1, bw=(W-L-R)/n, yv=v=>T+(1-v/vmax)*(H-T-B);
+  const ax=el("g",{class:"axis"},svg);
+  for(let v=0;v<=16;v+=4){el("line",{x1:L,x2:W-R,y1:yv(v),y2:yv(v),stroke:"var(--line)"},ax);txt(ax,v+" m",{x:L-6,y:yv(v)+4,"text-anchor":"end"})}
+  for(let y=Math.ceil(y0/10)*10;y<=y0+n;y+=10) txt(ax,String(y),{x:L+(y-y0)*bw+bw/2,y:H-B+18,"text-anchor":"middle"});
+  rows.forEach(([y,v,partial])=>{
+    const en=EN_YEARS.has(y);
+    const r=el("rect",{x:L+(y-y0)*bw+bw*.12,y:yv(v),width:bw*.76,height:yv(0)-yv(v),fill:en?"#C73A33":"#B8C2C8","fill-opacity":partial?.55:1},svg);
+    hoverTip(r,y+": "+num(v,2)+" m"+(partial?" (até agora)":"")+(en?" · El Niño forte":""));
+  });
+  el("line",{x1:L,x2:W-R,y1:yv(inund),y2:yv(inund),stroke:"var(--ink)","stroke-width":1.6},svg);
+  document.getElementById("cota-label").textContent="cota de inundação ("+num(inund,1).replace(",0","")+" m)";
+  const top=rows.filter(r=>!r[2]).slice().sort((a,b)=>b[1]-a[1]).slice(0,4);
+  top.forEach(([y,v])=>txt(svg,String(y),{x:L+(y-y0)*bw+bw/2,y:yv(v)-6,"text-anchor":"middle","font-size":12,"font-weight":700,fill:"var(--ink)","font-family":"var(--display)"}));
+  // estatística desde 1950 (anos completos)
+  const full=rows.filter(r=>r[0]>=1950&&!r[2]);
+  const en=full.filter(r=>EN_YEARS.has(r[0])), ot=full.filter(r=>!EN_YEARS.has(r[0]));
+  const mean=a=>a.reduce((s,r)=>s+r[1],0)/a.length, pct=a=>Math.round(a.filter(r=>r[1]>=inund).length/a.length*100);
+  const top10=full.slice().sort((a,b)=>b[1]-a[1]).slice(0,10), inTop=top10.filter(r=>EN_YEARS.has(r[0])).length;
+  const box=document.getElementById("river-facts"); box.innerHTML="";
+  [[num(mean(en),1)+" m","é a maior cheia média nos anos de El Niño forte, contra "+num(mean(ot),1)+" m nos outros anos (desde 1950)."],
+   [pct(en)+"%","dos anos de El Niño forte tiveram o rio na cota de inundação ou acima. Nos outros anos, "+pct(ot)+"%."],
+   [inTop+" das 10","maiores cheias desde 1950 foram em anos de El Niño forte, que são só "+en.length+" dos "+full.length+" anos."]]
+   .forEach(([b,t])=>{const d=document.createElement("div");d.className="fact";d.innerHTML='<div class="big"></div><p></p>';d.querySelector(".big").textContent=b;d.querySelector("p").textContent=t;box.appendChild(d)});
+  document.getElementById("hist-lede").textContent="Quase cem anos de medições da ANA mostram o padrão: em anos de El Niño forte, a maior cheia do rio Negro chega em média a "+num(mean(en),1)+" m, contra "+num(mean(ot),1)+" m nos outros anos. Mas não é regra: a terceira maior cheia da história, em 2014, aconteceu sem El Niño.";
+}
+
+function renderFaixas(rv){
+  const g=document.getElementById("faixas-grid"); g.innerHTML="";
+  (rv.cotas.faixas||[]).forEach(f=>{const d=document.createElement("div");d.innerHTML='<div class="big-num"></div><p></p>';d.querySelector(".big-num").textContent=num(f.cota,2)+" m";d.querySelector("p").textContent="faixa de "+f.nome.toLowerCase();d.style.borderTop="5px solid "+(FAIXA_COR[f.id]||"#999");d.style.paddingTop="6px";g.appendChild(d)});
+  const c=document.getElementById("contacts"); c.innerHTML="";
+  rv.orgaos.filter(o=>o.nome&&(o.plantao||o.fixo)).forEach(o=>{
+    const d=document.createElement("div");d.className="contact";
+    d.innerHTML='<b></b><span></span>';d.querySelector("b").textContent=o.nome;
+    const tel=o.plantao||o.fixo, a=document.createElement("a");a.href="tel:"+tel.replace(/\D/g,"");a.textContent=(o.plantao?"plantão ":"")+tel;
+    d.querySelector("span").appendChild(a);
+    if(o.plantao&&o.fixo){d.querySelector("span").appendChild(document.createTextNode(" · fixo "+o.fixo))}
+    c.appendChild(d);
+  });
+}
+
+function renderStartRiver(rv){
+  const box=document.getElementById("start-river"); if(!box) return;
+  const a=rv.atual, st=a.status||{id:"normal",nome:"Normal"};
+  box.querySelector(".sr-n").textContent=num(a.nivel,2)+" m";
+  const s=box.querySelector(".rn-status"); s.textContent=st.nome; s.style.background=FAIXA_COR[st.id]||"#5E8C6A";
+  box.querySelector(".sr-t").textContent=rv.live?trendText(a.tendencia_cm_h):"última leitura de "+dt(a.hora);
+}
+
+/* ===== Mudanças climáticas: escada rolante ===== */
+function renderEscada(){
+  const svg=document.getElementById("escada"); svg.innerHTML="";
+  const x=y=>50+(y-1990)/(2028-1990)*800, base=y=>255-(y-1990)/(2028-1990)*150;
+  const ax=el("g",{class:"axis"},svg);
+  let d=`M${x(1990)},${base(1990)}`;
+  for(let y=1990;y<2028;y+=2){ d+=` L${x(y+2)},${base(y)} L${x(y+2)},${base(y+2)}`; }
+  el("path",{d:d+` L${x(2028)},275 L${x(1990)},275 Z`,fill:"var(--chip)",stroke:"none"},svg);
+  el("path",{d,fill:"none",stroke:"var(--ink-2)","stroke-width":2.5,"stroke-linejoin":"round"},svg);
+  el("path",{d:`M${x(1991)},${base(1991)-14} L${x(2026)},${base(2026)-14}`,fill:"none",stroke:"#E8892B","stroke-width":2,"stroke-dasharray":"6 5"},svg);
+  txt(svg,"aquecimento global: a escada que não para de subir",{x:x(2001),y:base(2001)+44,"font-size":14,fill:"var(--ink-2)","font-family":"var(--body)"});
+  [[1998,48,false],[2016,56,false],[2024,62,false],[2027,70,true]].forEach(([y,h,fut])=>{
+    const xm=x(y),b=base(y)-4;
+    el("path",{d:`M${xm-34},${b} Q${xm},${b-h*2} ${xm+34},${b}`,fill:"none",stroke:"#C73A33","stroke-width":3,"stroke-dasharray":fut?"5 5":"none"},svg);
+    el("circle",{cx:xm,cy:b-h,r:8,fill:fut?"none":"#C73A33",stroke:"#C73A33","stroke-width":2.5},svg);
+    txt(svg,fut?"2027?":String(y),{x:xm,y:b-h-16,"text-anchor":"middle","font-size":16,"font-weight":800,fill:"#C73A33","font-family":"var(--display)"});
+    txt(svg,fut?"recorde previsto":"recorde",{x:xm,y:b-h-34,"text-anchor":"middle","font-size":12,fill:"var(--ink-2)","font-family":"var(--body)"});
+  });
+  [1990,2000,2010,2020].forEach(y=>txt(ax,String(y),{x:x(y),y:292,"text-anchor":"middle"}));
+}
+
+/* ===== atalhos e link da animação ===== */
+document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>{const i=tabs.findIndex(t=>t.id===b.dataset.goto); if(i>=0) show(i,true)}));
+(function(){
+  const h=location.hostname, local=location.protocol==="file:"||h==="localhost"||h==="127.0.0.1"||h.endsWith("github.io");
+  if(!local){ const url="https://claude.ai/artifact/M5YqfNSdWTe7ZMLYMVw2p7"; document.querySelectorAll('a[href="explicacao.html"]').forEach(a=>{a.href=url;a.target="_blank";a.rel="noopener noreferrer"}); }
+})();
+renderEscada(); loadRiver();
+
 /* ===== inicialização ===== */
-function renderAll(live){ renderHeader(live); renderMap(); renderReadouts(); renderFacts(); renderRoni(); renderOutlook(); }
+function renderAll(live){ renderHeader(live); renderStart(); renderMap(); renderReadouts(); renderFacts(); renderRoni(); renderOutlook(); }
 renderAll(false);
 (async function(){
   try{
