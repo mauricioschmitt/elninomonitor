@@ -972,27 +972,39 @@ async function loadForecast(){
 /* ===== Mafra: chuva do ano x média 1991–2020 (ERA5 via Open-Meteo) ===== */
 async function loadHistory(){
   const box=document.getElementById("hist-body");
-  const end=new Date(Date.now()-6*864e5).toISOString().slice(0,10);
+  const end=new Date(Date.now()-2*864e5).toISOString().slice(0,10);
   const url="https://archive-api.open-meteo.com/v1/archive?latitude="+MAFRA.lat+"&longitude="+MAFRA.lon+"&start_date=1991-01-01&end_date="+end+"&daily=precipitation_sum&timezone=America%2FSao_Paulo";
   let j; try{ j=await getJSON(url,25000); }catch(e){ offline(box,"o histórico de chuva"); return; }
   const t=j.daily.time, p=j.daily.precipitation_sum;
-  const tot={};
-  t.forEach((iso,i)=>{ if(p[i]==null) return; const k=iso.slice(0,7); tot[k]=(tot[k]||0)+p[i]; });
-  const lastIso=t[t.length-1], Y=+lastIso.slice(0,4), M=+lastIso.slice(5,7);
+  const tot={}; let lastIso=null;
+  t.forEach((iso,i)=>{ if(p[i]==null) return; const k=iso.slice(0,7); tot[k]=(tot[k]||0)+p[i]; lastIso=iso; });
+  if(!lastIso){ offline(box,"o histórico de chuva"); return; }
+  const Y=+lastIso.slice(0,4), Mlast=+lastIso.slice(5,7), Dlast=+lastIso.slice(8,10);
+  const monthEnded = Dlast===new Date(Y,Mlast,0).getDate();     // o último dia com dado fecha o mês?
+  const lastFull = monthEnded ? Mlast : Mlast-1;                 // último mês completo do ano
+  const partialM = monthEnded ? null : Mlast;                    // mês em andamento (com dados parciais)
   const normal=[], cur=[];
   for(let m=1;m<=12;m++){
-    let s=0,c=0; for(let y=1991;y<=2020;y++){const k=y+"-"+String(m).padStart(2,"0"); if(tot[k]!=null){s+=tot[k];c++}}
-    normal.push(c?s/c:0);
-    const k=Y+"-"+String(m).padStart(2,"0"); cur.push(m<=M&&tot[k]!=null?tot[k]:null);
+    let s_=0,c=0; for(let y=1991;y<=2020;y++){const k=y+"-"+String(m).padStart(2,"0"); if(tot[k]!=null){s_+=tot[k];c++}}
+    normal.push(c?s_/c:0);
+    const k=Y+"-"+String(m).padStart(2,"0"); cur.push(m<=Mlast&&tot[k]!=null?tot[k]:null);
   }
-  const done=cur.slice(0,M-1).reduce((a,b)=>a+(b||0),0), doneN=normal.slice(0,M-1).reduce((a,b)=>a+b,0);
-  const last3=cur.slice(Math.max(0,M-4),M-1).reduce((a,b)=>a+(b||0),0), last3N=normal.slice(Math.max(0,M-4),M-1).reduce((a,b)=>a+b,0);
+  const sum=(arr,a_,b_)=>arr.slice(a_,b_).reduce((x,y)=>x+(y||0),0);
+  const done=sum(cur,0,lastFull), doneN=sum(normal,0,lastFull);
+  const last3=sum(cur,Math.max(0,lastFull-3),lastFull), last3N=sum(normal,Math.max(0,lastFull-3),lastFull);
   document.getElementById("hist-when").textContent="Reanálise ERA5 até "+ddmm(lastIso)+"/"+Y;
   box.innerHTML='<div class="kpis"></div><div class="scroll-x"><svg viewBox="0 0 1000 260" role="img" aria-label="Chuva mensal em Mafra no ano atual comparada com a média 1991 a 2020"></svg></div><p class="src-line"></p>';
   const k=box.querySelector(".kpis");
-  const pct=(a,b)=>b?Math.round(a/b*100)+"%":"–";
-  [[Math.round(done)+" mm","chuva de janeiro até o fim de "+MESES[M-2]+" de "+Y],[pct(done,doneN),"do normal acumulado no mesmo período"],[pct(last3,last3N),"do normal nos últimos 3 meses completos"],[Math.round(cur[M-1]||0)+" mm","em "+MESES[M-1]+" até agora (normal do mês: "+Math.round(normal[M-1])+" mm)"]]
-    .forEach(([n_,l])=>{const e=document.createElement("div");e.className="kpi";e.innerHTML='<div class="n"></div><div class="l"></div>';e.querySelector(".n").textContent=n_;e.querySelector(".l").textContent=l;k.appendChild(e)});
+  const pct=(a_,b_)=>b_?Math.round(a_/b_*100)+"%":"–";
+  const kp=[];
+  if(lastFull>=1){
+    kp.push([Math.round(done)+" mm","chuva de janeiro até o fim de "+MESES[lastFull-1]+" de "+Y]);
+    kp.push([pct(done,doneN),"do normal acumulado no mesmo período"]);
+    kp.push([pct(last3,last3N),"do normal nos últimos 3 meses completos ("+MESES[Math.max(0,lastFull-3)]+" a "+MESES[lastFull-1]+")"]);
+  }
+  if(partialM) kp.push([Math.round(cur[partialM-1]||0)+" mm","em "+MESES[partialM-1]+" até o dia "+Dlast+" (normal do mês inteiro: "+Math.round(normal[partialM-1])+" mm)"]);
+  else if(lastFull>=1) kp.push([Math.round(cur[lastFull-1]||0)+" mm","em "+MESES[lastFull-1]+", mês fechado ("+pct(cur[lastFull-1]||0,normal[lastFull-1])+" do normal de "+Math.round(normal[lastFull-1])+" mm)"]);
+  kp.forEach(([n_,l])=>{const e=document.createElement("div");e.className="kpi";e.innerHTML='<div class="n"></div><div class="l"></div>';e.querySelector(".n").textContent=n_;e.querySelector(".l").textContent=l;k.appendChild(e)});
   const svg=box.querySelector("svg");
   const L=50,R=10,T=14,B=34,W=1000,H=260;
   const mx=Math.max(...normal,...cur.filter(v=>v!=null))*1.12, gw=(W-L-R)/12, yv=v=>T+(1-v/mx)*(H-T-B);
@@ -1004,13 +1016,13 @@ async function loadHistory(){
     const rn=el("rect",{x:x0+gw*0.12,y:yv(normal[m]),width:gw*0.36,height:yv(0)-yv(normal[m]),fill:"none",stroke:"var(--ink-2)","stroke-dasharray":"3 2"},svg);
     hoverTip(rn,MESES[m]+": média 1991–2020 = "+Math.round(normal[m])+" mm");
     if(cur[m]!=null){
-      const partial=m===M-1;
+      const partial=partialM===m+1;
       const r=el("rect",{x:x0+gw*0.52,y:yv(cur[m]),width:gw*0.36,height:yv(0)-yv(cur[m]),fill:cur[m]>normal[m]*1.2?"#2E5C9E":"#5E95C4",opacity:partial?.5:1},svg);
-      hoverTip(r,MESES[m]+" "+Y+": "+Math.round(cur[m])+" mm"+(partial?" (mês em andamento)":"")+" · "+pct(cur[m],normal[m])+" do normal");
+      hoverTip(r,MESES[m]+" "+Y+": "+Math.round(cur[m])+" mm"+(partial?" (até o dia "+Dlast+")":"")+" · "+pct(cur[m],normal[m])+" do normal");
     }
     txt(ax,MESES[m],{x:x0+gw/2,y:H-B+18,"text-anchor":"middle"});
   }
-  box.querySelector(".src-line").textContent="Barras cheias: chuva de "+Y+" (azul-escuro = mais de 20% acima do normal; translúcida = mês em andamento). Contorno tracejado: média 1991–2020. Dados de reanálise em grade de ~25 km, que suaviza extremos locais; para totais oficiais, use as estações do Inmet e da Epagri/Ciram.";
+  box.querySelector(".src-line").textContent="Barras cheias: chuva de "+Y+" (azul-escuro = mais de 20% acima do normal; translúcida = mês em andamento). Contorno tracejado: média 1991–2020. A reanálise chega com alguns dias de atraso, por isso os últimos dias ainda não aparecem. Dados em grade de ~25 km, que suaviza extremos locais; para totais oficiais, use as estações do Inmet e da Epagri/Ciram.";
 }
 let agroLoaded=false;
 function loadAgro(){ if(agroLoaded) return; agroLoaded=true; loadForecast(); loadHistory(); }
