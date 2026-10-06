@@ -56,10 +56,14 @@ h1{font-family:var(--hand);font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);ma
 .pulse{animation:pulse 2.4s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
 @media (prefers-reduced-motion:reduce){.drop,.kelvin,.pulse{animation:none}}
+.back{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px;padding:8px 14px;border-radius:999px;background:var(--btn);border:1px solid var(--btn-line);color:var(--ink);font-weight:700;font-size:.95rem;text-decoration:none}
+.back:hover{border-color:var(--ink-2)}
+:fullscreen .back{display:none}
 </style>
 </head>
 <body>
 <div class="page">
+  <a class="back" id="back" href="./">← Voltar ao painel</a>
   <header>
     <h1>Como funciona o El Niño</h1>
     <p class="sub">Seis quadros, do oceano até as lavouras do Planalto Norte.</p>
@@ -484,6 +488,7 @@ document.addEventListener("keydown",e=>{
   else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();prev()}
   else if(e.key===" "){ if(e.target.tagName==="BUTTON") return; e.preventDefault(); drawing?finish():next() }
 });
+(function(){const h=location.hostname,local=location.protocol==="file:"||h==="localhost"||h==="127.0.0.1"||h.endsWith("github.io");if(!local){const a=document.getElementById("back");a.href="https://claude.ai/artifact/EJCRETRa5bFdmKMoRffdQy";a.target="_top";}})();
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>play(0));
 </script>
 </body>
