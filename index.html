@@ -275,7 +275,7 @@ h3.sec{font-size:1.45rem;margin-top:34px}
 .rn-status{display:inline-block;color:#fff;font-weight:700;font-size:.9rem;border-radius:999px;padding:4px 12px;background:#5E8C6A}
 #rn-meta{margin:0 0 12px;color:var(--ink-2)}
 .rn-link{display:inline-block;font-weight:700;color:var(--accent)}
-#rn-chart{display:block;width:100%;min-width:420px;height:auto}
+#rn-chart{display:block;width:100%;min-width:0;height:auto}
 #maximas{display:block;width:100%;height:auto;min-width:700px}
 .contacts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:14px 0 4px}
 .contact b{display:block}
@@ -286,8 +286,31 @@ h3.sec{font-size:1.45rem;margin-top:34px}
 .start-river .now-kicker{width:100%}
 .sr-n{font-family:var(--display);font-stretch:72%;font-weight:800;font-size:1.7rem;line-height:1;font-variant-numeric:tabular-nums}
 .sr-t{font-size:.88rem;color:var(--ink-2)}
-@media (max-width:820px){.river-now{grid-template-columns:1fr}}
+@media (max-width:820px){.river-now{grid-template-columns:minmax(0,1fr)}}
 .br-legend svg{display:inline-block!important;width:28px!important;min-width:0!important;height:10px!important}
+.tab-group{flex:none;align-self:center;font-size:.72rem;font-weight:700;color:var(--ink-2);opacity:.75;padding:0 2px 0 14px;margin-left:6px;border-left:1px solid var(--line);white-space:nowrap}
+nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
+.now-card{display:block}
+.now-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:20px;align-items:center}
+.now-note{font-size:.85rem;color:var(--ink-2);margin:4px 0 0}
+#gauge{display:block;width:100%;min-width:0;height:auto}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
+.tile-btn{font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--chip);cursor:pointer;text-align:left}
+.tile-btn:hover{border-color:var(--ink)}
+.tb-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tb-small{font-size:1.25rem}
+.todo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
+.todo-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.todo-card h3{font-size:1.1rem}
+.todo-card li{font-size:.95rem}
+.inline-link{font:inherit;color:var(--accent);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+.about{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px;background:var(--surface);color:var(--ink)}
+.about h3{font-size:1.05rem;margin:0 0 4px}
+.about p{margin:6px 0 0;font-size:.9rem}
+.rn-chart-box svg{display:block;width:100%;height:auto}
+.swipe-hint{font-size:.8rem;color:var(--ink-2);text-align:center;margin:6px 0 0}
+.scroll-x.is-over{box-shadow:inset -14px 0 12px -12px rgba(0,0,0,.25)}
+@media (max-width:820px){.now-top,.tiles,.todo{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -303,16 +326,19 @@ h3.sec{font-size:1.45rem;margin-top:34px}
     </div>
     <div class="tabs-wrap">
       <button type="button" class="tab-arrow left" id="tabs-left" aria-label="Ver seções anteriores" hidden><span>‹</span></button>
-      <nav class="tabs" role="tablist" aria-label="Seções do monitor">
+      <nav class="tabs" role="tablist" aria-label="Seções do painel">
+      <span class="tab-group" aria-hidden="true">Entender</span>
       <button role="tab" id="tab-start" aria-controls="p-start" aria-selected="true">Comece aqui</button>
-      <button role="tab" id="tab-agora" aria-controls="p-agora" aria-selected="false" tabindex="-1">Agora no Pacífico</button>
-      <button role="tab" id="tab-prev" aria-controls="p-prev" aria-selected="false" tabindex="-1">Previsões</button>
-      <button role="tab" id="tab-br" aria-controls="p-br" aria-selected="false" tabindex="-1">Impactos no Brasil</button>
-      <button role="tab" id="tab-hist" aria-controls="p-hist" aria-selected="false" tabindex="-1">Rio Negro e a história</button>
-      <button role="tab" id="tab-agro" aria-controls="p-agro" aria-selected="false" tabindex="-1">Agro em Mafra</button>
+      <button role="tab" id="tab-br" aria-controls="p-br" aria-selected="false" tabindex="-1">No Brasil</button>
       <button role="tab" id="tab-clima" aria-controls="p-clima" aria-selected="false" tabindex="-1">Mudanças climáticas</button>
-      <button role="tab" id="tab-evol" aria-controls="p-evol" aria-selected="false" tabindex="-1">Evolução histórica</button>
-      <button role="tab" id="tab-src" aria-controls="p-src" aria-selected="false" tabindex="-1">Satélite e fontes</button>
+      <span class="tab-group" aria-hidden="true">Mafra</span>
+      <button role="tab" id="tab-hist" aria-controls="p-hist" aria-selected="false" tabindex="-1">Rio Negro</button>
+      <button role="tab" id="tab-agro" aria-controls="p-agro" aria-selected="false" tabindex="-1">Agro e chuva</button>
+      <span class="tab-group" aria-hidden="true">Dados técnicos</span>
+      <button role="tab" id="tab-agora" aria-controls="p-agora" aria-selected="false" tabindex="-1">O oceano agora</button>
+      <button role="tab" id="tab-prev" aria-controls="p-prev" aria-selected="false" tabindex="-1">Previsões</button>
+      <button role="tab" id="tab-evol" aria-controls="p-evol" aria-selected="false" tabindex="-1">Histórico do índice</button>
+      <button role="tab" id="tab-src" aria-controls="p-src" aria-selected="false" tabindex="-1">Satélite e links</button>
     </nav>
       <button type="button" class="tab-arrow right" id="tabs-right" aria-label="Ver mais seções" hidden><span>›</span></button>
     </div>
@@ -327,13 +353,20 @@ h3.sec{font-size:1.45rem;margin-top:34px}
   <p class="lede">Este painel explica o fenômeno para qualquer pessoa e acompanha, quase em tempo real, o El Niño de 2026–27, que pode ser o mais forte já medido.</p>
 
   <div class="now-card">
-    <div class="now-text">
-      <div class="now-kicker">Situação agora</div>
-      <div class="now-big" id="now-big">El Niño</div>
-      <p id="now-sub"></p>
-      <button type="button" class="start-river" id="start-river" data-goto="tab-hist"><span class="now-kicker">Rio Negro agora</span><span class="sr-n">–</span><span class="rn-status"></span><span class="sr-t"></span></button>
+    <div class="now-top">
+      <div class="now-text">
+        <div class="now-kicker">Situação agora</div>
+        <div class="now-big" id="now-big">El Niño</div>
+        <p id="now-sub"></p>
+      </div>
+      <div id="gauge-box"><svg id="gauge" viewBox="0 0 640 140" role="img" aria-label="Termômetro do El Niño com a leitura atual do Pacífico"></svg>
+        <p class="now-note" id="now-note"></p></div>
     </div>
-    <div class="scroll-x"><svg id="gauge" viewBox="0 0 640 140" role="img" aria-label="Termômetro do El Niño com a leitura atual do Pacífico"></svg></div>
+    <div class="tiles">
+      <button type="button" class="tile-btn" id="start-river" data-goto="tab-hist"><span class="now-kicker">Rio Negro agora</span><span class="tb-row"><span class="sr-n">–</span><span class="rn-status"></span></span><span class="sr-t"></span></button>
+      <button type="button" class="tile-btn" id="start-rain" data-goto="tab-agro"><span class="now-kicker">Chuva prevista em Mafra</span><span class="tb-row"><span class="sr-n" id="sr-rain">–</span></span><span class="sr-t" id="sr-rain-t">carregando…</span></button>
+      <button type="button" class="tile-btn" data-goto="tab-src"><span class="now-kicker">Satélite de hoje</span><span class="tb-row"><span class="sr-n tb-small">Ver o Pacífico</span></span><span class="sr-t">imagem diária da NOAA</span></button>
+    </div>
   </div>
 
   <div class="three">
@@ -353,6 +386,28 @@ h3.sec{font-size:1.45rem;margin-top:34px}
     </svg>
     <span><strong>Assista: como funciona o El Niño</strong><span>Animação em quadro branco, 6 quadros, do oceano até as lavouras do Planalto Norte.</span></span>
   </a>
+
+  <h3 class="sec">E eu com isso? O que fazer</h3>
+  <div class="todo">
+    <div class="todo-card"><h3>Mora perto do rio ou em área de risco</h3>
+      <ul class="clean">
+        <li>Acompanhe o nível do rio Negro no <a href="https://mauriciorschmitt.github.io/riomafranivel/" target="_blank" rel="noopener noreferrer">Régua Viva</a>, atualizado a cada 30 minutos.</li>
+        <li>Deixe documentos, remédios e uma mochila de emergência em lugar alto e fácil de pegar.</li>
+        <li>Não espere a água chegar perto para pedir ajuda: os contatos da Defesa Civil estão na aba <button type="button" class="inline-link" data-goto="tab-hist">Rio Negro</button>.</li>
+      </ul></div>
+    <div class="todo-card"><h3>Trabalha no campo</h3>
+      <ul class="clean">
+        <li>Converse com o escritório da Epagri do município antes de decidir plantio, cultivar e datas.</li>
+        <li>Use a previsão de 16 dias da aba <button type="button" class="inline-link" data-goto="tab-agro">Agro e chuva</button> para achar janelas secas de trabalho.</li>
+        <li>Capriche na conservação do solo: chuva forte em terra descoberta leva o solo embora.</li>
+      </ul></div>
+    <div class="todo-card"><h3>Todo mundo</h3>
+      <ul class="clean">
+        <li>Cadastre seu CEP para receber alertas da Defesa Civil por SMS: envie o CEP para o número <b>40199</b>.</li>
+        <li>Confie nos avisos oficiais (Defesa Civil, Epagri/Ciram, Inmet). Este painel ajuda a entender, mas não substitui os alertas.</li>
+        <li>Em emergência, ligue <b>199</b> (Defesa Civil) ou <b>193</b> (Bombeiros).</li>
+      </ul></div>
+  </div>
 
   <h3 class="sec">As três fases do ciclo</h3>
   <p class="note">O El Niño é uma das três fases de um ciclo natural chamado ENOS (El Niño–Oscilação Sul). O Pacífico alterna entre elas de forma irregular.</p>
@@ -376,10 +431,10 @@ h3.sec{font-size:1.45rem;margin-top:34px}
 
   <h3 class="sec">Como usar este painel</h3>
   <div class="goto">
-    <button type="button" data-goto="tab-agora"><b>Agora no Pacífico</b><span>O mar hoje, região por região</span></button>
+    <button type="button" data-goto="tab-agora"><b>O oceano agora</b><span>O mar hoje, região por região</span></button>
     <button type="button" data-goto="tab-prev"><b>Previsões</b><span>Até quando e com que força</span></button>
-    <button type="button" data-goto="tab-hist"><b>Rio Negro e a história</b><span>As cheias e o El Niño em Mafra</span></button>
-    <button type="button" data-goto="tab-agro"><b>Agro em Mafra</b><span>Previsão de 16 dias e as lavouras</span></button>
+    <button type="button" data-goto="tab-hist"><b>Rio Negro</b><span>As cheias e o El Niño em Mafra</span></button>
+    <button type="button" data-goto="tab-agro"><b>Agro e chuva</b><span>Previsão de 16 dias e as lavouras</span></button>
     <button type="button" data-goto="tab-clima"><b>Mudanças climáticas</b><span>Como o El Niño e o aquecimento se somam</span></button>
   </div>
 </section>
@@ -396,7 +451,7 @@ h3.sec{font-size:1.45rem;margin-top:34px}
       <p id="rn-meta"></p>
       <a class="rn-link" href="https://mauriciorschmitt.github.io/riomafranivel/" target="_blank" rel="noopener noreferrer">Abrir o Régua Viva: a régua completa, a sua rua e o que fazer em caso de cheia</a>
     </div>
-    <div class="scroll-x"><svg id="rn-chart" viewBox="0 0 560 220" role="img" aria-label="Nível do rio Negro nos últimos 30 dias, com as faixas de alerta"></svg></div>
+    <div class="rn-chart-box"><svg id="rn-chart" viewBox="0 0 560 220" role="img" aria-label="Nível do rio Negro nos últimos 30 dias, com as faixas de alerta"></svg></div>
   </div>
 
   <h3 class="sec">A maior cheia de cada ano, desde 1930</h3>
@@ -476,7 +531,7 @@ h3.sec{font-size:1.45rem;margin-top:34px}
       <span>Anomalia de TSM (°C)</span>
       <span class="ramp-wrap"><span class="ramp" aria-hidden="true"></span><span class="ramp-labels"><span>−2</span><span>0</span><span>+2</span><span>+5</span></span></span>
     </div>
-    <p class="caveat">Esquema ilustrativo construído a partir dos índices semanais do CPC/NOAA, não uma imagem de satélite. A imagem real está na aba “Satélite e fontes”.</p>
+    <p class="caveat">Esquema ilustrativo construído a partir dos índices semanais do CPC/NOAA, não uma imagem de satélite. A imagem real está na aba “Satélite e links”.</p>
   </div>
 
   <div class="readouts" id="readouts"></div>
@@ -542,7 +597,7 @@ h3.sec{font-size:1.45rem;margin-top:34px}
     <span><span class="sw" style="background:#5E95C4"></span>mais chuvoso que o normal</span>
     <span>Cores divididas indicam regiões com sinais diferentes.</span>
   </div>
-  <p class="note" style="margin-top:14px">Mapa esquemático por região, não em escala. Para o mapa oficial de anomalias, consulte o Painel El Niño do Inmet e a previsão sazonal do CPTEC (links na aba “Satélite e fontes”).</p>
+  <p class="note" style="margin-top:14px">Mapa esquemático por região, não em escala. Para o mapa oficial de anomalias, consulte o Painel El Niño do Inmet e a previsão sazonal do CPTEC (links na aba “Satélite e links”).</p>
 </section>
 
 <!-- AGRO -->
@@ -557,7 +612,7 @@ h3.sec{font-size:1.45rem;margin-top:34px}
   </div>
   <p class="src-line">Participação da microrregião de Canoinhas (inclui Mafra, Itaiópolis, Papanduva, Canoinhas e vizinhos). Fonte: Epagri/Cepa, estimativas da safra de verão 2026/27, divulgadas em 29/09/2026.</p>
 
-  <p class="note" style="margin-top:22px">As cheias históricas do rio Negro e a relação com o El Niño estão na aba “Rio Negro e a história”.</p>
+  <p class="note" style="margin-top:22px">As cheias históricas do rio Negro e a relação com o El Niño estão na aba “Rio Negro”.</p>
 
   <div class="live" id="live-forecast">
     <div class="live-head"><h3>Mafra nos próximos 16 dias</h3><span class="when" id="fc-when"></span></div>
@@ -609,6 +664,11 @@ h3.sec{font-size:1.45rem;margin-top:34px}
 
 <footer>
   <div class="wrap">
+    <div class="about">
+      <h3>Sobre este painel</h3>
+      <p>Edição especial para acompanhar o El Niño de 2026 em Mafra e região. O painel reúne em um só lugar dados que hoje estão espalhados: o oceano (NOAA), a chuva prevista (Open-Meteo), o rio Negro (ANA, via Régua Viva) e as previsões para o agro (Epagri). <span id="autor"></span></p>
+      <p><b>Importante:</b> este é um painel independente e informativo. Ele não substitui os alertas oficiais da Defesa Civil, do Inmet e da Epagri/Ciram. Dados automáticos podem atrasar ou falhar; em caso de dúvida, siga sempre as orientações oficiais.</p>
+    </div>
     <p id="foot-data"></p>
     <p>Fontes: NOAA Climate Prediction Center, NOAA Coral Reef Watch, IRI/Columbia, Inmet (Painel El Niño 2026–2027), CPTEC/Inpe, Funceme, Serviço Geológico do Brasil, Epagri/Ciram, Epagri/Cepa, Open-Meteo (dados de previsão e reanálise ERA5), ANA (via Régua Viva), Prefeitura e Defesa Civil de Mafra, NSC Total, OMM, Met Office, Carbon Brief e IPCC.</p>
   </div>
@@ -621,18 +681,20 @@ h3.sec{font-size:1.45rem;margin-top:34px}
 const FALLBACK = {"updated": "2026-09-28", "status": "El Niño Advisory", "synopsis": "El Niño is strengthening, with a greater than 90% chance of a very strong event during the Northern Hemisphere fall and winter 2026-27.", "discussionDate": "10 set 2026", "nextUpdate": "8 out 2026", "weekLabel": "atualização semanal de 28 set 2026", "prevLabel": "média de agosto", "regions": {"n12": {"week": 3.9, "prev": 3.4, "series": []}, "n3": {"week": 3.1, "prev": 2.5, "series": []}, "n34": {"week": 2.2, "prev": 1.8, "series": []}, "n4": {"week": 0.1, "prev": 0.1, "series": []}}, "roni": {"start": 2014, "values": [-0.4, -0.4, -0.1, 0.1, 0.2, 0.0, -0.1, -0.1, 0.1, 0.4, 0.5, 0.6, 0.5, 0.5, 0.6, 0.7, 0.9, 1.0, 1.3, 1.5, 1.8, 2.0, 2.2, 2.3, 2.1, 1.8, 1.3, 0.7, 0.1, 0.4, -0.7, -0.8, -0.9, -1.0, -1.0, -0.9, -0.6, -0.4, -0.2, -0.1, 0.0, 0.0, -0.2, -0.5, -0.6, -0.8, -1.0, -1.1, -1.1, -1.0, -0.9, -0.7, -0.3, 0.0, 0.1, 0.2, 0.4, 0.6, 0.8, 0.8, 0.7, 0.6, 0.6, 0.5, 0.4, 0.2, 0.0, -0.1, 0.0, 0.2, 0.3, 0.2, 0.1, 0.1, 0.0, -0.3, -0.5, -0.7, -0.8, -0.8, -1.2, -1.4, -1.5, -1.4, -1.3, -1.2, -1.1, -0.9, -0.7, -0.6, -0.6, -0.8, -0.9, -1.1, -1.2, -1.2, -1.2, -1.1, -1.2, -1.3, -1.2, -0.9, -0.9, -0.9, -1.1, -1.1, -1.1, -1.0, -0.9, -0.7, -0.5, -0.3, 0.0, 0.3, 0.5, 0.8, 1.0, 1.3, 1.4, 1.4, 1.1, 0.8, 0.4, 0.0, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0, -1.1, -0.8, -0.7, -0.5, -0.5, -0.4, -0.4, -0.6, -0.8, -0.9, -1.0, -1.0, -0.9, -0.8, -0.4, 0.0, 0.5, 1.0, 1.4]}, "outlook": {"_comment": "Preenchido à mão a partir da ENSO Diagnostic Discussion. O robô não altera este bloco: quando sair uma discussão nova, atualize os textos e o campo 'discussion'.", "discussion": "10 set 2026", "veryStrong": ">90%", "veryStrongText": "chance de El Niño muito forte (≥ +2,0 °C) entre set–out–nov e nov–dez–jan.", "historic": "75%", "historicText": "chance de ser o El Niño mais forte desde 1950 no trimestre out–nov–dez (RONI ≥ +2,5 °C).", "bands": [{"from": "SON", "to": "NDJ", "color": "#8E1630", "title": ">90% de chance de El Niño muito forte", "sub": "≥ +2,0 °C"}, {"from": "DJF", "to": "MAM", "color": "#E5713A", "title": "El Niño persiste", "sub": "até mar–abr–mai 2027"}, {"from": "AMJ", "to": "AMJ", "color": "#7A93A0", "title": "55% neutro", "sub": "fim provável"}, {"from": "OND", "to": "OND", "color": "#5A0D2A", "title": "75% recorde", "sub": "≥ +2,5 °C", "row": 2}]}};
 let DATA = FALLBACK;
 
+/* Nome que aparece em "Sobre este painel" (deixe vazio para não mostrar) */
+const AUTOR = "";
 const MAFRA = { name:"Mafra", lat:-26.1114, lon:-49.8053 };
 const SEASONS = ["DJF","JFM","FMA","MAM","AMJ","MJJ","JJA","JAS","ASO","SON","OND","NDJ"];
 const SEASONS_PT = ["dez-jan-fev","jan-fev-mar","fev-mar-abr","mar-abr-mai","abr-mai-jun","mai-jun-jul","jun-jul-ago","jul-ago-set","ago-set-out","set-out-nov","out-nov-dez","nov-dez-jan"];
 const MESES = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
 const STATUS_PT = {
-  "El Niño Advisory":"Aviso de El Niño ativo (NOAA)",
-  "El Niño Watch":"Vigilância de El Niño (NOAA)",
-  "Final El Niño Advisory":"Aviso final de El Niño (NOAA)",
-  "La Niña Advisory":"Aviso de La Niña ativo (NOAA)",
-  "La Niña Watch":"Vigilância de La Niña (NOAA)",
-  "Final La Niña Advisory":"Aviso final de La Niña (NOAA)",
-  "Not Active":"Sistema de alerta inativo (NOAA)"
+  "El Niño Advisory":"Alerta oficial: El Niño em andamento",
+  "El Niño Watch":"Atenção: El Niño pode se formar",
+  "Final El Niño Advisory":"Alerta oficial: El Niño terminando",
+  "La Niña Advisory":"Alerta oficial: La Niña em andamento",
+  "La Niña Watch":"Atenção: La Niña pode se formar",
+  "Final La Niña Advisory":"Alerta oficial: La Niña terminando",
+  "Not Active":"Pacífico em condições neutras"
 };
 const REGIONS = [
   { id:"n4",  name:"Niño 4",   box:[160,210,5,-5],
@@ -673,7 +735,8 @@ const reg = id => DATA.regions[id];
 /* ===== cabeçalho ===== */
 function renderHeader(live){
   document.getElementById("badge").textContent = STATUS_PT[DATA.status] || (DATA.status+" (NOAA)");
-  document.getElementById("stamp").textContent = "Índices: "+DATA.weekLabel+". Próxima discussão oficial: "+DATA.nextUpdate+".";
+  document.getElementById("stamp").textContent = "Edição especial 2026 · dados do oceano: "+DATA.weekLabel;
+  const au=document.getElementById("autor"); if(au) au.textContent = AUTOR ? "Feito por "+AUTOR+"." : "";
   const f=document.getElementById("foot-data");
   f.textContent = live
     ? "Dados da NOAA atualizados automaticamente; última verificação em "+DATA.updated.split("-").reverse().join("/")+"."
@@ -1015,7 +1078,7 @@ window.addEventListener("pointerup",()=>{ if(!drag) return; setTimeout(()=>navEl
 function revealTab(t){ const l=t.offsetLeft-navEl.offsetLeft, r=l+t.offsetWidth; if(l<navEl.scrollLeft+40) navEl.scrollTo({left:Math.max(0,l-60)}); else if(r>navEl.scrollLeft+navEl.clientWidth-40) navEl.scrollTo({left:r-navEl.clientWidth+60}); }
 updateArrows(); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(updateArrows);
 function show(i,focus){
-  revealTab(tabs[i]);
+  revealTab(tabs[i]); setTimeout(markOverflow,50);
   tabs.forEach((t,k)=>{const on=k===i;t.setAttribute("aria-selected",on);t.tabIndex=on?0:-1;document.getElementById(t.getAttribute("aria-controls")).hidden=!on});
   if(tabs[i].id==="tab-agro") loadAgro();
   if(focus)tabs[i].focus();
@@ -1044,14 +1107,19 @@ function renderStart(){
     : ph.cls==="la" ? "Para Mafra e região, isso significa mais chance de chuva abaixo da média e estiagem."
     : "Sem empurrão claro do Pacífico: o tempo em Mafra depende mais de outros fatores.";
   document.getElementById("now-sub").textContent="O centro do Pacífico está "+fmt(v).replace("+","")+(v>=0?" acima":" abaixo")+" do normal (leitura semanal da NOAA, "+DATA.weekLabel+"). "+effect;
+  const L_=latestRoni();
+  document.getElementById("now-note").textContent="Parece pouco, mas são cerca de 10 mil km de oceano mais quentes que o normal: energia suficiente para mudar os ventos do planeta. O índice oficial da NOAA ("+fmt(L_.value)+") é uma média de três meses ("+L_.season+") e por isso anda atrás da leitura semanal.";
   const svg=document.getElementById("gauge"); svg.innerHTML="";
-  const X0=20,X1=620,V0=-2.5,V1=4.5,x=t=>X0+(t-V0)/(V1-V0)*(X1-X0),Y=52,H=26;
+  const GW=Math.max(340,Math.min(640,(document.getElementById("gauge-box").clientWidth||640)));
+  svg.setAttribute("viewBox","0 0 "+GW+" 140");
+  const X0=16,X1=GW-16,V0=-2.5,V1=4.5,x=t=>X0+(t-V0)/(V1-V0)*(X1-X0),Y=52,H=26;
   const zones=[[-2.5,-0.5,"#2E5C9E","La Niña"],[-0.5,0.5,"#C9D1D5","Neutro"],[0.5,1,"#F6D98A","fraco"],[1,1.5,"#F2B05A","moderado"],[1.5,2,"#E5713A","forte"],[2,4.5,"#8E1630","muito forte"]];
   zones.forEach(([a,b,c,t],i)=>{
     el("rect",{x:x(a),y:Y,width:x(b)-x(a),height:H,fill:c},svg);
-    txt(svg,t,{x:(x(a)+x(b))/2,y:Y+H+(i===3?50:32),"text-anchor":"middle","font-size":13,fill:"var(--ink-2)","font-family":"var(--body)"});
+    if(GW>=520||i<2) txt(svg,t,{x:(x(a)+x(b))/2,y:Y+H+(i===3&&GW>=520?50:32),"text-anchor":"middle","font-size":13,fill:"var(--ink-2)","font-family":"var(--body)"});
   });
   el("rect",{x:X0,y:Y,width:X1-X0,height:H,fill:"none",stroke:"var(--line)",rx:3},svg);
+  if(GW<520) txt(svg,"El Niño: fraco → muito forte",{x:(x(0.5)+x(4.5))/2,y:Y+H+32,"text-anchor":"middle","font-size":13,fill:"var(--ink-2)","font-family":"var(--body)"});
   [-2,-1,0,1,2,3,4].forEach(t=>txt(svg,(t>0?"+":t<0?"−":"")+Math.abs(t)+" °C",{x:x(t),y:Y+H+15,"text-anchor":"middle","font-size":11,fill:"var(--ink-2)","font-family":"var(--body)"}));
   const vx=x(Math.max(V0,Math.min(V1,v)));
   el("path",{d:`M${vx-9},${Y-18} L${vx+9},${Y-18} L${vx},${Y-3} Z`,fill:"var(--ink)"},svg);
@@ -1078,7 +1146,7 @@ function normRV(j){
 async function loadRiver(){
   let rv=normRV(RV_FALLBACK);
   try{ const j=await getJSON(REGUA_URL,10000); if(j&&j.atual&&j.config) rv=normRV(j); }catch(e){}
-  renderRiverNow(rv); renderMaximas(rv); renderFaixas(rv); renderStartRiver(rv);
+  LAST_RV=rv; renderRiverNow(rv); renderMaximas(rv); renderFaixas(rv); renderStartRiver(rv);
 }
 function trendText(t){ if(t==null) return ""; if(Math.abs(t)<0.5) return "estável"; return (t>0?"subindo ":"descendo ")+num(Math.abs(t))+" cm por hora"; }
 
@@ -1091,7 +1159,7 @@ function renderRiverNow(rv){
     : "Última leitura disponível nesta visualização: "+dt(a.hora)+". Na versão publicada no GitHub, este número se atualiza sozinho a cada 30 minutos.";
   const svg=document.getElementById("rn-chart"); svg.innerHTML="";
   const ser=rv.serie; if(!ser.length) return;
-  const L=40,R=12,T=12,B=26,W=560,H=220;
+  const W=Math.max(320,Math.min(560,(svg.parentNode.clientWidth||560))),L=40,R=12,T=12,B=26,H=220; svg.setAttribute("viewBox","0 0 "+W+" "+H);
   const vals=ser.map(p=>p[1]), fx=rv.cotas.faixas||[];
   const vmax=Math.max(...vals, ...(fx.length?[fx[Math.min(2,fx.length-1)].cota+1]:[8])), vmin=Math.max(0,Math.min(...vals)-1);
   const t0=new Date(ser[0][0]).getTime(), t1=new Date(ser[ser.length-1][0]).getTime();
@@ -1168,6 +1236,26 @@ function renderStartRiver(rv){
   box.querySelector(".sr-t").textContent=rv.live?trendText(a.tendencia_cm_h):"última leitura de "+dt(a.hora);
 }
 
+async function loadStartRain(){
+  const n=document.getElementById("sr-rain"), t=document.getElementById("sr-rain-t");
+  try{
+    const j=await getJSON("https://api.open-meteo.com/v1/forecast?latitude="+MAFRA.lat+"&longitude="+MAFRA.lon+"&daily=precipitation_sum&timezone=America%2FSao_Paulo&forecast_days=7",10000);
+    const r=j.daily.precipitation_sum.map(v=>v||0), tot=r.reduce((a,b)=>a+b,0), wet=r.filter(v=>v>=1).length;
+    n.textContent=Math.round(tot)+" mm"; t.textContent="nos próximos 7 dias, com chuva em "+wet+(wet===1?" dia":" dias");
+  }catch(e){ n.textContent="Ver previsão"; t.textContent="previsão de 16 dias na aba Agro e chuva"; }
+}
+let LAST_RV=null;
+function markOverflow(){
+  document.querySelectorAll(".scroll-x").forEach(b=>{
+    const over=b.scrollWidth>b.clientWidth+4;
+    b.classList.toggle("is-over",over);
+    let h=b.nextElementSibling; if(!(h&&h.classList&&h.classList.contains("swipe-hint"))){ if(!over) return; h=document.createElement("p"); h.className="swipe-hint"; h.textContent="← arraste para o lado para ver o gráfico inteiro →"; b.after(h); }
+    h.hidden=!over;
+  });
+}
+let rsz=null;
+window.addEventListener("resize",()=>{clearTimeout(rsz);rsz=setTimeout(()=>{renderStart(); if(LAST_RV) renderRiverNow(LAST_RV); markOverflow();},200)});
+
 /* ===== Mudanças climáticas: escada rolante ===== */
 function renderEscada(){
   const svg=document.getElementById("escada"); svg.innerHTML="";
@@ -1195,7 +1283,7 @@ document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",(
   const h=location.hostname, local=location.protocol==="file:"||h==="localhost"||h==="127.0.0.1"||h.endsWith("github.io");
   if(!local){ const url="https://claude.ai/artifact/M5YqfNSdWTe7ZMLYMVw2p7"; document.querySelectorAll('a[href="explicacao.html"]').forEach(a=>{a.href=url;a.target="_blank";a.rel="noopener noreferrer"}); }
 })();
-renderEscada(); loadRiver();
+renderEscada(); loadRiver(); loadStartRain();
 
 /* ===== inicialização ===== */
 function renderAll(live){ renderHeader(live); renderStart(); renderMap(); renderReadouts(); renderFacts(); renderRoni(); renderOutlook(); }
