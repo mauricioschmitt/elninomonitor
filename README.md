@@ -1,6 +1,6 @@
-# Monitor El Niño 2026–27 · Mafra e região
+# Monitor El Niño 2026–27 · Planalto Norte de SC e Sul do Brasil
 
-Painel de monitoramento do El Niño com foco no agro do Planalto Norte Catarinense.
+Painel de monitoramento do El Niño com foco no Planalto Norte catarinense, onde fica a maior parte dos campi da UNC, e uma aba para todo o Sul do Brasil.
 
 ## O que se atualiza sozinho
 
@@ -9,8 +9,12 @@ Painel de monitoramento do El Niño com foco no agro do Planalto Norte Catarinen
 | Índices Niño semanais (1+2, 3, 3.4, 4) | NOAA/CPC (`wksst9120.for`) | robô diário (GitHub Actions) |
 | Índice RONI (gráfico histórico) | NOAA/CPC (`RONI.ascii.txt`) | robô diário |
 | Status do alerta, síntese e datas | NOAA/CPC, ENSO Diagnostic Discussion | robô diário |
-| Previsão de 16 dias para Mafra | Open-Meteo | toda vez que a página abre |
-| Chuva do ano em Mafra x média 1991–2020 | Open-Meteo (reanálise ERA5) | toda vez que a página abre |
+| Índice de Oscilação Sul (SOI) | NOAA/CPC (`soi`) | robô diário |
+| Calor nos 300 m superiores do Pacífico | NOAA/CPC (`heat_content_index.txt`) | robô diário |
+| Previsão de 16 dias nas cidades dos campi da UNC | Open-Meteo | toda vez que a página abre |
+| Chuva do ano na cidade escolhida x média 1991–2020 | Open-Meteo (reanálise ERA5) | toda vez que a página abre |
+| Chuva dos últimos 30 dias e próximos 16 em 12 cidades do Sul | Open-Meteo | toda vez que a aba abre |
+| Contorno dos continentes do mapa-múndi | world-atlas (jsDelivr) | toda vez que a aba abre |
 | Imagem de satélite da anomalia de TSM | NOAA Coral Reef Watch | toda vez que a página abre |
 
 **Atualização manual:** as probabilidades da NOAA (bloco `outlook` em `data/enso.json`) e os textos sobre a safra (Epagri/Cepa) dentro do `index.html`. A NOAA publica a discussão mensal na 2ª quinta-feira do mês; quando a data mudar, o painel mostra um aviso pedindo para revisar o bloco `outlook`.

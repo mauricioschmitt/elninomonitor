@@ -24,6 +24,9 @@ RONI_URLS = [
     "https://www.cpc.ncep.noaa.gov/data/indices/RONI.ascii.txt",
 ]
 DISCUSSION_URL = "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml"
+SOI_URL = "https://www.cpc.ncep.noaa.gov/data/indices/soi"
+HEAT_URL = "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/ocean/index/heat_content_index.txt"
+MONTHS_KEEP = 48  # meses guardados para os gráficos de SOI e calor do oceano
 
 MESES_EN = {m: i for i, m in enumerate(
     ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"], 1)}
@@ -117,6 +120,50 @@ def parse_discussion(html: str) -> dict:
     return out
 
 
+def monthly_series(pairs: list) -> dict:
+    """[((ano, mês), valor), ...] em ordem -> {"start": "AAAA-MM", "values": [...]} dos últimos meses."""
+    pairs = pairs[-MONTHS_KEEP:]
+    if not pairs:
+        raise ValueError("série vazia")
+    (y, m), _ = pairs[0]
+    return {"start": f"{y}-{m:02d}", "values": [v for _, v in pairs]}
+
+
+def parse_soi(text: str) -> dict:
+    """Arquivo 'soi' do CPC: usa a segunda tabela (STANDARDIZED DATA), ano + 12 meses.
+    Os números às vezes vêm colados ('-2.0-999.9'), por isso a leitura é por regex."""
+    part = text.split("STANDARDIZED", 1)
+    if len(part) < 2:
+        raise ValueError("tabela padronizada do SOI não encontrada")
+    pairs = []
+    for line in part[1].splitlines():
+        m = re.match(r"\s*(\d{4})(.*)", line)
+        if not m:
+            continue
+        vals = re.findall(r"-?\d+\.\d", m.group(2))
+        if len(vals) != 12:
+            continue
+        for mon, v in enumerate(vals, 1):
+            f = float(v)
+            if f > -99:
+                pairs.append(((int(m.group(1)), mon), f))
+    return monthly_series(pairs)
+
+
+def parse_heat(text: str) -> dict:
+    """heat_content_index.txt: ano, mês e anomalia média dos 300 m superiores (usa 160E-80W)."""
+    pairs = []
+    for line in text.splitlines():
+        parts = line.split()
+        if len(parts) < 4 or not parts[0].isdigit():
+            continue
+        try:
+            pairs.append(((int(parts[0]), int(parts[1])), round(float(parts[3]), 2)))
+        except ValueError:
+            continue
+    return monthly_series(pairs)
+
+
 def en_date(d, month_name, y) -> str:
     mon = MESES_EN.get(month_name[:3].upper())
     return pt_date(int(d), mon, int(y)) if mon else f"{d} {month_name} {y}"
@@ -148,6 +195,13 @@ def main() -> int:
         ok.append("discussão")
     except Exception as e:  # noqa: BLE001
         print(f"[aviso] discussão mensal: {e}", file=sys.stderr)
+
+    for key, url, parser in (("soi", SOI_URL, parse_soi), ("heat", HEAT_URL, parse_heat)):
+        try:
+            data[key] = parser(fetch(url))
+            ok.append(key)
+        except Exception as e:  # noqa: BLE001
+            print(f"[aviso] {key}: {e}", file=sys.stderr)
 
     if not ok:
         print("Nenhuma fonte respondeu; arquivo mantido como estava.", file=sys.stderr)

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Monitor El Niño 2026–27 · Mafra e região</title>
+<title>Monitor El Niño 2026–27 · Planalto Norte de SC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -311,6 +311,40 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
 .swipe-hint{font-size:.8rem;color:var(--ink-2);text-align:center;margin:6px 0 0}
 .scroll-x.is-over{box-shadow:inset -14px 0 12px -12px rgba(0,0,0,.25)}
 @media (max-width:820px){.now-top,.tiles,.todo{grid-template-columns:1fr}}
+/* como se forma */
+.form-box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.seg button{font:inherit;font-family:var(--display);font-stretch:88%;font-weight:700;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--chip);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#formacao{display:block;width:100%;height:auto;min-width:620px}
+@keyframes flow{to{stroke-dashoffset:-28}}
+.flow{stroke-dasharray:14 14;animation:flow linear infinite}
+.form-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+.form-steps div{border-top:4px solid var(--c,#8A949C);padding-top:8px;font-size:.93rem}
+.form-steps b{display:block;font-family:var(--display);font-stretch:88%}
+/* mundo */
+#mundo{display:block;width:100%;height:auto;min-width:660px}
+.imp-dot{cursor:pointer}
+.imp-dot circle{stroke:var(--surface);stroke-width:2}
+.imp-dot.active circle{stroke:var(--ink);stroke-width:3}
+.imp-dot text{font-family:var(--display);font-weight:800;font-size:12px;fill:#fff;pointer-events:none}
+.impacts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:14px}
+.impact{font:inherit;text-align:left;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:8px;padding:10px 12px;cursor:pointer}
+.impact[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.impact b{display:block;font-family:var(--display);font-stretch:88%}
+.impact span{font-size:.9rem;color:var(--ink-2)}
+.impact .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--c);color:#fff;font-size:.75rem;font-weight:800;margin-right:6px;vertical-align:1px}
+/* cidades */
+.cities{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 0}
+.cities .lbl{font-size:.85rem;color:var(--ink-2);margin-right:4px}
+.cities .sep{width:1px;height:22px;background:var(--line);margin:0 6px}
+.citybars svg{display:block;width:100%;height:auto;min-width:560px}
+.state-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
+.river-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:26px;border-left:6px solid #1E63B5}
+.river-card p{margin:6px 0 0;max-width:80ch}
+#soi,#heat,#corrida{display:block;width:100%;height:auto;min-width:0}
+#corrida{min-width:640px}
+@media (max-width:820px){.form-steps{grid-template-columns:1fr 1fr}.state-cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -329,15 +363,17 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
       <nav class="tabs" role="tablist" aria-label="Seções do painel">
       <span class="tab-group" aria-hidden="true">Entender</span>
       <button role="tab" id="tab-start" aria-controls="p-start" aria-selected="true">Comece aqui</button>
-      <button role="tab" id="tab-br" aria-controls="p-br" aria-selected="false" tabindex="-1">No Brasil</button>
+      <button role="tab" id="tab-br" aria-controls="p-br" aria-selected="false" tabindex="-1">Mundo e Brasil</button>
       <button role="tab" id="tab-clima" aria-controls="p-clima" aria-selected="false" tabindex="-1">Mudanças climáticas</button>
-      <span class="tab-group" aria-hidden="true">Mafra</span>
-      <button role="tab" id="tab-hist" aria-controls="p-hist" aria-selected="false" tabindex="-1">Rio Negro</button>
-      <button role="tab" id="tab-agro" aria-controls="p-agro" aria-selected="false" tabindex="-1">Agro e chuva</button>
+      <span class="tab-group" aria-hidden="true">Planalto Norte</span>
+      <button role="tab" id="tab-hist" aria-controls="p-hist" aria-selected="false" tabindex="-1">Rios e cheias</button>
+      <button role="tab" id="tab-agro" aria-controls="p-agro" aria-selected="false" tabindex="-1">Chuva e agro</button>
+      <span class="tab-group" aria-hidden="true">Região Sul</span>
+      <button role="tab" id="tab-sul" aria-controls="p-sul" aria-selected="false" tabindex="-1">Sul do Brasil</button>
       <span class="tab-group" aria-hidden="true">Dados técnicos</span>
       <button role="tab" id="tab-agora" aria-controls="p-agora" aria-selected="false" tabindex="-1">O oceano agora</button>
-      <button role="tab" id="tab-prev" aria-controls="p-prev" aria-selected="false" tabindex="-1">Previsões</button>
       <button role="tab" id="tab-evol" aria-controls="p-evol" aria-selected="false" tabindex="-1">Histórico do índice</button>
+      <button role="tab" id="tab-prev" aria-controls="p-prev" aria-selected="false" tabindex="-1">Previsões</button>
       <button role="tab" id="tab-src" aria-controls="p-src" aria-selected="false" tabindex="-1">Satélite e links</button>
     </nav>
       <button type="button" class="tab-arrow right" id="tabs-right" aria-label="Ver mais seções" hidden><span>›</span></button>
@@ -349,7 +385,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
 
 <!-- COMECE AQUI -->
 <section class="panel" id="p-start" role="tabpanel" aria-labelledby="tab-start">
-  <h2>El Niño: o que é, por que acontece e o que muda em Mafra</h2>
+  <h2>El Niño: o que é, por que acontece e o que muda no Planalto Norte</h2>
   <p class="lede">Este painel explica o fenômeno para qualquer pessoa e acompanha, quase em tempo real, o El Niño de 2026–27, que pode ser o mais forte já medido.</p>
 
   <div class="now-card">
@@ -364,7 +400,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     </div>
     <div class="tiles">
       <button type="button" class="tile-btn" id="start-river" data-goto="tab-hist"><span class="now-kicker">Rio Negro agora</span><span class="tb-row"><span class="sr-n">–</span><span class="rn-status"></span></span><span class="sr-t"></span></button>
-      <button type="button" class="tile-btn" id="start-rain" data-goto="tab-agro"><span class="now-kicker">Chuva prevista em Mafra</span><span class="tb-row"><span class="sr-n" id="sr-rain">–</span></span><span class="sr-t" id="sr-rain-t">carregando…</span></button>
+      <button type="button" class="tile-btn" id="start-rain" data-goto="tab-agro"><span class="now-kicker" id="sr-rain-k">Chuva prevista em Mafra</span><span class="tb-row"><span class="sr-n" id="sr-rain">–</span></span><span class="sr-t" id="sr-rain-t">carregando…</span></button>
       <button type="button" class="tile-btn" data-goto="tab-src"><span class="now-kicker">Satélite de hoje</span><span class="tb-row"><span class="sr-n tb-small">Ver o Pacífico</span></span><span class="sr-t">imagem diária da NOAA</span></button>
     </div>
   </div>
@@ -372,7 +408,19 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
   <div class="three">
     <div class="q-card"><div class="q-num">1</div><h3>O que é?</h3><p>Um aquecimento fora do normal das águas do Oceano Pacífico, na altura da linha do Equador. Parece longe daqui, mas esse calor muda os ventos e o caminho da chuva em boa parte do planeta.</p></div>
     <div class="q-card"><div class="q-num">2</div><h3>O que causa?</h3><p>Os ventos que normalmente empurram a água quente para o lado da Austrália perdem força. A água quente escorre de volta para o lado da América do Sul, e uma coisa reforça a outra: mar mais quente enfraquece ainda mais os ventos.</p></div>
-    <div class="q-card"><div class="q-num">3</div><h3>O que muda aqui?</h3><p>No Sul do Brasil, o El Niño costuma trazer chuva acima da média, principalmente no inverno e na primavera. Em Mafra, isso significa mais risco de cheia do rio Negro e de excesso de umidade nas lavouras.</p></div>
+    <div class="q-card"><div class="q-num">3</div><h3>O que muda aqui?</h3><p>No Sul do Brasil, o El Niño costuma trazer chuva acima da média, principalmente no inverno e na primavera. No Planalto Norte, isso significa mais risco de cheia nos rios Negro e Iguaçu e de excesso de umidade nas lavouras.</p></div>
+  </div>
+
+  <h3 class="sec">Como o El Niño se forma</h3>
+  <p class="note" style="max-width:80ch">Um corte do Oceano Pacífico na altura do Equador, da Indonésia até o Peru: cerca de 15 mil km de oceano. Troque entre as fases para ver o que muda no vento, no mar e na chuva.</p>
+  <div class="form-box">
+    <div class="seg" id="form-btns" role="group" aria-label="Escolha a fase do ciclo">
+      <button type="button" data-state="ne" aria-pressed="true">Ano normal</button>
+      <button type="button" data-state="el" aria-pressed="false">El Niño</button>
+      <button type="button" data-state="la" aria-pressed="false">La Niña</button>
+    </div>
+    <div class="scroll-x"><svg id="formacao" viewBox="0 0 1000 440" role="img" aria-label="Corte do Oceano Pacífico equatorial mostrando ventos, água quente, termoclina e nuvens de chuva na fase escolhida"></svg></div>
+    <div class="form-steps" id="form-steps" aria-live="polite"></div>
   </div>
 
   <a class="anim-card" id="anim-link" href="explicacao.html">
@@ -391,14 +439,14 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
   <div class="todo">
     <div class="todo-card"><h3>Mora perto do rio ou em área de risco</h3>
       <ul class="clean">
-        <li>Acompanhe o nível do rio Negro no <a href="https://mauriciorschmitt.github.io/riomafranivel/" target="_blank" rel="noopener noreferrer">Régua Viva</a>, atualizado a cada 30 minutos.</li>
+        <li>Em Mafra e Rio Negro, acompanhe o nível do rio no <a href="https://mauriciorschmitt.github.io/riomafranivel/" target="_blank" rel="noopener noreferrer">Régua Viva</a>, atualizado a cada 30 minutos.</li>
         <li>Deixe documentos, remédios e uma mochila de emergência em lugar alto e fácil de pegar.</li>
-        <li>Não espere a água chegar perto para pedir ajuda: os contatos da Defesa Civil estão na aba <button type="button" class="inline-link" data-goto="tab-hist">Rio Negro</button>.</li>
+        <li>Não espere a água chegar perto para pedir ajuda: os contatos da Defesa Civil estão na aba <button type="button" class="inline-link" data-goto="tab-hist">Rios e cheias</button>.</li>
       </ul></div>
     <div class="todo-card"><h3>Trabalha no campo</h3>
       <ul class="clean">
         <li>Converse com o escritório da Epagri do município antes de decidir plantio, cultivar e datas.</li>
-        <li>Use a previsão de 16 dias da aba <button type="button" class="inline-link" data-goto="tab-agro">Agro e chuva</button> para achar janelas secas de trabalho.</li>
+        <li>Use a previsão de 16 dias da aba <button type="button" class="inline-link" data-goto="tab-agro">Chuva e agro</button> para achar janelas secas de trabalho.</li>
         <li>Capriche na conservação do solo: chuva forte em terra descoberta leva o solo embora.</li>
       </ul></div>
     <div class="todo-card"><h3>Todo mundo</h3>
@@ -431,10 +479,12 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
 
   <h3 class="sec">Como usar este painel</h3>
   <div class="goto">
-    <button type="button" data-goto="tab-agora"><b>O oceano agora</b><span>O mar hoje, região por região</span></button>
+    <button type="button" data-goto="tab-br"><b>Mundo e Brasil</b><span>O que o El Niño provoca em cada canto do planeta</span></button>
+    <button type="button" data-goto="tab-hist"><b>Rios e cheias</b><span>O rio Negro, o Iguaçu e o El Niño</span></button>
+    <button type="button" data-goto="tab-agro"><b>Chuva e agro</b><span>Previsão de 16 dias nas cidades dos campi da UNC</span></button>
+    <button type="button" data-goto="tab-sul"><b>Sul do Brasil</b><span>Chuva agora no PR, SC e RS e as grandes cheias</span></button>
+    <button type="button" data-goto="tab-agora"><b>O oceano agora</b><span>O mar, o vento e o calor escondido, ao vivo</span></button>
     <button type="button" data-goto="tab-prev"><b>Previsões</b><span>Até quando e com que força</span></button>
-    <button type="button" data-goto="tab-hist"><b>Rio Negro</b><span>As cheias e o El Niño em Mafra</span></button>
-    <button type="button" data-goto="tab-agro"><b>Agro e chuva</b><span>Previsão de 16 dias e as lavouras</span></button>
     <button type="button" data-goto="tab-clima"><b>Mudanças climáticas</b><span>Como o El Niño e o aquecimento se somam</span></button>
   </div>
 </section>
@@ -473,8 +523,15 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     <div class="event ev-el" id="ev-now"><div class="ev-year">2026</div><div><b id="ev-now-b">9,04 m em 10 de outubro:</b> <span id="ev-now-t">o maior nível do ano até agora, acima da cota de inundação. Mais de 100 pessoas foram desalojadas em Mafra. O El Niño atual segue em plena força.</span></div></div>
   </div>
 
+  <div class="river-card">
+    <h3>E o rio Iguaçu, em Porto União e União da Vitória?</h3>
+    <p>As duas cidades, onde fica o campus da UNC de Porto União, estão às margens do Iguaçu, que recebe a mesma chuva das frentes paradas sobre o Planalto. O padrão se repete: em julho de 1983, no fim do El Niño de 1982–83, o rio chegou a <b>10,42 m</b> (o normal é perto de 2,5 m) e boa parte de União da Vitória ficou debaixo d’água por semanas. Houve cheias grandes também em 1992 e em 2014.</p>
+    <p>Em Canoinhas, Rio Negrinho e no restante do Planalto, o risco maior costuma ser de enxurradas em rios menores e de deslizamentos em encostas depois de muitos dias de chuva.</p>
+    <p class="note">Para o Iguaçu, acompanhe a Defesa Civil de Porto União (SC) e de União da Vitória (PR) e os boletins do Simepar. A previsão de chuva de cada cidade está na aba <button type="button" class="inline-link" data-goto="tab-agro">Chuva e agro</button>.</p>
+  </div>
+
   <div class="alertbox">
-    <h3>Se o rio subir</h3>
+    <h3>Se o rio Negro subir</h3>
     <div class="alert-grid" id="faixas-grid"></div>
     <div class="contacts" id="contacts"></div>
     <p>A orientação da Defesa Civil é não esperar a água chegar perto de casa para pedir ajuda. Em emergência, ligue <b>199</b>.</p>
@@ -516,7 +573,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     </div>
   </div>
 
-  <div class="advice" style="margin-top:26px"><b>Para Mafra:</b> o mesmo El Niño, num planeta mais quente, tende a trazer chuvas mais pesadas do que traria décadas atrás, porque há mais vapor d’água no ar. É mais um motivo para levar a sério os avisos desta temporada.</div>
+  <div class="advice" style="margin-top:26px"><b>Para o Planalto Norte:</b> o mesmo El Niño, num planeta mais quente, tende a trazer chuvas mais pesadas do que traria décadas atrás, porque há mais vapor d’água no ar. É mais um motivo para levar a sério os avisos desta temporada.</div>
   <p class="src-line">Fontes: OMM (atualização anual a decadal, maio de 2026), Met Office (agosto de 2026), Carbon Brief, IPCC AR6 (Grupo de Trabalho I), NOAA Climate.gov e Washington Post (setembro de 2026).</p>
 </section>
 
@@ -539,6 +596,21 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
 
   <div class="facts" id="facts"></div>
   <p class="synopsis" id="synopsis"></p>
+
+  <div class="two" id="atm-wrap">
+    <div>
+      <h3>A outra metade: a Oscilação Sul</h3>
+      <p class="note">O “OS” de ENOS. Compara a pressão do ar no Taiti, no meio do Pacífico, com a de Darwin, na Austrália. Quando fica <b>negativa</b>, os alísios enfraquecem: é a atmosfera respondendo ao mar quente. Valores abaixo de −1 por vários meses confirmam um El Niño.</p>
+      <div class="chartbox" style="padding:10px"><div class="scroll-x"><svg id="soi" viewBox="0 0 520 240" role="img" aria-label="Índice de Oscilação Sul mês a mês"></svg></div></div>
+      <p class="src-line" id="soi-src"></p>
+    </div>
+    <div>
+      <h3>O calor escondido debaixo do mar</h3>
+      <p class="note">Anomalia de temperatura nos primeiros 300 m do Pacífico equatorial. Esse calor aparece embaixo meses antes de chegar à superfície e é o “combustível” do El Niño. Quando começar a cair, é sinal de que o evento está perdendo força.</p>
+      <div class="chartbox" style="padding:10px"><div class="scroll-x"><svg id="heat" viewBox="0 0 520 240" role="img" aria-label="Anomalia de calor nos 300 metros superiores do Pacífico equatorial mês a mês"></svg></div></div>
+      <p class="src-line" id="heat-src"></p>
+    </div>
+  </div>
 </section>
 
 <!-- EVOLUÇÃO -->
@@ -553,6 +625,9 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     <div class="cat" style="--c:#8E1630"><b>Muito forte</b>≥ +2,0 °C</div>
   </div>
   <div id="peaks-wrap"></div>
+  <h3 class="sec">A corrida dos grandes El Niños</h3>
+  <p class="note" style="max-width:80ch">Cada linha é um El Niño forte, do outono do ano em que se formou até o outono seguinte. A linha vermelha grossa é o de agora: dá para ver se ele está à frente ou atrás dos maiores já medidos no mesmo ponto do calendário.</p>
+  <div class="chartbox"><div class="scroll-x"><svg id="corrida" viewBox="0 0 1000 380" role="img" aria-label="Comparação mês a mês do índice RONI do El Niño atual com os de 1982–83, 1997–98, 2015–16 e 2023–24"></svg></div></div>
   <p class="note" style="margin-top:14px">Para ser classificado como episódio, o limiar de ±0,5 °C precisa ser mantido por pelo menos 5 trimestres sobrepostos consecutivos.</p>
 </section>
 
@@ -583,14 +658,29 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
 
 <!-- BRASIL -->
 <section class="panel" id="p-br" role="tabpanel" aria-labelledby="tab-br" hidden>
-  <h2>Sul encharcado, Norte seco</h2>
+  <h2>Um oceano que mexe com o planeta inteiro</h2>
+  <p class="lede">Quando a chuva muda de lugar no Pacífico, os ventos do mundo se reorganizam. O mapa mostra os efeitos que costumam aparecer durante um El Niño. Toque nos números para ler cada um.</p>
+  <div class="mapbox">
+    <div class="scroll-x"><svg id="mundo" viewBox="0 0 1000 350" role="img" aria-label="Mapa-múndi com os principais efeitos típicos do El Niño em cada região"></svg></div>
+    <div class="br-legend" style="padding:2px 4px 4px;margin-top:6px">
+      <span><span class="sw" style="background:#D9822B"></span>mais seco</span>
+      <span><span class="sw" style="background:#2E6FAE"></span>mais chuvoso</span>
+      <span><span class="sw" style="background:#C73A33"></span>mais quente</span>
+      <span><span class="sw" style="background:#3F8A6B"></span>vida marinha</span>
+    </div>
+  </div>
+  <div class="explain" id="imp-detail" aria-live="polite"></div>
+  <div class="impacts" id="impacts"></div>
+  <p class="src-line">Padrões típicos de El Niño segundo NOAA Climate.gov, IRI/Columbia e OMM. Nenhum El Niño produz todos eles, e a intensidade varia de um evento para outro.</p>
+
+  <h3 class="sec" style="font-size:clamp(1.6rem,3.6vw,2.4rem)">No Brasil: Sul encharcado, Norte seco</h3>
   <p class="lede">Previsão para outubro–novembro–dezembro de 2026, feita em conjunto pelo Inmet, CPTEC/Inpe e Funceme. As temperaturas devem ficar acima da média em grande parte do país.</p>
   <div class="br-grid">
     <div class="tile t-n"><h3>Norte</h3><div class="tags"><span class="tag">Chuva abaixo da média</span><span class="tag">Calor acima</span></div><p>Estiagem prolongada na Amazônia, atraso do início da estação chuvosa e maior risco de incêndios.</p></div>
     <div class="tile t-ne"><h3>Nordeste</h3><div class="tags"><span class="tag">Interior: abaixo</span><span class="tag">Leste: acima</span></div><p>Déficit no centro-norte da região; chuva acima da média na faixa leste.</p></div>
     <div class="tile t-co"><h3>Centro-Oeste</h3><div class="tags"><span class="tag">Irregular</span></div><p>Chuva irregular e alta evapotranspiração; MS, sul de GO e sul de MT tendem a ter excesso.</p></div>
     <div class="tile t-se"><h3>Sudeste</h3><div class="tags"><span class="tag">Dividido</span></div><p>Parte da região com chuva acima da média; áreas do Brasil central abaixo.</p></div>
-    <div class="tile t-s"><h3>Sul</h3><div class="tags"><span class="tag">Chuva acima da média</span><span class="tag">Risco de cheias</span></div><p>Chuva acima da média nos três estados. O solo já está encharcado: o Serviço Geológico do Brasil emitiu mais de 190 boletins de alerta hidrológico na região em 2026. O risco tende a cair até dezembro.</p></div>
+    <div class="tile t-s"><h3>Sul</h3><div class="tags"><span class="tag">Chuva acima da média</span><span class="tag">Risco de cheias</span></div><p>Chuva acima da média nos três estados. O solo já está encharcado: o Serviço Geológico do Brasil emitiu mais de 190 boletins de alerta hidrológico na região em 2026. O risco tende a cair até dezembro. <button type="button" class="inline-link" data-goto="tab-sul" style="color:inherit;font-weight:700">Ver a aba Sul do Brasil</button></p></div>
   </div>
   <div class="br-legend">
     <span><span class="sw" style="background:#E9A15A"></span>mais seco que o normal</span>
@@ -598,6 +688,54 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     <span>Cores divididas indicam regiões com sinais diferentes.</span>
   </div>
   <p class="note" style="margin-top:14px">Mapa esquemático por região, não em escala. Para o mapa oficial de anomalias, consulte o Painel El Niño do Inmet e a previsão sazonal do CPTEC (links na aba “Satélite e links”).</p>
+</section>
+
+<!-- SUL DO BRASIL -->
+<section class="panel" id="p-sul" role="tabpanel" aria-labelledby="tab-sul" hidden>
+  <h2>Sul do Brasil: onde o El Niño mais pesa no país</h2>
+  <p class="lede">Paraná, Santa Catarina e Rio Grande do Sul estão entre as regiões do mundo onde o sinal do El Niño é mais claro: chuva acima da média, sobretudo no inverno e na primavera, e rios cheios. Veja como está a chuva agora nas principais cidades e o que a história ensina.</p>
+
+  <div class="live" id="sul-live" style="margin-top:0">
+    <div class="live-head"><h3>Chuva nos últimos 30 dias e nos próximos 16</h3><span class="when" id="sul-when"></span></div>
+    <div id="sul-body"><div class="empty">Carregando os dados das cidades…</div></div>
+  </div>
+
+  <h3 class="sec">Por que chove tanto aqui</h3>
+  <div class="state-cards">
+    <div class="q-card"><h3>O “rio de vento” fica mais forte</h3><p>Com o Pacífico quente, a corrente de jato subtropical, um vento muito forte a uns 12 km de altura, se intensifica sobre o Sul. Ela funciona como uma barreira: as frentes frias chegam e ficam paradas sobre a região por dias.</p></div>
+    <div class="q-card"><h3>Umidade vinda do norte</h3><p>Ao mesmo tempo, correntes de ar baixas trazem umidade da Amazônia e do Paraguai para o Sul. Frente parada mais ar úmido resulta em chuva repetida sobre as mesmas bacias.</p></div>
+    <div class="q-card"><h3>Solo cheio, rio cheio</h3><p>Depois de semanas de chuva, o solo não absorve mais nada e a água corre direto para os rios. Por isso as maiores cheias costumam vir depois de vários meses de El Niño, e não logo no começo.</p></div>
+  </div>
+
+  <h3 class="sec">Rios que mais preocupam em anos de El Niño</h3>
+  <div class="state-cards">
+    <div class="todo-card"><h3>Paraná</h3><ul class="clean"><li><b>Iguaçu</b>, em União da Vitória e Porto União: cheia histórica de 10,42 m em 1983.</li><li>Cabeceiras do Iguaçu na região de Curitiba.</li><li><b>Negro</b>, na divisa com SC (Rio Negro e Mafra).</li></ul></div>
+    <div class="todo-card"><h3>Santa Catarina</h3><ul class="clean"><li><b>Itajaí-Açu</b>, em Blumenau e no Vale do Itajaí: 15,34 m em julho de 1983.</li><li><b>Negro</b> e <b>Canoinhas</b>, no Planalto Norte.</li><li><b>Uruguai</b>, no Oeste, na divisa com o RS.</li></ul></div>
+    <div class="todo-card"><h3>Rio Grande do Sul</h3><ul class="clean"><li><b>Taquari</b>, <b>Caí</b>, <b>Sinos</b> e <b>Jacuí</b>, que deságuam no <b>Guaíba</b>, em Porto Alegre: recorde de cerca de 5,3 m em maio de 2024.</li><li><b>Uruguai</b>, na fronteira oeste.</li></ul></div>
+  </div>
+
+  <h3 class="sec">Grandes eventos no Sul ligados ao El Niño</h3>
+  <div class="events">
+    <div class="event ev-el"><div class="ev-year">1983</div><div><b>A cheia que marcou a região.</b> No fim do El Niño muito forte de 1982–83, choveu em um mês o previsto para seis. O Itajaí-Açu chegou a 15,34 m em Blumenau, o Iguaçu a 10,42 m em União da Vitória (com boa parte da cidade debaixo d’água por semanas) e o rio Negro a 14,57 m em Mafra.</div></div>
+    <div class="event ev-el"><div class="ev-year">1992</div><div><b>De novo no fim de um El Niño forte</b> (1991–92): segunda maior cheia do rio Negro, 14,39 m, e enchentes no Planalto Norte e no Paraná.</div></div>
+    <div class="event ev-el"><div class="ev-year">2015</div><div><b>Dezembro de 2015:</b> durante o El Niño muito forte de 2015–16, o rio Uruguai teve uma das maiores cheias das últimas décadas, desalojando milhares de pessoas no RS, na Argentina e no Uruguai.</div></div>
+    <div class="event ev-el"><div class="ev-year">2023</div><div><b>Setembro a novembro de 2023:</b> com o El Niño se formando, um ciclone extratropical causou a enchente do Vale do Taquari (RS), com mais de 50 mortes; em outubro, o rio Negro chegou a 10,93 m em Mafra.</div></div>
+    <div class="event ev-el"><div class="ev-year">2024</div><div><b>Maio de 2024:</b> o maior desastre climático da história do RS, já no fim do El Niño de 2023–24. O Guaíba passou de 5,3 m em Porto Alegre, mais de 180 pessoas morreram e mais de 600 mil ficaram fora de casa. Estudos de atribuição apontaram o aquecimento global e o El Niño como fatores que tornaram a chuva mais extrema.</div></div>
+  </div>
+
+  <div class="two">
+    <div class="know"><h3>No campo, o efeito depende da cultura</h3><ul class="clean">
+      <li><b>Soja e milho no RS:</b> costumam ir melhor com El Niño do que nos anos de La Niña, quando faltou chuva (como nas quebras de 2020 a 2023).</li>
+      <li><b>Trigo e outros cereais de inverno:</b> sofrem com chuva na colheita, que derruba a qualidade do grão.</li>
+      <li><b>Feijão, tabaco e hortaliças:</b> sensíveis a solo encharcado e a doenças da umidade.</li>
+    </ul></div>
+    <div class="debate"><h3>Nem todo El Niño é igual</h3><ul class="clean">
+      <li>A chuva acima da média é o mais provável, não uma certeza: cada evento tem um padrão diferente.</li>
+      <li>Grandes cheias também acontecem sem El Niño, como a do rio Negro e do Iguaçu em 2014.</li>
+      <li>Por isso, siga sempre os avisos da Defesa Civil e dos centros estaduais (Epagri/Ciram em SC, Simepar no PR e Sala de Situação no RS).</li>
+    </ul></div>
+  </div>
+  <p class="src-line">Fontes: ANA, Defesa Civil de SC, PR e RS, Serviço Geológico do Brasil, Inmet, World Weather Attribution e imprensa regional. Dados de chuva: Open-Meteo (modelos de previsão e análise), em ponto de grade para cada cidade.</p>
 </section>
 
 <!-- AGRO -->
@@ -612,15 +750,19 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
   </div>
   <p class="src-line">Participação da microrregião de Canoinhas (inclui Mafra, Itaiópolis, Papanduva, Canoinhas e vizinhos). Fonte: Epagri/Cepa, estimativas da safra de verão 2026/27, divulgadas em 29/09/2026.</p>
 
-  <p class="note" style="margin-top:22px">As cheias históricas do rio Negro e a relação com o El Niño estão na aba “Rio Negro”.</p>
+  <p class="note" style="margin-top:22px">As cheias históricas e a relação com o El Niño estão na aba <button type="button" class="inline-link" data-goto="tab-hist">Rios e cheias</button>.</p>
 
-  <div class="live" id="live-forecast">
-    <div class="live-head"><h3>Mafra nos próximos 16 dias</h3><span class="when" id="fc-when"></span></div>
+  <div class="live" style="padding:14px 20px">
+    <div class="cities" id="cities" role="group" aria-label="Escolha a cidade"></div>
+  </div>
+
+  <div class="live" id="live-forecast" style="margin-top:14px">
+    <div class="live-head"><h3 id="fc-title">Mafra nos próximos 16 dias</h3><span class="when" id="fc-when"></span></div>
     <div id="fc-body"><div class="empty">Carregando a previsão…</div></div>
   </div>
 
   <div class="live" id="live-history">
-    <div class="live-head"><h3>Chuva em Mafra em 2026, mês a mês</h3><span class="when" id="hist-when"></span></div>
+    <div class="live-head"><h3 id="hist-title">Chuva em Mafra em 2026, mês a mês</h3><span class="when" id="hist-when"></span></div>
     <div id="hist-body"><div class="empty">Carregando o histórico…</div></div>
   </div>
 
@@ -666,7 +808,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
   <div class="wrap">
     <div class="about">
       <h3>Sobre este painel</h3>
-      <p>Edição especial para acompanhar o El Niño de 2026 em Mafra e região. O painel reúne em um só lugar dados que hoje estão espalhados: o oceano (NOAA), a chuva prevista (Open-Meteo), o rio Negro (ANA, via Régua Viva) e as previsões para o agro (Epagri). <span id="autor"></span></p>
+      <p>Edição especial para acompanhar o El Niño de 2026–27 no Planalto Norte catarinense, onde fica a maior parte dos campi da Universidade do Contestado (UNC), e no Sul do Brasil. O painel reúne em um só lugar dados que hoje estão espalhados: o oceano (NOAA), a chuva prevista (Open-Meteo), a Oscilação Sul e o calor do oceano (NOAA), o rio Negro (ANA, via Régua Viva) e as previsões para o agro (Epagri). <span id="autor"></span></p>
       <p><b>Importante:</b> este é um painel independente e informativo. Ele não substitui os alertas oficiais da Defesa Civil, do Inmet e da Epagri/Ciram. Dados automáticos podem atrasar ou falhar; em caso de dúvida, siga sempre as orientações oficiais.</p>
     </div>
     <p id="foot-data"></p>
@@ -683,7 +825,16 @@ let DATA = FALLBACK;
 
 /* Nome que aparece em "Sobre este painel" (deixe vazio para não mostrar) */
 const AUTOR = "";
-const MAFRA = { name:"Mafra", lat:-26.1114, lon:-49.8053 };
+const CITIES = [
+  { id:"mafra", name:"Mafra", lat:-26.1114, lon:-49.8053, pn:true },
+  { id:"canoinhas", name:"Canoinhas", lat:-26.1766, lon:-50.3900, pn:true },
+  { id:"portouniao", name:"Porto União", lat:-26.2378, lon:-51.0783, pn:true },
+  { id:"rionegrinho", name:"Rio Negrinho", lat:-26.2547, lon:-49.5183, pn:true },
+  { id:"curitibanos", name:"Curitibanos", lat:-27.2828, lon:-50.5844, pn:false },
+  { id:"concordia", name:"Concórdia", lat:-27.2344, lon:-52.0278, pn:false }
+];
+let CITY = CITIES[0];
+try{ const k=localStorage.getItem("elnino-cidade"); const c=CITIES.find(x=>x.id===k); if(c) CITY=c; }catch(e){}
 const SEASONS = ["DJF","JFM","FMA","MAM","AMJ","MJJ","JJA","JAS","ASO","SON","OND","NDJ"];
 const SEASONS_PT = ["dez-jan-fev","jan-fev-mar","fev-mar-abr","mar-abr-mai","abr-mai-jun","mai-jun-jul","jun-jul-ago","jul-ago-set","ago-set-out","set-out-nov","out-nov-dez","nov-dez-jan"];
 const MESES = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
@@ -925,7 +1076,7 @@ function renderOutlook(){
   });
 }
 
-/* ===== Mafra: previsão de 16 dias (Open-Meteo) ===== */
+/* ===== Cidade escolhida: previsão de 16 dias (Open-Meteo) ===== */
 const ddmm=iso=>iso.slice(8,10)+"/"+iso.slice(5,7);
 const WEEK=["dom","seg","ter","qua","qui","sex","sáb"];
 async function getJSON(url,ms){
@@ -939,8 +1090,12 @@ function offline(box,what){
 }
 async function loadForecast(){
   const box=document.getElementById("fc-body");
-  const url="https://api.open-meteo.com/v1/forecast?latitude="+MAFRA.lat+"&longitude="+MAFRA.lon+"&daily=precipitation_sum,precipitation_probability_max,temperature_2m_max,temperature_2m_min&timezone=America%2FSao_Paulo&forecast_days=16";
-  let j; try{ j=await getJSON(url); }catch(e){ offline(box,"a previsão"); return; }
+  const city=CITY;
+  document.getElementById("fc-title").textContent=city.name+" nos próximos 16 dias";
+  box.innerHTML='<div class="empty">Carregando a previsão…</div>';
+  const url="https://api.open-meteo.com/v1/forecast?latitude="+city.lat+"&longitude="+city.lon+"&daily=precipitation_sum,precipitation_probability_max,temperature_2m_max,temperature_2m_min&timezone=America%2FSao_Paulo&forecast_days=16";
+  let j; try{ j=await getJSON(url); }catch(e){ if(city===CITY) offline(box,"a previsão"); return; }
+  if(city!==CITY) return;
   const d=j.daily, n=d.time.length;
   const rain=d.precipitation_sum.map(v=>v||0), prob=d.precipitation_probability_max.map(v=>v==null?0:v);
   const total=rain.reduce((a,b)=>a+b,0);
@@ -948,7 +1103,7 @@ async function loadForecast(){
   const good=rain.filter((v,i)=>v<1&&prob[i]<40).length;
   const tmin=Math.min(...d.temperature_2m_min.filter(v=>v!=null));
   document.getElementById("fc-when").textContent="Open-Meteo, consultado agora para "+ddmm(d.time[0])+" a "+ddmm(d.time[n-1]);
-  box.innerHTML='<div class="kpis"></div><div class="scroll-x"><svg viewBox="0 0 1000 230" role="img" aria-label="Chuva prevista por dia em Mafra"></svg></div><p class="src-line"></p>';
+  box.innerHTML='<div class="kpis"></div><div class="scroll-x"><svg viewBox="0 0 1000 230" role="img" aria-label="Chuva prevista por dia na cidade escolhida"></svg></div><p class="src-line"></p>';
   const k=box.querySelector(".kpis");
   [[Math.round(total)+" mm","de chuva prevista no total",false],[wet+" de "+n,"dias com chuva (≥ 1 mm)",false],[String(good),"dias bons para trabalho de campo (chuva < 1 mm e chance < 40%)",false],[(tmin<0?"−":"")+num(tmin)+" °C",tmin<3?"mínima prevista: atenção para geada":"menor mínima prevista",tmin<3]]
     .forEach(([n_,l,alert],i)=>{const e=document.createElement("div");e.className="kpi"+(alert?" alert":"");e.innerHTML='<div class="n"></div><div class="l"></div>';e.querySelector(".n").textContent=n_;e.querySelector(".l").textContent=l;k.appendChild(e)});
@@ -968,15 +1123,18 @@ async function loadForecast(){
     txt(ax,ddmm(t),{x:L+i*bw+bw/2,y:H-B+30,"text-anchor":"middle"});
     if(good_) el("circle",{cx:L+i*bw+bw/2,cy:yv(0)-6,r:4,fill:"#7A8B3A"},svg);
   });
-  box.querySelector(".src-line").textContent="Barras: chuva prevista por dia (azul-escuro = 30 mm ou mais). Bolinhas verdes: dias bons para trabalho de campo. Previsões além de 7 dias têm incerteza maior. Modelo global para o ponto de Mafra; não substitui os avisos da Epagri/Ciram e da Defesa Civil.";
+  box.querySelector(".src-line").textContent="Barras: chuva prevista por dia (azul-escuro = 30 mm ou mais). Bolinhas verdes: dias bons para trabalho de campo. Previsões além de 7 dias têm incerteza maior. Modelo global para o ponto da cidade; não substitui os avisos da Epagri/Ciram e da Defesa Civil.";
 }
 
-/* ===== Mafra: chuva do ano x média 1991–2020 (ERA5 via Open-Meteo) ===== */
+/* ===== Cidade escolhida: chuva do ano x média 1991–2020 (ERA5 via Open-Meteo) ===== */
 async function loadHistory(){
   const box=document.getElementById("hist-body");
   const end=new Date(Date.now()-2*864e5).toISOString().slice(0,10);
-  const url="https://archive-api.open-meteo.com/v1/archive?latitude="+MAFRA.lat+"&longitude="+MAFRA.lon+"&start_date=1991-01-01&end_date="+end+"&daily=precipitation_sum&timezone=America%2FSao_Paulo";
-  let j; try{ j=await getJSON(url,25000); }catch(e){ offline(box,"o histórico de chuva"); return; }
+  const city=CITY;
+  box.innerHTML='<div class="empty">Carregando o histórico…</div>';
+  const url="https://archive-api.open-meteo.com/v1/archive?latitude="+city.lat+"&longitude="+city.lon+"&start_date=1991-01-01&end_date="+end+"&daily=precipitation_sum&timezone=America%2FSao_Paulo";
+  let j; try{ j=await getJSON(url,25000); }catch(e){ if(city===CITY) offline(box,"o histórico de chuva"); return; }
+  if(city!==CITY) return;
   const t=j.daily.time, p=j.daily.precipitation_sum;
   const tot={}; let lastIso=null;
   t.forEach((iso,i)=>{ if(p[i]==null) return; const k=iso.slice(0,7); tot[k]=(tot[k]||0)+p[i]; lastIso=iso; });
@@ -994,8 +1152,9 @@ async function loadHistory(){
   const sum=(arr,a_,b_)=>arr.slice(a_,b_).reduce((x,y)=>x+(y||0),0);
   const done=sum(cur,0,lastFull), doneN=sum(normal,0,lastFull);
   const last3=sum(cur,Math.max(0,lastFull-3),lastFull), last3N=sum(normal,Math.max(0,lastFull-3),lastFull);
+  document.getElementById("hist-title").textContent="Chuva em "+city.name+" em "+Y+", mês a mês";
   document.getElementById("hist-when").textContent="Reanálise ERA5 até "+ddmm(lastIso)+"/"+Y;
-  box.innerHTML='<div class="kpis"></div><div class="scroll-x"><svg viewBox="0 0 1000 260" role="img" aria-label="Chuva mensal em Mafra no ano atual comparada com a média 1991 a 2020"></svg></div><p class="src-line"></p>';
+  box.innerHTML='<div class="kpis"></div><div class="scroll-x"><svg viewBox="0 0 1000 260" role="img" aria-label="Chuva mensal na cidade escolhida no ano atual comparada com a média 1991 a 2020"></svg></div><p class="src-line"></p>';
   const k=box.querySelector(".kpis");
   const pct=(a_,b_)=>b_?Math.round(a_/b_*100)+"%":"–";
   const kp=[];
@@ -1028,6 +1187,19 @@ async function loadHistory(){
 }
 let agroLoaded=false;
 function loadAgro(){ if(agroLoaded) return; agroLoaded=true; loadForecast(); loadHistory(); }
+function renderCities(){
+  const box=document.getElementById("cities"); box.innerHTML='<span class="lbl">Cidades dos campi da UNC:</span>';
+  const seg=document.createElement("span"); seg.className="seg"; seg.style.margin="0";
+  CITIES.forEach((c,i)=>{
+    if(i>0&&!c.pn&&CITIES[i-1].pn){ const s_=document.createElement("span"); s_.className="sep"; s_.title="fora do Planalto Norte"; seg.appendChild(s_); }
+    const b=document.createElement("button"); b.type="button"; b.textContent=c.name; b.setAttribute("aria-pressed",c===CITY?"true":"false");
+    b.addEventListener("click",()=>{ if(c===CITY) return; CITY=c; try{localStorage.setItem("elnino-cidade",c.id)}catch(e){}
+      renderCities(); agroLoaded=false; loadAgro(); loadStartRain(); });
+    seg.appendChild(b);
+  });
+  box.appendChild(seg);
+}
+renderCities();
 
 /* ===== satélite ===== */
 function satFail(){
@@ -1095,6 +1267,8 @@ function show(i,focus){
   revealTab(tabs[i]); setTimeout(markOverflow,50);
   tabs.forEach((t,k)=>{const on=k===i;t.setAttribute("aria-selected",on);t.tabIndex=on?0:-1;document.getElementById(t.getAttribute("aria-controls")).hidden=!on});
   if(tabs[i].id==="tab-agro") loadAgro();
+  if(tabs[i].id==="tab-sul") loadSul();
+  if(tabs[i].id==="tab-br") loadMundo();
   if(focus)tabs[i].focus();
   window.scrollTo({top:0});
 }
@@ -1117,9 +1291,9 @@ function phaseOf(v){
 function renderStart(){
   const v=reg("n34").week, ph=phaseOf(v);
   document.getElementById("now-big").textContent=ph.name;
-  const effect = ph.cls==="el" ? "Para Mafra e região, isso significa mais chance de chuva acima da média, principalmente no inverno e na primavera."
-    : ph.cls==="la" ? "Para Mafra e região, isso significa mais chance de chuva abaixo da média e estiagem."
-    : "Sem empurrão claro do Pacífico: o tempo em Mafra depende mais de outros fatores.";
+  const effect = ph.cls==="el" ? "Para o Planalto Norte, isso significa mais chance de chuva acima da média, principalmente no inverno e na primavera."
+    : ph.cls==="la" ? "Para o Planalto Norte, isso significa mais chance de chuva abaixo da média e estiagem."
+    : "Sem empurrão claro do Pacífico: o tempo no Planalto Norte depende mais de outros fatores.";
   document.getElementById("now-sub").textContent="O centro do Pacífico está "+fmt(v).replace("+","")+(v>=0?" acima":" abaixo")+" do normal (leitura semanal da NOAA, "+DATA.weekLabel+"). "+effect;
   const L_=latestRoni();
   document.getElementById("now-note").textContent="Parece pouco, mas são cerca de 10 mil km de oceano mais quentes que o normal: energia suficiente para mudar os ventos do planeta. O índice oficial da NOAA ("+fmt(L_.value)+") é uma média de três meses ("+L_.season+") e por isso anda atrás da leitura semanal.";
@@ -1266,10 +1440,11 @@ function renderStartRiver(rv){
 async function loadStartRain(){
   const n=document.getElementById("sr-rain"), t=document.getElementById("sr-rain-t");
   try{
-    const j=await getJSON("https://api.open-meteo.com/v1/forecast?latitude="+MAFRA.lat+"&longitude="+MAFRA.lon+"&daily=precipitation_sum&timezone=America%2FSao_Paulo&forecast_days=7",10000);
+    document.getElementById("sr-rain-k").textContent="Chuva prevista em "+CITY.name;
+    const j=await getJSON("https://api.open-meteo.com/v1/forecast?latitude="+CITY.lat+"&longitude="+CITY.lon+"&daily=precipitation_sum&timezone=America%2FSao_Paulo&forecast_days=7",10000);
     const r=j.daily.precipitation_sum.map(v=>v||0), tot=r.reduce((a,b)=>a+b,0), wet=r.filter(v=>v>=1).length;
     n.textContent=Math.round(tot)+" mm"; t.textContent="nos próximos 7 dias, com chuva em "+wet+(wet===1?" dia":" dias");
-  }catch(e){ n.textContent="Ver previsão"; t.textContent="previsão de 16 dias na aba Agro e chuva"; }
+  }catch(e){ n.textContent="Ver previsão"; t.textContent="previsão de 16 dias na aba Chuva e agro"; }
 }
 let LAST_RV=null;
 function markOverflow(){
@@ -1312,8 +1487,275 @@ document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",(
 })();
 renderEscada(); loadRiver(); loadStartRain();
 
+/* ===== Como se forma: corte do Pacífico ===== */
+const FORM={
+  ne:{wind:1, tl:345, tr:262, cloud:215, sink:850, east:0.15, upw:1, tilt:7,
+    steps:[["Ventos","Os alísios sopram firmes de leste para oeste, da América do Sul para a Ásia, empurrando a água quente da superfície.","#8A949C"],
+           ["Oceano","A água quente se acumula do lado da Indonésia, onde o mar fica até meio metro mais alto. Perto do Peru, água fria e rica em nutrientes sobe do fundo.","#2E5C9E"],
+           ["Chuva","O ar sobe sobre a água quente e forma nuvens de chuva na Indonésia e na Austrália. Sobre o Peru, o ar desce e o tempo é seco.","#5E95C4"],
+           ["No Sul do Brasil","Sem empurrão do Pacífico, a chuva depende de outros fatores.","#7A8B3A"]]},
+  el:{wind:0.25, tl:305, tr:318, cloud:560, sink:120, east:0.95, upw:0.08, tilt:0,
+    steps:[["Ventos","Os alísios enfraquecem e, às vezes, chegam a soprar ao contrário. A água quente que estava represada do lado da Ásia escorre de volta para o leste.","#C73A33"],
+           ["Oceano","A camada de água quente se espalha até a América do Sul e a água fria para de subir perto do Peru. Mar quente enfraquece ainda mais o vento: um alimenta o outro.","#C73A33"],
+           ["Chuva","As nuvens de chuva se mudam para o meio do Pacífico e para a costa do Peru. Na Indonésia e na Austrália, o ar passa a descer: seca e incêndios.","#5E95C4"],
+           ["No Sul do Brasil","A circulação dos ventos do planeta muda, a corrente de jato se fortalece sobre o Sul e as frentes frias param aqui: mais chuva e risco de cheias.","#2E6FAE"]]},
+  la:{wind:1.7, tl:365, tr:240, cloud:165, sink:860, east:0, upw:1.6, tilt:11,
+    steps:[["Ventos","É o contrário do El Niño: os alísios ficam mais fortes que o normal.","#2E5C9E"],
+           ["Oceano","Ainda mais água quente é empurrada para a Ásia, e a água fria que sobe perto do Peru se espalha pelo Pacífico leste.","#2E5C9E"],
+           ["Chuva","A chuva se concentra ainda mais na Indonésia e na Austrália, com risco de enchentes por lá.","#5E95C4"],
+           ["No Sul do Brasil","Costuma faltar chuva: estiagens e quebras de safra, como nos anos de 2020 a 2022.","#D9822B"]]}
+};
+let formCur={...FORM.ne}, formState="ne", formAnim=null;
+function mixHex(a,b,t){const A=hex(a),B=hex(b);return "rgb("+A.map((x,k)=>Math.round(x+(B[k]-x)*t)).join(",")+")"}
+function drawFormacao(p){
+  const svg=document.getElementById("formacao"); if(!svg) return; svg.innerHTML="";
+  const SEA=232, X0=92, X1=905, BOT=432;
+  const defs=el("defs",{},svg);
+  const mk=el("marker",{id:"fa",viewBox:"0 0 10 10",refX:6,refY:5,markerWidth:4,markerHeight:4,orient:"auto-start-reverse"},defs);
+  el("path",{d:"M0,0 L10,5 L0,10 Z",fill:"context-stroke"},mk);
+  const sky=el("linearGradient",{id:"sky",x1:0,x2:0,y1:0,y2:1},defs);
+  el("stop",{offset:0,"stop-color":"var(--ocean)","stop-opacity":0.15},sky); el("stop",{offset:1,"stop-color":"var(--ocean)","stop-opacity":0.55},sky);
+  el("rect",{x:0,y:0,width:1000,height:SEA,fill:"url(#sky)"},svg);
+  el("rect",{x:0,y:SEA,width:1000,height:BOT-SEA,fill:"#1F4E86"},svg);
+  const wg=el("linearGradient",{id:"warm",gradientUnits:"userSpaceOnUse",x1:X0,x2:X1,y1:0,y2:0},defs);
+  const eastC=mixHex("#7FB0D6","#E5713A",p.east), midC=mixHex("#F2B05A","#E0603A",p.east);
+  el("stop",{offset:0,"stop-color":"#D9472F"},wg); el("stop",{offset:0.45,"stop-color":midC},wg); el("stop",{offset:1,"stop-color":eastC},wg);
+  const yS=x=>SEA-p.tilt/2+(x-X0)/(X1-X0)*p.tilt;
+  const yT=x=>{const t=(x-X0)/(X1-X0); return p.tl+(p.tr-p.tl)*(t*t*(3-2*t))};
+  let d="M"+X0+","+yS(X0).toFixed(1);
+  for(let x=X0;x<=X1;x+=20) d+=" L"+x+","+yS(x).toFixed(1);
+  d+=" L"+X1+","+yS(X1).toFixed(1)+" L"+X1+","+yT(X1).toFixed(1);
+  for(let x=X1;x>=X0;x-=20) d+=" L"+x+","+yT(x).toFixed(1);
+  el("path",{d:d+" Z",fill:"url(#warm)"},svg);
+  let dt_="M"+X0+","+yT(X0).toFixed(1); for(let x=X0+20;x<=X1;x+=20) dt_+=" L"+x+","+yT(x).toFixed(1);
+  el("path",{d:dt_,fill:"none",stroke:"#fff","stroke-width":2,"stroke-dasharray":"7 6",opacity:.85},svg);
+  txt(svg,"termoclina: limite entre a água quente de cima e a fria do fundo",{x:500,y:Math.max(yT(290),yT(710))+22,"text-anchor":"middle","font-size":13,fill:"#fff","font-family":"var(--body)"});
+  txt(svg,"água quente",{x:200,y:SEA+30,"text-anchor":"middle","font-size":15,"font-weight":700,fill:"#fff","font-family":"var(--display)"});
+  txt(svg,"água fria do fundo",{x:500,y:BOT-14,"text-anchor":"middle","font-size":14,fill:"#CFE0EE","font-family":"var(--body)"});
+  if(p.upw>0.15){
+    const a=Math.min(1,p.upw);
+    el("path",{d:`M870,${yT(870)+60} C885,${yT(870)+20} 880,${SEA+40} 868,${SEA+12}`,fill:"none",stroke:"#9FD0F0","stroke-width":2+2*p.upw,opacity:a,"marker-end":"url(#fa)"},svg);
+    txt(svg,"água fria sobe",{x:858,y:yT(870)+78,"text-anchor":"end","font-size":12.5,fill:"#CFE0EE",opacity:a,"font-family":"var(--body)"});
+  }
+  el("path",{d:"M"+X0+","+yS(X0)+" L"+X1+","+yS(X1),stroke:"#1E63B5","stroke-width":2.5},svg);
+  el("path",{d:`M0,${BOT} L0,190 C30,182 60,196 ${X0+6},214 L${X0},${BOT} Z`,fill:"var(--land)",stroke:"var(--land-line)"},svg);
+  el("path",{d:`M1000,${BOT} L1000,120 L975,96 L955,140 L935,170 L918,205 L${X1},224 L${X1},${BOT} Z`,fill:"var(--land)",stroke:"var(--land-line)"},svg);
+  [["Indonésia e",44,268],["Austrália",44,284],["Peru e",955,268],["Equador",955,284]].forEach(([t,x,y])=>txt(svg,t,{x,y,"text-anchor":"middle","font-size":12.5,fill:"var(--ink)","font-family":"var(--body)"}));
+  // circulação (célula de Walker)
+  const cx=p.cloud, sx=p.sink, dir=sx>cx?1:-1;
+  const strength=Math.max(0.2,p.wind), sw=1.5+2.6*strength, dur=(2.6/strength).toFixed(2)+"s";
+  const flow=(dd,stroke,width)=>{const e=el("path",{d:dd,fill:"none",stroke,"stroke-width":width,"stroke-linecap":"round","marker-end":"url(#fa)",class:"flow"},svg); e.style.animationDuration=dur; return e};
+  flow(`M${sx-dir*10},${SEA-26} L${cx+dir*70},${SEA-26}`,"var(--ink)",sw);
+  flow(`M${cx+dir*40},52 L${sx-dir*10},52`,"var(--ink-2)",1.5+1.6*strength);
+  flow(`M${sx},62 L${sx},${SEA-40}`,"var(--ink-2)",1.5+1.6*strength);
+  const lbl=p.wind>=1.3?"alísios muito fortes":p.wind>=0.7?"ventos alísios":"alísios fracos ou invertidos";
+  txt(svg,lbl,{x:(sx+cx)/2,y:SEA-38,"text-anchor":"middle","font-size":14,"font-weight":700,fill:"var(--ink)","font-family":"var(--display)"});
+  txt(svg,"ar seco descendo",{x:sx+(sx>500?-12:12),y:140,"text-anchor":sx>500?"end":"start","font-size":12.5,fill:"var(--ink-2)","font-family":"var(--body)"});
+  el("circle",{cx:sx+(sx>500?-40:40),cy:96,r:13,fill:"#FFD36E",stroke:"#E8892B","stroke-width":2},svg);
+  for(let k=-3;k<=3;k++) el("line",{x1:cx+k*14,y1:150,x2:cx+k*14-8,y2:SEA-6,stroke:"#2E6FAE","stroke-width":2,"stroke-linecap":"round",opacity:.75},svg);
+  const c=el("g",{transform:`translate(${cx},118)`},svg);
+  el("path",{d:"M-70,30 C-95,30 -95,0 -66,0 C-70,-30 -30,-44 -12,-24 C0,-60 56,-56 54,-16 C86,-20 92,30 62,30 Z",fill:"#fff",stroke:"var(--ink-2)","stroke-width":2},c);
+  txt(svg,"ar sobe, nuvens e chuva",{x:cx,y:28,"text-anchor":"middle","font-size":13,"font-weight":700,fill:"var(--ink)","font-family":"var(--display)"});
+}
+function setFormacao(st){
+  formState=st;
+  document.querySelectorAll("#form-btns button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.state===st?"true":"false"));
+  const box=document.getElementById("form-steps"); box.innerHTML="";
+  FORM[st].steps.forEach(([t,x,c])=>{const d=document.createElement("div");d.style.setProperty("--c",c);d.innerHTML="<b></b><span></span>";d.querySelector("b").textContent=t;d.querySelector("span").textContent=x;box.appendChild(d)});
+  const from={...formCur}, to=FORM[st], keys=["wind","tl","tr","cloud","sink","east","upw","tilt"];
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  cancelAnimationFrame(formAnim);
+  const t0=performance.now(), D=reduce?0:900;
+  const step=now=>{ const t=D?Math.min(1,Math.max(0,(now-t0)/D)):1, e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+    keys.forEach(k=>formCur[k]=from[k]+(to[k]-from[k])*e); drawFormacao(formCur);
+    if(t<1) formAnim=requestAnimationFrame(step); };
+  formAnim=requestAnimationFrame(step);
+}
+document.querySelectorAll("#form-btns button").forEach(b=>b.addEventListener("click",()=>setFormacao(b.dataset.state)));
+
+/* ===== Mundo: mapa de impactos ===== */
+const IMPACTS=[
+  ["Peru e Equador",-79,-6,"wet","Chuva forte no litoral, que normalmente é deserto, com enchentes e deslizamentos. Foi ali que pescadores deram nome ao fenômeno."],
+  ["Pesca no Pacífico leste",-84,-14,"sea","Sem a água fria que sobe do fundo, faltam nutrientes: a pesca da anchoveta no Peru, uma das maiores do mundo, despenca."],
+  ["Sul do Brasil, Uruguai e Argentina",-54,-29,"wet","Chuva acima da média no inverno e na primavera e cheias nos rios Iguaçu, Uruguai, Negro e Itajaí."],
+  ["Amazônia",-62,-4,"dry","Seca, rios baixos e mais incêndios. Em 2023, o rio Negro em Manaus chegou ao menor nível já medido até então."],
+  ["Norte do Nordeste",-40,-6,"dry","Chuva abaixo da média no semiárido, principalmente no outono, a estação chuvosa da região."],
+  ["América Central e Caribe",-87,13,"dry","Seca no “Corredor Seco” centro-americano, com perdas de milho e feijão. No Atlântico, menos furacões."],
+  ["Sul dos EUA e norte do México",-104,31,"wet","Inverno mais chuvoso e com tempestades, como na Califórnia em 1997–98."],
+  ["Canadá e norte dos EUA",-102,53,"hot","Inverno mais ameno que o normal."],
+  ["Indonésia e Sudeste Asiático",112,-2,"dry","Seca e incêndios florestais, com fumaça que cobriu vários países em 1997 e 2015. Quebra na safra de arroz e de óleo de palma."],
+  ["Austrália",145,-26,"dry","Seca no leste do país, mais incêndios e quebra na safra de trigo."],
+  ["Índia",78,21,"dry","Monção mais fraca e risco de seca, com impacto na produção de arroz, açúcar e algodão."],
+  ["África Austral",29,-18,"dry","Seca nas lavouras de milho. Em 2024, Zâmbia, Zimbábue e Malaui declararam calamidade."],
+  ["Leste da África",40,0,"wet","Chuva forte e enchentes de outubro a dezembro no Quênia, Somália e Etiópia."],
+  ["Recifes de coral",-150,-17,"sea","Água quente demais provoca branqueamento em massa dos corais, como em 1998, 2016 e 2024."],
+  ["O planeta todo",-140,38,"hot","O calor liberado pelo oceano esquenta a atmosfera: o ano seguinte a um grande El Niño costuma bater recorde de temperatura global."]
+];
+const IMP_COL={dry:"#D9822B",wet:"#2E6FAE",hot:"#C73A33",sea:"#3F8A6B"};
+let mundoLoaded=false, impSel=0;
+function topoRings(topo,name){
+  const tf=topo.transform, arcs=topo.arcs.map(a=>{let x=0,y=0;return a.map(([dx,dy])=>{x+=dx;y+=dy;return [x*tf.scale[0]+tf.translate[0],y*tf.scale[1]+tf.translate[1]]})});
+  const arc=i=>i<0?arcs[~i].slice().reverse():arcs[i];
+  const ring=ids=>{const out=[];ids.forEach((i,k)=>{const a=arc(i);out.push(...(k?a.slice(1):a))});return out};
+  const rings=[];
+  const geom=g=>{ if(g.type==="GeometryCollection") g.geometries.forEach(geom);
+    else if(g.type==="Polygon") g.arcs.forEach(r=>rings.push(ring(r)));
+    else if(g.type==="MultiPolygon") g.arcs.forEach(pg=>pg.forEach(r=>rings.push(ring(r)))); };
+  geom(topo.objects[name]); return rings;
+}
+const MC=155, MLAT0=75, MLAT1=-52, MW=1000, MH=350;
+const mx_=lon=>{const u=((lon-MC)%360+540)%360-180; return (u+180)/360*MW};
+const my_=lat=>(MLAT0-lat)/(MLAT0-MLAT1)*MH;
+function drawMundo(rings){
+  const svg=document.getElementById("mundo"); svg.innerHTML="";
+  const defs=el("defs",{},svg); const cp=el("clipPath",{id:"mclip"},defs); el("rect",{x:0,y:0,width:MW,height:MH,rx:6},cp);
+  el("rect",{x:0,y:0,width:MW,height:MH,rx:6,fill:"var(--ocean)"},svg);
+  const g=el("g",{"clip-path":"url(#mclip)"},svg);
+  if(rings){
+    let d="";
+    rings.forEach(r=>{
+      if(Math.max(...r.map(p=>p[1]))<-56) return; // Antártida fica de fora
+      let u=((r[0][0]-MC)%360+540)%360-180; const pts=[[u,r[0][1]]];
+      for(let i=1;i<r.length;i++){let dl=r[i][0]-r[i-1][0]; if(dl>180)dl-=360; if(dl<-180)dl+=360; u+=dl; pts.push([u,r[i][1]])}
+      [-360,0,360].forEach(off=>{
+        const xs=pts.map(p=>(p[0]+off+180)/360*MW); if(Math.max(...xs)<0||Math.min(...xs)>MW) return;
+        d+="M"+pts.map((p,i)=>xs[i].toFixed(1)+","+my_(p[1]).toFixed(1)).join("L")+"Z";
+      });
+    });
+    el("path",{d,fill:"var(--land)",stroke:"var(--land-line)","stroke-width":.6},g);
+  }
+  el("line",{x1:0,x2:MW,y1:my_(0),y2:my_(0),stroke:"var(--ink)","stroke-opacity":.3,"stroke-dasharray":"2 5"},svg);
+  txt(svg,"Equador",{x:6,y:my_(0)-5,"font-size":11,fill:"var(--ink-2)","font-family":"var(--body)"});
+  el("rect",{x:mx_(-170),y:my_(5),width:mx_(-120)-mx_(-170),height:my_(-5)-my_(5),fill:"#C73A33","fill-opacity":.35,stroke:"#C73A33"},svg);
+  txt(svg,"Pacífico quente (Niño 3.4)",{x:(mx_(-170)+mx_(-120))/2,y:my_(5)-6,"text-anchor":"middle","font-size":12,"font-weight":700,fill:"var(--ink)","font-family":"var(--display)"});
+  IMPACTS.forEach(([t,lo,la,ty],i)=>{
+    const gg=el("g",{class:"imp-dot"+(i===impSel?" active":""),"data-i":i},svg);
+    el("circle",{cx:mx_(lo),cy:my_(la),r:11,fill:IMP_COL[ty]},gg);
+    txt(gg,String(i+1),{x:mx_(lo),y:my_(la)+4,"text-anchor":"middle"});
+    gg.addEventListener("click",()=>selectImpact(i));
+    hoverTip(gg,t);
+  });
+}
+function selectImpact(i){
+  impSel=i;
+  document.querySelectorAll(".imp-dot").forEach(g=>g.classList.toggle("active",+g.dataset.i===i));
+  document.querySelectorAll(".impact").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.i===i?"true":"false"));
+  const [t,,,ty,x]=IMPACTS[i], ex=document.getElementById("imp-detail");
+  ex.style.borderLeft="6px solid "+IMP_COL[ty]; ex.innerHTML="<p><strong></strong></p>";
+  ex.querySelector("strong").textContent=(i+1)+". "+t+": "; ex.querySelector("p").appendChild(document.createTextNode(x));
+}
+function renderImpactList(){
+  const box=document.getElementById("impacts"); box.innerHTML="";
+  IMPACTS.forEach(([t,,,ty,x],i)=>{
+    const b=document.createElement("button"); b.type="button"; b.className="impact"; b.dataset.i=i; b.setAttribute("aria-pressed","false"); b.style.setProperty("--c",IMP_COL[ty]);
+    b.innerHTML='<b><span class="n"></span></b><span class="d"></span>'; b.querySelector(".n").textContent=i+1; b.querySelector("b").appendChild(document.createTextNode(t));
+    b.querySelector(".d").textContent=x.split(/[.:]/)[0]+".";
+    b.addEventListener("click",()=>{selectImpact(i); document.getElementById("imp-detail").scrollIntoView({block:"nearest",behavior:"smooth"})});
+    box.appendChild(b);
+  });
+}
+async function loadMundo(){
+  if(mundoLoaded) return; mundoLoaded=true;
+  drawMundo(null); selectImpact(impSel);
+  try{ const topo=await getJSON("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json",15000); drawMundo(topoRings(topo,"land")); selectImpact(impSel); }
+  catch(e){ /* sem o contorno dos continentes: os marcadores e a lista continuam funcionando */ }
+}
+renderImpactList();
+
+/* ===== Sul do Brasil: chuva nas cidades ===== */
+const SUL=[["PR","Curitiba",-25.43,-49.27],["PR","Ponta Grossa",-25.09,-50.16],["PR","União da Vitória",-26.23,-51.09],
+  ["SC","Mafra",-26.11,-49.81],["SC","Blumenau",-26.92,-49.07],["SC","Florianópolis",-27.60,-48.55],["SC","Lages",-27.82,-50.33],["SC","Chapecó",-27.10,-52.62],
+  ["RS","Passo Fundo",-28.26,-52.41],["RS","Santa Maria",-29.68,-53.81],["RS","Porto Alegre",-30.03,-51.23],["RS","Uruguaiana",-29.75,-57.09]];
+let sulLoaded=false;
+async function loadSul(){
+  if(sulLoaded) return; sulLoaded=true;
+  const box=document.getElementById("sul-body");
+  const url="https://api.open-meteo.com/v1/forecast?latitude="+SUL.map(c=>c[2]).join(",")+"&longitude="+SUL.map(c=>c[3]).join(",")+"&daily=precipitation_sum&past_days=30&forecast_days=16&timezone=America%2FSao_Paulo";
+  let j; try{ j=await getJSON(url,15000); }catch(e){ sulLoaded=false; offline(box,"a chuva das cidades"); return; }
+  if(!Array.isArray(j)) j=[j];
+  const today=new Date().toLocaleDateString("en-CA",{timeZone:"America/Sao_Paulo"});
+  const rows=SUL.map((c,i)=>{const d=j[i].daily; let past=0,next=0; d.time.forEach((t,k)=>{const v=d.precipitation_sum[k]||0; if(t<today) past+=v; else next+=v}); return {uf:c[0],name:c[1],past,next}});
+  document.getElementById("sul-when").textContent="Open-Meteo, consultado agora";
+  const mx=Math.max(100,...rows.map(r=>Math.max(r.past,r.next)))*1.08;
+  box.innerHTML='<div class="citybars scroll-x"><svg role="img" aria-label="Chuva dos últimos 30 dias e prevista para 16 dias em cidades do Sul"></svg></div><p class="src-line"></p>';
+  const svg=box.querySelector("svg"), RH=26, T=30, L=150, W=1000, R=70, H=T+rows.length*RH+2*14+10;
+  svg.setAttribute("viewBox","0 0 "+W+" "+H);
+  const half=(W-L-R)/2-20, xa=L, xb=L+half+40, sc=v=>v/mx*half;
+  txt(svg,"últimos 30 dias",{x:xa,y:16,"font-size":13,"font-weight":700,fill:"var(--ink)","font-family":"var(--display)"});
+  txt(svg,"próximos 16 dias (previsão)",{x:xb,y:16,"font-size":13,"font-weight":700,fill:"var(--ink)","font-family":"var(--display)"});
+  let y=T, lastUf=null;
+  rows.forEach(r=>{
+    if(r.uf!==lastUf){ if(lastUf) y+=14; lastUf=r.uf; txt(svg,r.uf,{x:4,y:y+17,"font-size":12,"font-weight":800,fill:"var(--ink-2)","font-family":"var(--display)"}); }
+    txt(svg,r.name,{x:L-10,y:y+17,"text-anchor":"end","font-size":13.5,fill:"var(--ink)","font-family":"var(--body)","font-weight":r.name==="Mafra"||r.name==="União da Vitória"?700:400});
+    [[xa,r.past,"#2E5C9E"],[xb,r.next,"#5E95C4"]].forEach(([x0,v,c])=>{
+      const b=el("rect",{x:x0,y:y+5,width:Math.max(sc(v),1),height:RH-10,rx:3,fill:c},svg);
+      hoverTip(b,r.name+": "+Math.round(v)+" mm");
+      txt(svg,Math.round(v)+" mm",{x:x0+sc(v)+6,y:y+17,"font-size":12.5,fill:"var(--ink-2)","font-family":"var(--body)"});
+    });
+    y+=RH;
+  });
+  box.querySelector(".src-line").textContent="Chuva acumulada por cidade, em ponto de grade do modelo (cerca de 10 a 25 km), que suaviza extremos locais. Os últimos 30 dias são estimativas de análise; os próximos 16, previsão, com incerteza maior depois de 7 dias. Para totais oficiais, use as estações do Inmet, da Epagri/Ciram, do Simepar e da Defesa Civil.";
+  markOverflow();
+}
+
+/* ===== Oscilação Sul e calor do oceano ===== */
+function monthBars(svgId,series,opts){
+  const svg=document.getElementById(svgId); if(!svg) return; svg.innerHTML="";
+  const v=series.values, [sy,sm]=series.start.split("-").map(Number);
+  const W=520,H=240,L=40,R=8,T=12,B=30, lo=opts.min, hi=opts.max;
+  const bw=(W-L-R)/v.length, yv=x=>T+(hi-x)/(hi-lo)*(H-T-B);
+  const ax=el("g",{class:"axis"},svg);
+  opts.ticks.forEach(t=>{el("line",{x1:L,x2:W-R,y1:yv(t),y2:yv(t),stroke:t===0?"var(--ink)":"var(--line)","stroke-dasharray":t===0?"":"2 3"},ax);txt(ax,(t>0?"+":t<0?"−":"")+Math.abs(t),{x:L-6,y:yv(t)+4,"text-anchor":"end"})});
+  v.forEach((x,i)=>{
+    const m=(sm-1+i)%12, y=sy+Math.floor((sm-1+i)/12);
+    const a=yv(0),b=yv(Math.max(lo,Math.min(hi,x)));
+    const r=el("rect",{x:L+i*bw+0.5,y:Math.min(a,b),width:Math.max(bw-1,1),height:Math.max(Math.abs(b-a),1),fill:opts.color(x)},svg);
+    hoverTip(r,MESES[m]+"/"+y+": "+(x>0?"+":x<0?"−":"")+num(x)+(opts.unit||""));
+    if(m===0) txt(ax,String(y),{x:L+i*bw,y:H-B+18});
+  });
+  if(opts.labels) opts.labels.forEach(([t,val])=>txt(svg,t,{x:L+6,y:yv(val)+(val>0?10:-2),"font-size":11.5,fill:"var(--ink-2)","font-family":"var(--body)"}));
+}
+function lastMonthLabel(s){const [y,m]=s.start.split("-").map(Number), k=m-1+s.values.length-1; return MESES[k%12]+"/"+(y+Math.floor(k/12))}
+function renderAtm(){
+  const wrap=document.getElementById("atm-wrap"); if(!wrap) return;
+  if(!DATA.soi||!DATA.heat){ wrap.hidden=true; return; } wrap.hidden=false;
+  monthBars("soi",DATA.soi,{min:-3.5,max:3.5,ticks:[-3,-2,-1,0,1,2,3],color:x=>x<=-1?"#C73A33":x<0?"#E5A08B":x>=1?"#2E5C9E":"#8FB3D4",labels:[["positivo: alísios fortes (La Niña)",3.4],["negativo: alísios fracos (El Niño)",-3.4]]});
+  monthBars("heat",DATA.heat,{min:-2,max:4,ticks:[-2,-1,0,1,2,3,4],color:x=>colorFor(x*1.1),unit:" °C"});
+  const s=DATA.soi.values, h=DATA.heat.values, sl=s[s.length-1];
+  document.getElementById("soi-src").textContent="Último valor: "+(sl>0?"+":sl<0?"−":"")+num(sl)+" ("+lastMonthLabel(DATA.soi)+"). Índice padronizado Taiti − Darwin, NOAA/CPC, mensal.";
+  document.getElementById("heat-src").textContent="Último valor: "+fmt(h[h.length-1])+" ("+lastMonthLabel(DATA.heat)+"). Média de 160°L a 80°O, 0–300 m, em relação a 1981–2010. NOAA/CPC, mensal.";
+}
+
+/* ===== Corrida dos grandes El Niños ===== */
+function renderCorrida(){
+  const svg=document.getElementById("corrida"); if(!svg) return; svg.innerHTML="";
+  const v=DATA.roni.values,s=DATA.roni.start;
+  const EV=[[1982,"#B98A5C"],[1997,"#7A93A0"],[2015,"#5E95C4"],[2023,"#C9A227"],[2026,"#C73A33"]].filter(e=>e[0]>=s);
+  const A=3,N=13; // de mar-abr-mai do ano do evento até mar-abr-mai do ano seguinte
+  const W=1000,H=380,L=56,R=110,T=16,B=40,lo=-1,hi=3;
+  const xi=i=>L+i/(N-1)*(W-L-R), yv=x=>T+(hi-x)/(hi-lo)*(H-T-B);
+  const ax=el("g",{class:"axis"},svg);
+  [-1,0,1,2,3].forEach(t=>{el("line",{x1:L,x2:W-R,y1:yv(t),y2:yv(t),stroke:t===0?"var(--ink)":"var(--line)"},ax);txt(ax,(t>0?"+":t<0?"−":"")+Math.abs(t)+" °C",{x:L-8,y:yv(t)+4,"text-anchor":"end"})});
+  const th=el("g",{class:"thr"},svg);
+  [[1.5,"forte"],[2,"muito forte"]].forEach(([t,lb])=>{el("line",{x1:L,x2:W-R,y1:yv(t),y2:yv(t)},th);txt(th,lb,{x:L+4,y:yv(t)-4})});
+  for(let i=0;i<N;i++) txt(ax,SEASONS_PT[(A+i)%12],{x:xi(i),y:H-B+18,"text-anchor":"middle","font-size":10.5});
+  txt(ax,"ano em que o El Niño se forma  →  ano seguinte",{x:(L+W-R)/2,y:H-4,"text-anchor":"middle"});
+  const ends=[];
+  EV.forEach(([y,c])=>{
+    const pts=[]; for(let i=0;i<N;i++){const k=(y-s)*12+A+i; if(k<v.length) pts.push([i,v[k]])}
+    if(pts.length<2) return;
+    const now=y===2026;
+    el("path",{d:pts.map((p,i)=>(i?"L":"M")+xi(p[0]).toFixed(1)+","+yv(p[1]).toFixed(1)).join(" "),fill:"none",stroke:c,"stroke-width":now?4.5:2.2,"stroke-linejoin":"round"},svg);
+    pts.forEach(p=>{const ci=el("circle",{cx:xi(p[0]),cy:yv(p[1]),r:now?4.5:3,fill:c},svg);hoverTip(ci,y+"–"+String(y+1).slice(2)+", "+SEASONS_PT[(A+p[0])%12]+": "+fmt(p[1]))});
+    const last=pts[pts.length-1]; ends.push({y:yv(last[1]),x:xi(last[0]),t:y+"–"+String(y+1).slice(2)+(now?" (agora)":""),c,now});
+  });
+  ends.sort((a,b)=>a.y-b.y); for(let i=1;i<ends.length;i++) if(ends[i].x===ends[i-1].x&&ends[i].y-ends[i-1].y<15) ends[i].y=ends[i-1].y+15;
+  ends.forEach(e=>txt(svg,e.t,{x:e.x+8,y:e.y+(e.now&&e.x<W-R-20?-10:4),"font-size":13,"font-weight":e.now?800:600,fill:e.c,"font-family":"var(--display)"}));
+}
+
 /* ===== inicialização ===== */
-function renderAll(live){ renderHeader(live); renderStart(); renderMap(); renderReadouts(); renderFacts(); renderRoni(); renderOutlook(); }
+setFormacao("ne");
+function renderAll(live){ renderHeader(live); renderStart(); renderMap(); renderReadouts(); renderFacts(); renderRoni(); renderOutlook(); renderAtm(); renderCorrida(); }
 renderAll(false);
 (async function(){
   try{
