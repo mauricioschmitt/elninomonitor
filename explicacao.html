@@ -58,6 +58,11 @@ h1{font-family:var(--hand);font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);ma
 @media (prefers-reduced-motion:reduce){.drop,.kelvin,.pulse{animation:none}}
 .back{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px;padding:8px 14px;border-radius:999px;background:var(--btn);border:1px solid var(--btn-line);color:var(--ink);font-weight:700;font-size:.95rem;text-decoration:none}
 .back:hover{border-color:var(--ink-2)}
+.sign{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:18px 2px 0;text-decoration:none;color:var(--ink-2);font-size:.85rem}
+.sign img{display:block;width:min(240px,70vw);height:auto}
+:root[data-theme="dark"] .sign img{filter:brightness(0) invert(1) opacity(.9)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sign img{filter:brightness(0) invert(1) opacity(.9)}}
+:fullscreen .sign{display:none}
 :fullscreen .back{display:none}
 </style>
 </head>
@@ -107,6 +112,7 @@ h1{font-family:var(--hand);font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);ma
       <button id="fs" type="button">Tela cheia</button>
     </div>
     <p class="hint">Teclado: → ou espaço avança, ← volta. Clique no quadro para terminar o desenho na hora.</p>
+    <a class="sign" href="./" aria-label="Monitor El Niño, uma iniciativa do PMPECSA, UNC"><span>Uma iniciativa do</span><img src="pmpecsa.png" alt="PMPECSA: Programa de Mestrado Profissional em Engenharia Civil, Sanitária e Ambiental, UNC" width="240" height="57"></a>
   </div>
 </div>
 

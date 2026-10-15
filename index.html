@@ -154,6 +154,10 @@ ul.clean li{margin:4px 0}
 
 footer{border-top:1px solid var(--line);padding:18px 0 28px;font-size:.85rem;color:var(--ink-2)}
 footer p{margin:4px 0;max-width:90ch}
+.sign{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:0 0 16px;text-decoration:none;color:var(--ink-2);font-size:.9rem}
+.sign img{display:block;width:min(300px,80vw);height:auto}
+:root[data-theme="dark"] .sign img{filter:brightness(0) invert(1) opacity(.9)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sign img{filter:brightness(0) invert(1) opacity(.9)}}
 
 @media (max-width:820px){
   .readouts{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -372,6 +376,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
       <button role="tab" id="tab-start" aria-controls="p-start" aria-selected="true">Comece aqui</button>
       <button role="tab" id="tab-br" aria-controls="p-br" aria-selected="false" tabindex="-1">Mundo e Brasil</button>
       <button role="tab" id="tab-clima" aria-controls="p-clima" aria-selected="false" tabindex="-1">Mudanças climáticas</button>
+      <button role="tab" id="tab-saude" aria-controls="p-saude" aria-selected="false" tabindex="-1">Saúde e bolso</button>
       <span class="tab-group" aria-hidden="true">Planalto Norte</span>
       <button role="tab" id="tab-hist" aria-controls="p-hist" aria-selected="false" tabindex="-1">Rios e cheias</button>
       <button role="tab" id="tab-agro" aria-controls="p-agro" aria-selected="false" tabindex="-1">Chuva e agro</button>
@@ -472,6 +477,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
         <li>Cadastre seu CEP para receber alertas da Defesa Civil por SMS: envie o CEP para o número <b>40199</b>.</li>
         <li>Confie nos avisos oficiais (Defesa Civil, Epagri/Ciram, Inmet). Este painel ajuda a entender, mas não substitui os alertas.</li>
         <li>Em emergência, ligue <b>199</b> (Defesa Civil) ou <b>193</b> (Bombeiros).</li>
+        <li>Depois de uma enchente, cuide da saúde: leptospirose, água contaminada e dengue. Veja a aba <button type="button" class="inline-link" data-goto="tab-saude">Saúde e bolso</button>.</li>
       </ul></div>
   </div>
 
@@ -504,6 +510,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     <button type="button" data-goto="tab-agora"><b>O oceano agora</b><span>O mar, o vento e o calor escondido, ao vivo</span></button>
     <button type="button" data-goto="tab-prev"><b>Previsões</b><span>Até quando e com que força</span></button>
     <button type="button" data-goto="tab-clima"><b>Mudanças climáticas</b><span>Como o El Niño e o aquecimento se somam</span></button>
+    <button type="button" data-goto="tab-saude"><b>Saúde e bolso</b><span>Doenças, preços e o que aconteceu nos últimos El Niños</span></button>
   </div>
 </section>
 
@@ -594,6 +601,67 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
 
   <div class="advice" style="margin-top:26px"><b>Para o Planalto Norte:</b> o mesmo El Niño, num planeta mais quente, tende a trazer chuvas mais pesadas do que traria décadas atrás, porque há mais vapor d’água no ar. É mais um motivo para levar a sério os avisos desta temporada.</div>
   <p class="src-line">Fontes: OMM (atualização anual a decadal, maio de 2026), Met Office (agosto de 2026), Carbon Brief, IPCC AR6 (Grupo de Trabalho I), NOAA Climate.gov e Washington Post (setembro de 2026).</p>
+</section>
+
+<!-- SAÚDE E BOLSO -->
+<section class="panel" id="p-saude" role="tabpanel" aria-labelledby="tab-saude" hidden>
+  <h2>O El Niño também chega ao posto de saúde e ao mercado</h2>
+  <p class="lede">Chuva demais, calor e enchentes trazem doenças, quebram safras e mexem nos preços, às vezes meses depois. Os últimos El Niños mostram o tamanho disso no Brasil.</p>
+
+  <h3 class="sec" style="margin-top:6px">Saúde: o que cuidar</h3>
+  <div class="state-cards">
+    <div class="todo-card" style="border-top:6px solid #C73A33"><h3>Leptospirose</h3>
+      <p class="note" style="margin:0 0 6px">Transmitida pela urina de ratos misturada à água da enchente. Os sintomas aparecem de 2 a 30 dias depois do contato.</p>
+      <ul class="clean"><li>Evite andar na água ou na lama; se precisar, use botas e luvas (ou sacos plásticos duplos).</li>
+      <li><b>Febre, dor de cabeça e dor na batata da perna</b> depois de contato com a água? Procure a unidade de saúde e avise que teve contato.</li></ul></div>
+    <div class="todo-card" style="border-top:6px solid #2E6FAE"><h3>Água e comida contaminadas</h3>
+      <p class="note" style="margin:0 0 6px">Diarreia, hepatite A e outras infecções aumentam depois das cheias.</p>
+      <ul class="clean"><li>Jogue fora alimentos que tiveram contato com a água da enchente, mesmo os embalados (exceto latas íntegras, lavadas e desinfetadas).</li>
+      <li>Se a água da torneira estiver suspeita, ferva ou use <b>2 gotas de hipoclorito de sódio 2,5% por litro</b> e espere 30 minutos.</li>
+      <li>Limpe a casa com água sanitária diluída, seguindo o rótulo.</li></ul></div>
+    <div class="todo-card" style="border-top:6px solid #E8892B"><h3>Dengue</h3>
+      <p class="note" style="margin:0 0 6px">Calor com chuva é o ambiente ideal para o mosquito <i>Aedes aegypti</i>. Em 2024, no fim do último El Niño, o Brasil teve a maior epidemia da história.</p>
+      <ul class="clean"><li>Depois de cada chuva, esvazie o que acumula água: vasos, pneus, calhas, lonas e o entulho da enchente.</li>
+      <li>Febre alta com dor no corpo e atrás dos olhos: procure atendimento e não tome remédios por conta própria.</li></ul></div>
+  </div>
+  <div class="todo-card" style="margin-top:12px"><h3>E também</h3><ul class="clean">
+    <li><b>Choque elétrico:</b> desligue a energia no disjuntor antes de entrar numa casa alagada.</li>
+    <li><b>Tétano:</b> na limpeza é fácil se ferir com pregos e entulho; confira se a vacina está em dia (reforço a cada 10 anos).</li>
+    <li><b>Cobras, aranhas e escorpiões</b> procuram lugares secos depois da enchente: cuidado ao mexer em entulho e móveis.</li>
+    <li><b>Saúde mental:</b> perder a casa ou a lavoura abala. As unidades de saúde e o CAPS do município atendem, e o CVV atende de graça pelo <b>188</b>, 24 horas.</li>
+  </ul></div>
+
+  <h3 class="sec">Bolso: onde o El Niño pesa</h3>
+  <div class="state-cards">
+    <div class="q-card"><h3>Comida mais cara</h3><p>Chuva demais no Sul atrapalha feijão, trigo e arroz; seca no Norte, na Ásia e na Austrália afeta açúcar, arroz, café, cacau e óleo de palma. O efeito nos preços costuma aparecer meses depois, quando a safra menor chega ao mercado.</p></div>
+    <div class="q-card"><h3>Energia e frete</h3><p>No Sul, a chuva enche os reservatórios das hidrelétricas. No Norte, rios baixos podem parar usinas. E estradas e pontes interditadas pelas cheias encarecem o transporte de tudo.</p></div>
+    <div class="q-card"><h3>Proteja o seu</h3><p>Produtor: confira o zoneamento de risco (ZARC) e o seguro rural ou Proagro antes de plantar. Em casa: veja se o seguro residencial cobre alagamento e guarde documentos e notas fiscais em lugar alto ou digitalizados.</p></div>
+  </div>
+
+  <h3 class="sec">O que aconteceu nos últimos El Niños</h3>
+  <div class="two" style="margin-top:10px">
+    <div class="crop">
+      <h3>2015–16 <span>El Niño muito forte</span></h3>
+      <div class="facts" style="grid-template-columns:1fr 1fr;margin-top:6px">
+        <div class="fact"><div class="big">+56,6%</div><p>no preço do feijão em 2016, a maior alta entre os alimentos do IPCA (IBGE).</p></div>
+        <div class="fact"><div class="big">+8,6%</div><p>na alimentação e bebidas em 2016, acima da inflação geral de 6,3%, depois da quebra da safra de 2015.</p></div>
+        <div class="fact"><div class="big">1,6 mi</div><p>de casos prováveis de dengue em 2015, o recorde do país até então.</p></div>
+        <div class="fact"><div class="big">dez/2015</div><p>cheia do rio Uruguai desaloja milhares de pessoas no RS, na Argentina e no Uruguai.</p></div>
+      </div>
+    </div>
+    <div class="crop">
+      <h3>2023–24 <span>El Niño forte</span></h3>
+      <div class="facts" style="grid-template-columns:1fr 1fr;margin-top:6px">
+        <div class="fact"><div class="big">+7,7%</div><p>na alimentação e bebidas em 2024, contra 1,0% em 2023, puxando a inflação do ano (4,8%). O RS, atingido pelas cheias de maio, planta cerca de 70% do arroz do país.</p></div>
+        <div class="fact"><div class="big">6 mi</div><p>de casos prováveis de dengue em 2024 só até junho, a maior epidemia da história do Brasil, com milhares de mortes.</p></div>
+        <div class="fact"><div class="big">recorde</div><p>de casos de leptospirose no RS depois das cheias de maio de 2024, com pelo menos 15 mortes já no início de junho.</p></div>
+        <div class="fact"><div class="big">15 dias</div><p>de usina parada: a hidrelétrica de Santo Antônio (RO) desligou em out/2023, com o rio Madeira no menor nível em 56 anos.</p></div>
+      </div>
+      <p class="note" style="margin:10px 0 0">No mundo: em setembro de 2023, o índice de preços do açúcar da FAO chegou ao maior nível em 13 anos, com seca ligada ao El Niño na Índia e na Tailândia.</p>
+    </div>
+  </div>
+  <p class="advice">A inflação tem várias causas (câmbio, demanda, outros eventos climáticos), e nem toda doença ou alta de preço desses anos vem do El Niño. Mas, nos dois últimos eventos fortes, a combinação de chuva no Sul, seca no Norte e calor deixou marcas claras na saúde e no bolso.</p>
+  <p class="src-line">Fontes: IBGE (IPCA de 2016, 2023 e 2024), Ministério da Saúde (painel de arboviroses), Secretaria da Saúde do RS, Banco Central (Boletim Regional, dez/2024), FAO (índice de preços dos alimentos), ANA e Santo Antônio Energia. Orientações de saúde baseadas no Ministério da Saúde; em caso de sintomas, procure atendimento.</p>
 </section>
 
 <!-- AGORA -->
@@ -827,13 +895,17 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
 
 <footer>
   <div class="wrap">
+    <a class="sign" href="https://www.unc.br/" target="_blank" rel="noopener noreferrer" aria-label="PMPECSA: Programa de Mestrado Profissional em Engenharia Civil, Sanitária e Ambiental da UNC">
+      <span>Uma iniciativa do</span>
+      <img src="pmpecsa.png" alt="PMPECSA: Programa de Mestrado Profissional em Engenharia Civil, Sanitária e Ambiental, UNC" width="300" height="71" loading="lazy">
+    </a>
     <div class="about">
       <h3>Sobre este painel</h3>
       <p>Edição especial para acompanhar o El Niño de 2026–27 no Planalto Norte catarinense, onde fica a maior parte dos campi da Universidade do Contestado (UNC), e no Sul do Brasil. O painel reúne em um só lugar dados que hoje estão espalhados: o oceano (NOAA), a chuva prevista (Open-Meteo), a Oscilação Sul e o calor do oceano (NOAA), o rio Negro (ANA, via Régua Viva) e as previsões para o agro (Epagri). <span id="autor"></span></p>
       <p><b>Importante:</b> este é um painel independente e informativo. Ele não substitui os alertas oficiais da Defesa Civil, do Inmet e da Epagri/Ciram. Dados automáticos podem atrasar ou falhar; em caso de dúvida, siga sempre as orientações oficiais.</p>
     </div>
     <p id="foot-data"></p>
-    <p>Fontes: NOAA Climate Prediction Center, NOAA Coral Reef Watch, IRI/Columbia, Inmet (Painel El Niño 2026–2027), CPTEC/Inpe, Funceme, Serviço Geológico do Brasil, Epagri/Ciram, Epagri/Cepa, Open-Meteo (dados de previsão e reanálise ERA5), ANA (via Régua Viva), Prefeitura e Defesa Civil de Mafra, NSC Total, OMM, Met Office, Carbon Brief e IPCC.</p>
+    <p>Fontes: NOAA Climate Prediction Center, NOAA Coral Reef Watch, IRI/Columbia, Inmet (Painel El Niño 2026–2027), CPTEC/Inpe, Funceme, Serviço Geológico do Brasil, Epagri/Ciram, Epagri/Cepa, Open-Meteo (dados de previsão e reanálise ERA5), ANA (via Régua Viva), Prefeitura e Defesa Civil de Mafra, NSC Total, IBGE, Ministério da Saúde, FAO, OMM, Met Office, Carbon Brief e IPCC.</p>
   </div>
 </footer>
 
@@ -845,7 +917,7 @@ const FALLBACK = {"updated": "2026-10-13", "status": "El Niño Advisory", "synop
 let DATA = FALLBACK;
 
 /* Nome que aparece em "Sobre este painel" (deixe vazio para não mostrar) */
-const AUTOR = "";
+const AUTOR = "PMPECSA · UNC";
 const CITIES = [
   { id:"mafra", name:"Mafra", lat:-26.1114, lon:-49.8053, pn:true },
   { id:"canoinhas", name:"Canoinhas", lat:-26.1766, lon:-50.3900, pn:true },
