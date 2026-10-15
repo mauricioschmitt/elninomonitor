@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>El Niño no quadro branco</title>
+<title>Como funciona o El Niño</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
@@ -66,7 +66,7 @@ h1{font-family:var(--hand);font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);ma
   <a class="back" id="back" href="./">← Voltar ao painel</a>
   <header>
     <h1>Como funciona o El Niño</h1>
-    <p class="sub">Seis quadros, do oceano até as lavouras do Planalto Norte.</p>
+    <p class="sub">Sete quadros desenhados à mão, do Pacífico até o Planalto Norte catarinense.</p>
   </header>
   <div class="stage" id="stage">
     <div class="board-frame">
@@ -231,6 +231,7 @@ function clear(){seed=11;gS.innerHTML="";gT.innerHTML="";clips.innerHTML="";item
 async function play(i){
   const my=++token; clearTimeout(autoTimer);
   cur=i; skip=reduce; clear(); updateUI();
+  try{history.replaceState(null,"","#"+(i+1))}catch(e){}
   SCENES[i].build(B);
   items.forEach(prepare);
   drawing=true; pen.style.display=skip?"none":"block";
@@ -408,53 +409,86 @@ const SCENES=[
     b.cloud(648,322,.62);
     const m=P(-49.8,-26.1);
     b.path(circ(m[0],m[1],6),{c:RED,w:4,fill:RED,fo:1,dur:200});
-    b.text(m[0]+12,m[1]+20,"Mafra",{size:20,bold:true});
+    b.text(m[0]+12,m[1]+20,"Planalto Norte",{size:20,bold:true});
     b.pause(300);
     const L=[["1. O Pacífico quente","aquece a atmosfera"],["2. O jato fica mais forte","sobre o Sul do Brasil"],["3. As frentes frias param","e a chuva se repete"],["4. A umidade da Amazônia","alimenta as nuvens"]];
     L.forEach(([a,c],k)=>{b.text(860,200+k*82,a,{size:22,bold:true});b.text(860,226+k*82,c,{size:21})});
     b.text(860,546,"= chuva persistente",{size:25,bold:true,c:BLUE});
     b.text(860,576,"e rios cheios",{size:25,bold:true,c:BLUE});
   }},
-{ title:"6. E aqui em Mafra e região?",
-  caption:"Aqui o El Niño já deixou marcas: as maiores cheias recentes do rio Negro, em 1983 e 1992, foram em anos de El Niño muito forte. A microrregião de Canoinhas, onde fica Mafra, lidera Santa Catarina no tabaco, no feijão e na soja, e a Epagri/Ciram prevê chuva que pode chegar a três vezes o normal em outubro e novembro. Planejar a safra é a melhor defesa.",
+{ title:"6. E depois? O ciclo continua",
+  caption:"Um El Niño dura em geral de 9 a 12 meses. Aos poucos, o oceano entrega o calor para a atmosfera, a água quente se espalha e os alísios voltam a soprar. O Pacífico então passa por uma fase neutra e, muitas vezes, cai numa La Niña, o oposto: água fria no leste e falta de chuva no Sul do Brasil. Foi assim depois dos El Niños de 1997–98 e de 2009–10. O ciclo se repete a cada 2 a 7 anos, sem calendário fixo.",
   build(b){
-    b.text(30,46,"6. E aqui em Mafra e região?",{size:34,bold:true});
-    b.path("M110,560 L110,190 L160,190 L160,560 Z",{c:INK,w:3.5,dur:600});
-    const water=mk("path",{d:"M112,558 L112,204 L158,204 L158,558 Z",fill:"#5E95C4","fill-opacity":.6},gS);
-    b.fade(water,900);
-    let ticks="";for(let k=0;k<=14;k+=2){const y=558-k*25.3;ticks+=`M160,${y} L${k%4===0?176:170},${y} `}
-    b.path(ticks,{c:INK,w:2.5,dur:400});
-    b.text(186,563,"0 m",{size:18});
-    b.text(186,210,"14 m",{size:18});
-    b.text(232,236,"rio Negro",{size:24,bold:true,c:BLUE});
-    b.text(232,266,"1983 e 1992:",{size:22});
-    b.text(232,294,"subiu mais de 14 m",{size:22});
-    b.text(232,336,"anos de El Niño",{size:21,c:RED});
-    b.text(232,362,"muito forte",{size:21,c:RED});
-    b.pause(300);
-    b.path("M440,250 C420,200 450,160 480,150 C510,160 540,200 520,250 C505,280 455,280 440,250 Z M480,150 L480,280",{c:GREEN,w:3,fill:"#9CC58A",fo:.6,dur:700});
-    b.path("M585,265 C575,225 590,180 615,160 C632,170 640,195 632,230 C626,252 612,270 595,272 Z M612,185 a7,7 0 1,0 0.1,0 M606,215 a7,7 0 1,0 0.1,0 M600,244 a7,7 0 1,0 0.1,0",{c:BROWN,w:3,fill:"#D9C27A",fo:.5,dur:700});
-    b.path("M720,230 C710,195 745,180 765,195 C772,205 768,212 760,214 C772,220 780,240 760,256 C740,272 722,256 720,230 Z",{c:BROWN,w:3,fill:"#B5835A",fo:.55,dur:500});
-    b.text(480,312,"tabaco",{size:22,anchor:"middle"});
-    b.text(610,312,"soja",{size:22,anchor:"middle"});
-    b.text(745,312,"feijão",{size:22,anchor:"middle"});
-    b.text(612,352,"a microrregião lidera SC nas três",{size:22,anchor:"middle",bold:true});
+    b.text(30,46,"6. E depois? O ciclo continua",{size:34,bold:true});
+    b.path(circ(300,340,92),{c:RED,w:4,fill:"#F5A54A",fo:.55,dur:700});
+    b.text(300,350,"El Niño",{size:34,bold:true,anchor:"middle"});
+    b.text(255,462,"dura de 9 a 12 meses",{size:20,anchor:"middle"});
+    b.pause(200);
+    b.arrow("M360,268 Q420,180 515,178",{c:GRAY,w:4,dur:500});
+    b.path(circ(600,180,72),{c:GRAY,w:4,fill:"#E3E7EA",fo:.8,dur:500});
+    b.text(600,190,"Neutro",{size:28,bold:true,anchor:"middle"});
+    b.text(150,150,"o calor passa para o ar,",{size:20,c:PURPLE});
+    b.text(150,176,"a água quente se espalha",{size:20,c:PURPLE});
+    b.text(150,202,"e os alísios voltam",{size:20,c:PURPLE});
+    b.pause(200);
+    b.arrow("M685,178 Q780,180 840,268",{c:GRAY,w:4,dur:500});
+    b.path(circ(900,340,92),{c:BLUE,w:4,fill:"#BFDDF2",fo:.8,dur:700});
+    b.text(900,350,"La Niña",{size:34,bold:true,anchor:"middle"});
+    b.text(1010,206,"muitas vezes",{size:20,anchor:"middle",c:BLUE});
+    b.text(1010,232,"vem em seguida",{size:20,anchor:"middle",c:BLUE});
+    b.sun(1110,330,18);
+    b.text(965,462,"no Sul: falta chuva",{size:21,anchor:"middle",c:ORANGE,bold:true});
+    b.text(965,488,"(estiagem de 2020 a 2022)",{size:19,anchor:"middle"});
+    b.pause(200);
+    b.arrow("M840,412 Q780,520 685,522",{c:GRAY,w:4,dur:500});
+    b.path(circ(600,522,62),{c:GRAY,w:4,fill:"#E3E7EA",fo:.8,dur:500});
+    b.text(600,531,"Neutro",{size:26,bold:true,anchor:"middle"});
+    b.arrow("M515,522 Q420,520 360,412",{c:GRAY,w:4,dur:500});
     b.pause(250);
-    [["plantio atrasa",RED],["mais doenças com a umidade",RED],["colheita com chuva",RED],["erosão do solo",RED]].forEach(([s,c],k)=>{
-      b.path(`M440,${418+k*44} L462,${418+k*44}`,{c,w:4,dur:120});
-      b.text(474,426+k*44,s,{size:23});
+    b.text(600,92,"a cada 2 a 7 anos, sem calendário fixo",{size:22,anchor:"middle",c:PURPLE});
+    b.text(600,640,"depois de 1997–98 e de 2009–10, por exemplo, veio La Niña",{size:21,anchor:"middle",c:GRAY});
+  }},
+{ title:"7. E aqui no Planalto Norte?",
+  caption:"No Planalto Norte, onde ficam os campi da UNC em Mafra, Canoinhas, Porto União e Rio Negrinho, o El Niño já deixou marcas: a maior cheia do rio Negro (14,57 m) e a do Iguaçu (10,42 m) aconteceram em 1983, no fim de um El Niño muito forte. A região lidera Santa Catarina no tabaco, no feijão e na soja, culturas que sofrem com chuva demais. Acompanhar os avisos e planejar a safra é a melhor defesa.",
+  build(b){
+    b.text(30,46,"7. E aqui no Planalto Norte?",{size:34,bold:true});
+    b.text(30,82,"campi da UNC em Mafra, Canoinhas, Porto União e Rio Negrinho",{size:20,c:GRAY});
+    const Y0=560, k=25.3;
+    [[90,14.57,"14,57 m","rio Negro","Mafra"],[260,10.42,"10,42 m","rio Iguaçu","Porto União"]].forEach(([x,v,lab,rio,cid])=>{
+      b.path(`M${x},${Y0} L${x},${Y0-15*k} L${x+44},${Y0-15*k} L${x+44},${Y0} Z`,{c:INK,w:3.5,dur:500});
+      const water=mk("path",{d:`M${x+2},${Y0-2} L${x+2},${Y0-v*k} L${x+42},${Y0-v*k} L${x+42},${Y0-2} Z`,fill:"#5E95C4","fill-opacity":.65},gS);
+      b.fade(water,700);
+      b.path(`M${x-8},${Y0-v*k} L${x+52},${Y0-v*k}`,{c:RED,w:3,dur:200});
+      b.text(x+60,Y0-v*k+8,lab,{size:22,bold:true,c:RED});
+      b.text(x+22,Y0+30,rio,{size:21,bold:true,anchor:"middle",c:BLUE});
+      b.text(x+22,Y0+54,cid,{size:19,anchor:"middle"});
+    });
+    b.text(205,112,"maior cheia nos dois rios:",{size:20,anchor:"middle"});
+    b.text(205,136,"1983, fim de um El Niño",{size:20,anchor:"middle",c:RED});
+    b.text(205,160,"muito forte",{size:20,anchor:"middle",c:RED});
+    b.pause(300);
+    b.path("M480,250 C460,200 490,160 520,150 C550,160 580,200 560,250 C545,280 495,280 480,250 Z M520,150 L520,280",{c:GREEN,w:3,fill:"#9CC58A",fo:.6,dur:700});
+    b.path("M625,265 C615,225 630,180 655,160 C672,170 680,195 672,230 C666,252 652,270 635,272 Z M652,185 a7,7 0 1,0 0.1,0 M646,215 a7,7 0 1,0 0.1,0 M640,244 a7,7 0 1,0 0.1,0",{c:BROWN,w:3,fill:"#D9C27A",fo:.5,dur:700});
+    b.path("M760,230 C750,195 785,180 805,195 C812,205 808,212 800,214 C812,220 820,240 800,256 C780,272 762,256 760,230 Z",{c:BROWN,w:3,fill:"#B5835A",fo:.55,dur:500});
+    b.text(520,312,"tabaco",{size:22,anchor:"middle"});
+    b.text(650,312,"soja",{size:22,anchor:"middle"});
+    b.text(785,312,"feijão",{size:22,anchor:"middle"});
+    b.text(652,352,"a região lidera SC nas três",{size:22,anchor:"middle",bold:true});
+    b.pause(250);
+    [["plantio atrasa"],["mais doenças com a umidade"],["colheita com chuva"],["erosão do solo"]].forEach(([t],i)=>{
+      b.path(`M480,${418+i*44} L502,${418+i*44}`,{c:RED,w:4,dur:120});
+      b.text(514,426+i*44,t,{size:23});
     });
     b.pause(250);
-    b.cloud(1015,170,1.1);
-    b.text(1015,280,"out–nov: chuva pode",{size:22,anchor:"middle"});
-    b.text(1015,310,"chegar a 3x o normal",{size:24,anchor:"middle",bold:true,c:BLUE});
-    b.text(1015,336,"(Epagri/Ciram)",{size:18,anchor:"middle",c:GRAY});
-    b.text(1015,430,"acompanhe os avisos:",{size:22,anchor:"middle"});
-    b.text(1015,462,"Epagri/Ciram",{size:23,anchor:"middle",bold:true});
-    b.text(1015,492,"Defesa Civil SC",{size:23,anchor:"middle",bold:true});
+    b.cloud(1030,160,1);
+    b.text(1030,272,"acompanhe os avisos",{size:23,anchor:"middle",bold:true});
+    b.text(1030,312,"Defesa Civil: 199",{size:22,anchor:"middle"});
+    b.text(1030,346,"alerta por SMS:",{size:22,anchor:"middle"});
+    b.text(1030,374,"CEP para 40199",{size:22,anchor:"middle",bold:true,c:BLUE});
+    b.text(1030,414,"Epagri/Ciram",{size:22,anchor:"middle"});
     b.pause(250);
-    b.text(600,618,"planejar a safra é a melhor defesa",{size:30,anchor:"middle",bold:true});
-    b.path("M370,632 Q600,642 830,630",{c:ORANGE,w:4,dur:500});
+    b.text(700,620,"se preparar e planejar a safra é a melhor defesa",{size:28,anchor:"middle",bold:true});
+    b.path("M440,634 Q700,644 960,632",{c:ORANGE,w:4,dur:500});
   }}
 ];
 
@@ -489,7 +523,9 @@ document.addEventListener("keydown",e=>{
   else if(e.key===" "){ if(e.target.tagName==="BUTTON") return; e.preventDefault(); drawing?finish():next() }
 });
 (function(){const h=location.hostname,local=location.protocol==="file:"||h==="localhost"||h==="127.0.0.1"||h.endsWith("github.io");if(!local){const a=document.getElementById("back");a.href="https://claude.ai/artifact/EJCRETRa5bFdmKMoRffdQy";a.target="_top";}})();
-(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>play(0));
+const startAt=(()=>{const n=parseInt(location.hash.slice(1),10);return n>=1&&n<=SCENES.length?n-1:0})();
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>play(startAt));
+window.addEventListener("hashchange",()=>{const n=parseInt(location.hash.slice(1),10); if(n>=1&&n<=SCENES.length&&n-1!==cur) play(n-1)});
 </script>
 </body>
 </html>

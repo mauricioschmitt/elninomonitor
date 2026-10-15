@@ -233,6 +233,13 @@ footer p{margin:4px 0;max-width:90ch}
 .anim-card svg{width:150px;flex:none;height:auto}
 .anim-card strong{display:block;font-family:var(--display);font-stretch:85%;font-size:1.3rem}
 .anim-card span span{color:var(--ink-2)}
+.anim-card .anim-kicker{display:block;font-size:.85rem;font-weight:700;color:var(--ink-2)}
+.anim-go{margin-left:auto;flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:1.1rem}
+.chapters{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:10px;font-size:.88rem}
+.chapters span{color:var(--ink-2)}
+.chapters a{padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none}
+.chapters a:hover{border-color:var(--ink)}
+.see-anim{display:inline-block;margin-top:10px;font-weight:700}
 h3.sec{font-size:1.45rem;margin-top:34px}
 .phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
 .phase{border-radius:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-top:7px solid var(--c)}
@@ -354,7 +361,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
       <h1 class="brand">Monitor El Niño 2026–27</h1>
       <div class="status">
         <span class="badge" id="badge">Aviso de El Niño ativo (NOAA)</span>
-        <a class="howto" href="explicacao.html">Como funciona o El Niño (animação)</a>
+        <a class="howto" href="explicacao.html">▶ Animação: como funciona o El Niño</a>
         <span class="stamp" id="stamp"></span>
       </div>
     </div>
@@ -432,8 +439,19 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
       <path d="M38,30 c-8,0 -8,-10 0,-10 c2,-8 14,-8 16,0 c8,0 8,10 0,10 Z" fill="#fff" stroke="#1F2A33" stroke-width="2"/>
       <circle cx="185" cy="26" r="9" fill="#FFD36E" stroke="#E8892B" stroke-width="2"/>
     </svg>
-    <span><strong>Assista: como funciona o El Niño</strong><span>Animação em quadro branco, 6 quadros, do oceano até as lavouras do Planalto Norte.</span></span>
+    <span><span class="anim-kicker">Prefere a história completa, passo a passo?</span><strong>Assista: como funciona o El Niño</strong><span>Animação em 7 quadros desenhados à mão, do Pacífico até o Planalto Norte. Pode passar sozinha e abrir em tela cheia.</span></span>
+    <span class="anim-go" aria-hidden="true">▶</span>
   </a>
+  <nav class="chapters" aria-label="Quadros da animação">
+    <span>Ir direto para:</span>
+    <a href="explicacao.html#1">1. Condições normais</a>
+    <a href="explicacao.html#2">2. Os ventos enfraquecem</a>
+    <a href="explicacao.html#3">3. El Niño</a>
+    <a href="explicacao.html#4">4. O mundo sente</a>
+    <a href="explicacao.html#5">5. Por que chove no Sul?</a>
+    <a href="explicacao.html#6">6. O ciclo continua</a>
+    <a href="explicacao.html#7">7. O Planalto Norte</a>
+  </nav>
 
   <h3 class="sec">E eu com isso? O que fazer</h3>
   <div class="todo">
@@ -470,10 +488,10 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     <details><summary>Por que se chama “El Niño”?</summary><p>Pescadores do Peru percebiam que, em alguns anos, a água do mar esquentava perto do Natal e os peixes sumiam. Chamaram o fenômeno de “El Niño”, que em espanhol quer dizer “o menino”, em referência ao Menino Jesus.</p></details>
     <details><summary>O El Niño é causado pelo aquecimento global?</summary><p>Não. É um fenômeno natural, que existe há milhares de anos: há sinais dele em corais e sedimentos muito antigos. Mas hoje ele acontece num planeta mais quente, e os dois efeitos se somam. A aba “Mudanças climáticas” explica como.</p></details>
     <details><summary>De quanto em quanto tempo ele acontece? Quanto tempo dura?</summary><p>Não tem calendário fixo: costuma voltar a cada 2 a 7 anos. Cada episódio dura em geral de 9 a 12 meses, mas alguns passam de um ano e chegam a dois.</p></details>
-    <details><summary>Por que algo no meio do Pacífico mexe com o tempo em Mafra?</summary><p>Porque a atmosfera é toda conectada. Quando a chuva muda de lugar no Pacífico, a circulação dos ventos no planeta se reorganiza. No Sul do Brasil, a corrente de jato (um “rio de vento” lá no alto) fica mais forte e segura as frentes frias sobre a região, enquanto a umidade da Amazônia alimenta as nuvens. O quadro 5 da animação mostra isso.</p></details>
+    <details><summary>Por que algo no meio do Pacífico mexe com o tempo em Mafra?</summary><p>Porque a atmosfera é toda conectada. Quando a chuva muda de lugar no Pacífico, a circulação dos ventos no planeta se reorganiza. No Sul do Brasil, a corrente de jato (um “rio de vento” lá no alto) fica mais forte e segura as frentes frias sobre a região, enquanto a umidade da Amazônia alimenta as nuvens. O <a href="explicacao.html#5">quadro 5 da animação</a> mostra isso.</p></details>
     <details><summary>El Niño forte quer dizer enchente garantida?</summary><p>Não. Ele aumenta bastante a chance de chuva acima da média, mas cada El Niño é diferente, e o tempo do dia a dia depende de outros fatores também. Por isso é importante acompanhar a previsão e os avisos da Defesa Civil, e não só o status do El Niño.</p></details>
     <details><summary>Se é um aquecimento, por que no Sul ele traz chuva e não calor?</summary><p>O calor fica no oceano lá longe. O que chega até aqui é a mudança nos ventos, que faz as frentes frias pararem sobre a região e a chuva se repetir. As temperaturas podem até ficar acima da média em várias partes do Brasil, mas o efeito mais sentido no Sul é a chuva.</p></details>
-    <details><summary>Quando este El Niño termina?</summary><p>Pelas previsões da NOAA de setembro de 2026, ele deve atingir o pico no fim de 2026 e continuar até o outono de 2027 (março a maio), com o mais provável sendo a volta às condições neutras entre abril e junho. Veja a aba “Previsões”.</p></details>
+    <details><summary>Quando este El Niño termina?</summary><p>Pelas previsões da NOAA de setembro de 2026, ele deve atingir o pico no fim de 2026 e continuar até o outono de 2027 (março a maio), com o mais provável sendo a volta às condições neutras entre abril e junho. Veja a aba “Previsões”. O que costuma vir depois, muitas vezes uma La Niña, está no <a href="explicacao.html#6">quadro 6 da animação</a>.</p></details>
     <details><summary>Dá para prever com quanta antecedência?</summary><p>As previsões ficam mais confiáveis a partir do meio do ano. Este El Niño de 2026, por exemplo, já era previsto pelos modelos com meses de antecedência, o que dá tempo para o planejamento da safra e da Defesa Civil.</p></details>
   </div>
 
@@ -527,6 +545,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     <h3>E o rio Iguaçu, em Porto União e União da Vitória?</h3>
     <p>As duas cidades, onde fica o campus da UNC de Porto União, estão às margens do Iguaçu, que recebe a mesma chuva das frentes paradas sobre o Planalto. O padrão se repete: em julho de 1983, no fim do El Niño de 1982–83, o rio chegou a <b>10,42 m</b> (o normal é perto de 2,5 m) e boa parte de União da Vitória ficou debaixo d’água por semanas. Houve cheias grandes também em 1992 e em 2014.</p>
     <p>Em Canoinhas, Rio Negrinho e no restante do Planalto, o risco maior costuma ser de enxurradas em rios menores e de deslizamentos em encostas depois de muitos dias de chuva.</p>
+    <p><a href="explicacao.html#7">▶ O Planalto Norte na animação (quadro 7)</a></p>
     <p class="note">Para o Iguaçu, acompanhe a Defesa Civil de Porto União (SC) e de União da Vitória (PR) e os boletins do Simepar. A previsão de chuva de cada cidade está na aba <button type="button" class="inline-link" data-goto="tab-agro">Chuva e agro</button>.</p>
   </div>
 
@@ -671,6 +690,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
   </div>
   <div class="explain" id="imp-detail" aria-live="polite"></div>
   <div class="impacts" id="impacts"></div>
+  <a class="see-anim" href="explicacao.html#4">▶ Veja o resumo em animação (quadro 4)</a>
   <p class="src-line">Padrões típicos de El Niño segundo NOAA Climate.gov, IRI/Columbia e OMM. Nenhum El Niño produz todos eles, e a intensidade varia de um evento para outro.</p>
 
   <h3 class="sec" style="font-size:clamp(1.6rem,3.6vw,2.4rem)">No Brasil: Sul encharcado, Norte seco</h3>
@@ -706,6 +726,7 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     <div class="q-card"><h3>Umidade vinda do norte</h3><p>Ao mesmo tempo, correntes de ar baixas trazem umidade da Amazônia e do Paraguai para o Sul. Frente parada mais ar úmido resulta em chuva repetida sobre as mesmas bacias.</p></div>
     <div class="q-card"><h3>Solo cheio, rio cheio</h3><p>Depois de semanas de chuva, o solo não absorve mais nada e a água corre direto para os rios. Por isso as maiores cheias costumam vir depois de vários meses de El Niño, e não logo no começo.</p></div>
   </div>
+  <a class="see-anim" href="explicacao.html#5">▶ Veja isso desenhado na animação (quadro 5)</a>
 
   <h3 class="sec">Rios que mais preocupam em anos de El Niño</h3>
   <div class="state-cards">
@@ -1483,7 +1504,7 @@ function renderEscada(){
 document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>{const i=tabs.findIndex(t=>t.id===b.dataset.goto); if(i>=0) show(i,true)}));
 (function(){
   const h=location.hostname, local=location.protocol==="file:"||h==="localhost"||h==="127.0.0.1"||h.endsWith("github.io");
-  if(!local){ const url="https://claude.ai/artifact/M5YqfNSdWTe7ZMLYMVw2p7"; document.querySelectorAll('a[href="explicacao.html"]').forEach(a=>{a.href=url;a.target="_blank";a.rel="noopener noreferrer"}); }
+  if(!local){ const url="https://claude.ai/artifact/M5YqfNSdWTe7ZMLYMVw2p7"; document.querySelectorAll('a[href^="explicacao.html"]').forEach(a=>{a.href=url;a.target="_blank";a.rel="noopener noreferrer"}); }
 })();
 renderEscada(); loadRiver(); loadStartRain();
 
