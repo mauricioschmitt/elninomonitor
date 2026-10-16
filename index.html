@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Monitor El Niño 2026–27 · Planalto Norte de SC</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0F2430">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -154,7 +158,7 @@ ul.clean li{margin:4px 0}
 
 footer{border-top:1px solid var(--line);padding:18px 0 28px;font-size:.85rem;color:var(--ink-2)}
 footer p{margin:4px 0;max-width:90ch}
-.sign{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:0 0 16px;text-decoration:none;color:var(--ink-2);font-size:.9rem}
+.sign{display:flex;flex-direction:column;align-items:center;gap:8px;margin:28px auto 4px;width:max-content;max-width:100%;text-decoration:none;color:var(--ink-2);font-size:.9rem;text-align:center}
 .sign img{display:block;width:min(300px,80vw);height:auto}
 :root[data-theme="dark"] .sign img{filter:brightness(0) invert(1) opacity(.9)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sign img{filter:brightness(0) invert(1) opacity(.9)}}
@@ -895,10 +899,6 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
 
 <footer>
   <div class="wrap">
-    <a class="sign" href="https://www.unc.br/" target="_blank" rel="noopener noreferrer" aria-label="PMPECSA: Programa de Mestrado Profissional em Engenharia Civil, Sanitária e Ambiental da UNC">
-      <span>Uma iniciativa do</span>
-      <img src="pmpecsa.png" alt="PMPECSA: Programa de Mestrado Profissional em Engenharia Civil, Sanitária e Ambiental, UNC" width="300" height="71" loading="lazy">
-    </a>
     <div class="about">
       <h3>Sobre este painel</h3>
       <p>Edição especial para acompanhar o El Niño de 2026–27 no Planalto Norte catarinense, onde fica a maior parte dos campi da Universidade do Contestado (UNC), e no Sul do Brasil. O painel reúne em um só lugar dados que hoje estão espalhados: o oceano (NOAA), a chuva prevista (Open-Meteo), a Oscilação Sul e o calor do oceano (NOAA), o rio Negro (ANA, via Régua Viva) e as previsões para o agro (Epagri). <span id="autor"></span></p>
@@ -906,6 +906,10 @@ nav.tabs .tab-group:first-child{border-left:0;margin-left:0;padding-left:0}
     </div>
     <p id="foot-data"></p>
     <p>Fontes: NOAA Climate Prediction Center, NOAA Coral Reef Watch, IRI/Columbia, Inmet (Painel El Niño 2026–2027), CPTEC/Inpe, Funceme, Serviço Geológico do Brasil, Epagri/Ciram, Epagri/Cepa, Open-Meteo (dados de previsão e reanálise ERA5), ANA (via Régua Viva), Prefeitura e Defesa Civil de Mafra, NSC Total, IBGE, Ministério da Saúde, FAO, OMM, Met Office, Carbon Brief e IPCC.</p>
+    <a class="sign" href="https://www.unc.br/" target="_blank" rel="noopener noreferrer" aria-label="PMPECSA: Programa de Mestrado Profissional em Engenharia Civil, Sanitária e Ambiental da UNC">
+      <span>Uma iniciativa do</span>
+      <img src="pmpecsa.png" alt="PMPECSA: Programa de Mestrado Profissional em Engenharia Civil, Sanitária e Ambiental, UNC" width="300" height="71" loading="lazy">
+    </a>
   </div>
 </footer>
 
