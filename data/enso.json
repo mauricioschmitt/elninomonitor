@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "status": "El Niño Advisory",
   "synopsis": "El Niño continues to strengthen, with a strong-to-very strong El Niño likely through January-March 2027 (remaining greater than an 83% chance).",
   "discussionDate": "8 out 2026",
@@ -1002,7 +1002,8 @@
       0.49,
       0.97,
       1.36,
-      1.69
+      1.69,
+      1.97
     ]
   },
   "outlook": {
@@ -1061,9 +1062,8 @@
     ]
   },
   "soi": {
-    "start": "2022-10",
+    "start": "2022-11",
     "values": [
-      1.7,
       0.3,
       2.1,
       1.4,
@@ -1110,7 +1110,8 @@
       -1.4,
       -2.4,
       -1.1,
-      -2.0
+      -2.0,
+      -1.1
     ]
   },
   "heat": {
