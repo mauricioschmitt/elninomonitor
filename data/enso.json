@@ -1,17 +1,16 @@
 {
-  "updated": "2026-11-15",
+  "updated": "2026-11-16",
   "status": "El Niño Advisory",
   "synopsis": "El Niño continues to strengthen, with a strong-to-very strong El Niño likely through January-March 2027 (remaining greater than a 79% chance).",
   "discussionDate": "12 nov 2026",
   "nextUpdate": "10 dez 2026",
-  "weekLabel": "semana centrada em 4 nov 2026",
+  "weekLabel": "semana centrada em 11 nov 2026",
   "prevLabel": "há 4 semanas",
   "regions": {
     "n12": {
-      "week": 5.6,
-      "prev": 5.3,
+      "week": 5.4,
+      "prev": 5.2,
       "series": [
-        4.0,
         4.2,
         4.4,
         4.6,
@@ -20,16 +19,16 @@
         5.3,
         5.3,
         5.2,
-        5.2,
+        5.3,
         5.4,
-        5.6
+        5.6,
+        5.4
       ]
     },
     "n3": {
-      "week": 4.4,
-      "prev": 4.1,
+      "week": 4.3,
+      "prev": 4.2,
       "series": [
-        3.2,
         3.3,
         3.5,
         3.7,
@@ -38,16 +37,16 @@
         4.1,
         4.1,
         4.2,
-        4.3,
         4.4,
-        4.4
+        4.4,
+        4.4,
+        4.3
       ]
     },
     "n34": {
-      "week": 3.3,
+      "week": 3.2,
       "prev": 3.2,
       "series": [
-        2.6,
         2.6,
         2.8,
         2.8,
@@ -56,16 +55,16 @@
         3.2,
         3.2,
         3.2,
+        3.3,
         3.4,
-        3.4,
-        3.3
+        3.3,
+        3.2
       ]
     },
     "n4": {
-      "week": 1.5,
-      "prev": 1.3,
+      "week": 1.3,
+      "prev": 1.1,
       "series": [
-        0.8,
         0.9,
         1.0,
         0.8,
@@ -76,7 +75,8 @@
         1.1,
         1.1,
         1.4,
-        1.5
+        1.5,
+        1.3
       ]
     }
   },
